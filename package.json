@@ -1,0 +1,17 @@
+{
+    "name": "churras",
+    "version": "1.0.0",
+    "author": "Leonardo Quevedo",
+    "homepage": "http://www.github.com/leopq",
+    "description": "Awesome Barbecue Application!",
+    "license": "MIT",
+    "keywords": [
+        "barbecue",
+        "react",
+        "nodejs"
+    ],
+    "main": "app.js",
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {}
+}
