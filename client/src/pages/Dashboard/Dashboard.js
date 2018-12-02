@@ -8,6 +8,10 @@ import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+import EmptyState from '../../components/EmptyState'
 
 const styles = theme => ({
   main: {
@@ -30,6 +34,9 @@ const styles = theme => ({
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
     color: "#666666"
+  },
+  persona: {
+
   },
   text: {
     display: 'flex',
@@ -62,9 +69,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     maxWidth: 600,
     textAlign: 'center',
-    [theme.breakpoints.only('xs')]: {
-      fontSize: 18
-    }
+    fontSize: 18
   },
   primaryColor: {
     color: theme.palette.primary.main
@@ -136,6 +141,11 @@ const styles = theme => ({
     maxWidth: "400px",
     padding: "16px",
     display: "inline-grid"
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing.unit * 10,
+    right: theme.spacing.unit * 4,
   }
 })
 
@@ -155,13 +165,10 @@ class Dashboard extends Component {
     }
   }
 
-  componentDidMount() {
-    const { history } = this.props
-
-  }
+  componentDidMount() { }
 
   render() {
-    const { classes, history, theme } = this.props;
+    const { classes, theme } = this.props;
     theme.palette.primary = {
       contrastText: "#fff",
       dark: "#666666",
@@ -183,7 +190,7 @@ class Dashboard extends Component {
               color='inherit'
               gutterBottom
               className={classes.headline}>
-              Dashboard
+              Churrascos
             </Typography>
             <div style={{ flex: 1 }} />
             <Tooltip id="tooltip-icon2" title="GitHub repository">
@@ -203,8 +210,12 @@ class Dashboard extends Component {
         <div className={classes.root}>
           <div className={classes.hero}>
             <div className={classes.content}>
-              <div className={classes.text}>
-              </div>
+              <EmptyState message='Bah! Nenhum churrasco cadastrado por enquanto. Mas não te preocupa: É só clicar no botão ali embaixo pra criar um e convidar a galera ;)' />
+              <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
+                <Fab color="primary" aria-label="Add" size='large' className={classes.fab}>
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
             </div>
           </div>
         </div>

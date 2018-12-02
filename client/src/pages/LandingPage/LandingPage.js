@@ -9,7 +9,7 @@ import { GitHubIcon } from 'rmw-shell/lib/components/Icons'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Input,FormControl, InputAdornment } from '@material-ui/core';
+import { Input, FormControl, InputAdornment } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
@@ -46,6 +46,7 @@ const styles = theme => ({
     letterSpacing: '.1rem',
     textIndent: '.7rem',
     marginTop: '10px',
+    fontSize: 32,
     fontWeight: theme.typography.fontWeightLight,
     [theme.breakpoints.only('xs')]: {
       fontSize: 24,
@@ -55,7 +56,7 @@ const styles = theme => ({
     whiteSpace: 'wrap'
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 16,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
       maxWidth: "200px"
@@ -67,9 +68,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     maxWidth: 600,
     textAlign: 'center',
-    [theme.breakpoints.only('xs')]: {
-      fontSize: 18
-    }
+    fontSize: 18
   },
   primaryColor: {
     color: theme.palette.primary.main
@@ -187,6 +186,13 @@ class LandingPage extends Component {
         </Helmet>
         <AppBar color="primary" position='static'>
           <Toolbar disableGutters>
+            <Typography align='center'
+              component='h1'
+              color='inherit'
+              gutterBottom
+              className={classes.headline}>
+              Churras
+            </Typography>
             <div style={{ flex: 1 }} />
             <Tooltip id="tooltip-icon2" title="GitHub repository">
               <IconButton
@@ -264,7 +270,7 @@ class LandingPage extends Component {
                   </FormControl>
                   <Button
                     fullWidth
-                    onClick={() => { history.push('/signin') }}
+                    onClick={() => { history.push('/dashboard') }}
                     className={classes.button}
                     variant='outlined'
                     color='primary'
