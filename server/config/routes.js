@@ -10,9 +10,9 @@ const path = require('path');
 const klawSync = require('klaw-sync');
 const entitiesPath = path.resolve(__dirname, '..', 'entities');
 const isWin = process.platform === 'win32';
-const entities = klawSync(entitiesPath)
-    .map((entity) => { if (entity) return entity.path; })
-    .filter((entity) => { return entity && (entity.indexOf('index.js') > -1) });
+const entities = klawSync(entitiesPath) // Returns the folder files list
+    .map((entity) => { if (entity) return entity.path; }) // Maps object to file path only
+    .filter((entity) => { return entity && (entity.indexOf('router.js') > -1) }) // Filters files leaving the routes
 
 module.exports = {
     init: (app) => {
