@@ -14,7 +14,9 @@ export const MainAsync = Loadable({
 export const LandingPageAsync = Loadable({
   loader: () => import('../src/pages/LandingPage'),
   loading: Loading
-})
+});
+
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 export default function App() {
   return (

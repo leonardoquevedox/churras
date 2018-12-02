@@ -197,6 +197,7 @@ class LandingPage extends Component {
                       type="e-mail"
                       style={{ padding: "10px" }}
                       placeholder="Teu e-mail"
+                      autoComplete="true"
                       startAdornment={
                         <InputAdornment
                           position="start"
@@ -213,6 +214,7 @@ class LandingPage extends Component {
                       style={{ padding: "10px" }}
                       placeholder="Tua senha"
                       className={classes.primaryColor}
+                      autoComplete="true"
                       startAdornment={
                         <InputAdornment
                           position="start"

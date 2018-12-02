@@ -32,7 +32,7 @@ class EmptyState extends React.Component {
                     {this.props.message}
                 </div>
                 <div>
-                    <img src='/persona.png' className={classes.persona}></img>
+                    <img src='/persona.png' alt='Assistente do aplicativo.' className={classes.persona}></img>
                 </div>
             </div>
         )
