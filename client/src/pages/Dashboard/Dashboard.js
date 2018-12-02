@@ -1,13 +1,7 @@
-import AppBar from '@material-ui/core/AppBar'
-import IconButton from '@material-ui/core/IconButton'
 import React, { Component } from 'react'
-import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
-import { GitHubIcon } from 'rmw-shell/lib/components/Icons'
-import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -122,36 +116,6 @@ class Dashboard extends Component {
     }
     return (
       <div className={classes.main}>
-        <Helmet>
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
-          <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
-          <title>Churras: Dashboard</title>
-        </Helmet>
-        <AppBar color="primary" position='static'>
-          <Toolbar disableGutters>
-            <Typography align='center'
-              component='h1'
-              color='inherit'
-              gutterBottom
-              className={classes.headline}>
-              Churrascos
-            </Typography>
-            <div style={{ flex: 1 }} />
-            <Tooltip id="tooltip-icon2" title="GitHub repository">
-              <IconButton
-                name='github'
-                aria-label='Open Github'
-                color='inherit'
-                href='https://github.com/leopq/churras'
-                target='_blank'
-                rel='noopener'
-              >
-                <GitHubIcon />
-              </IconButton>
-            </Tooltip>
-          </Toolbar>
-        </AppBar>
         <div className={classes.root}>
           <div className={classes.hero}>
             <div className={classes.content}>
