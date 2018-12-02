@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import EmptyState from '../../components/EmptyState'
+import EventsList from '../../components/EventsList'
 
 const styles = theme => ({
   main: {
@@ -82,7 +82,7 @@ const styles = theme => ({
     display: "inline-grid"
   },
   fab: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing.unit * 10,
     right: theme.spacing.unit * 4,
     '&:hover': {
@@ -92,25 +92,14 @@ const styles = theme => ({
 })
 
 class Dashboard extends Component {
-
-
-  isAuthorised = () => {
-    try {
-      const key = Object.keys(localStorage).find(e => e.match(/persist:root/))
-      const data = JSON.parse(localStorage.getItem(key))
-      const auth = JSON.parse(data.auth)
-
-      return auth && auth.isAuthorised
-
-    } catch (ex) {
-      return false
-    }
-  }
+  state = {};
 
   componentDidMount() { }
 
   render() {
+
     const { classes, theme } = this.props;
+
     theme.palette.primary = {
       contrastText: "#fff",
       dark: "#666666",
@@ -122,15 +111,15 @@ class Dashboard extends Component {
         <div className={classes.root}>
           <div className={classes.hero}>
             <div className={classes.content}>
-              <EmptyState message='Bah! Nenhum churrasco cadastrado por enquanto. Mas não te preocupa: É só clicar no botão ali embaixo pra criar um e convidar a galera ;)' />
-              <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
-                <Fab color="primary" aria-label="Add" size='large' className={classes.fab}>
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
+              <EventsList />
             </div>
           </div>
         </div>
+        <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
+          <Fab color="primary" aria-label="Add" size='large' className={classes.fab}>
+            <AddIcon />
+          </Fab>
+        </Tooltip>
       </div>
 
     )

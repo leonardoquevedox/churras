@@ -10,7 +10,16 @@ import NavBar from '../../components/Navigation/NavBar'
 import Tabs from '../../components/Navigation/Tabs'
 import withRouter from 'react-router-dom/withRouter';
 
-const styles = theme => ({})
+const styles = theme => ({
+  content: {
+    [theme.breakpoints.between('sm', 'xl')]: {
+      marginLeft: '56px'
+    },
+    [theme.breakpoints.only('xs')]: {
+      marginBottom: '56px'
+    }
+  }
+})
 addLocalizationData(locales)
 
 class Main extends Component {
@@ -21,14 +30,14 @@ class Main extends Component {
   }
 
   render() {
-    const { theme } = this.props;
+    const { theme, classes } = this.props;
     theme.palette.primary = {
       contrastText: "#fff",
       dark: "#666666",
       light: "#7986cb",
       main: "#fe1800"
     }
-    return <div>
+    return <div className={classes.content}>
       <Helmet>
         <link async rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons' />
         <link async rel='stylesheet' href='index.css' />
