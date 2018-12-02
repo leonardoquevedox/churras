@@ -90,51 +90,6 @@ const styles = theme => ({
     height: '40vw',
     maxHeight: 250
   },
-  steps: {
-    maxWidth: theme.spacing.unit * 130,
-    margin: 'auto'
-  },
-  step: {
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2}px`
-  },
-  stepIcon: {
-    marginBottom: theme.spacing.unit
-  },
-  markdownElement: {},
-  cardsContent: {
-    padding: 15,
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-    [theme.breakpoints.only('xs')]: {
-      width: '100%',
-      padding: 0,
-      paddingTop: 15
-    }
-
-  },
-  card: {
-    minWidth: 275,
-    maxWidth: 350,
-    margin: 15,
-    [theme.breakpoints.only('xs')]: {
-      width: '100%',
-      margin: 0,
-      marginTop: 7
-    }
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  cardTitle: {
-    marginBottom: 16,
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
   fullWidthForm: {
     width: "100%",
     maxWidth: "400px",
