@@ -10,7 +10,7 @@ const sharp = require("sharp");
 const fs = require("fs-extra");
 const path = require("path");
 const appRoot =  path.resolve(__dirname, "../../");
-const picture = path.join(appRoot, "icon.png"); // Source image(s). `string`, `buffer` or array of `string` 
+const picture = path.join(appRoot, "src", "icon.png"); // Source image(s). `string`, `buffer` or array of `string` 
 const output = path.join(appRoot, "public"); // Source image(s). `string`, `buffer` or array of `string` 
 const configuration = {
     preferOnline: false,            // Use offline generation, if online generation has failed. `boolean` 
