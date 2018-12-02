@@ -85,6 +85,9 @@ const styles = theme => ({
     position: 'absolute',
     bottom: theme.spacing.unit * 10,
     right: theme.spacing.unit * 4,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main
+    }
   }
 })
 

@@ -29,21 +29,20 @@ class IconLabelTabs extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, location } = this.props;
     return (
       <Hidden only={['sm', 'md', 'lg', 'xl']}>
         <Paper square className={classes.root}>
           <Tabs
-            value={this.state.value}
             onChange={this.handleChange}
             fullWidth
             indicatorColor="primary"
             textColor="primary"
+            value={location.pathname}
           >
-            <Tab icon={<CalendarIcon />} onClick={(e) => { this.props.history.push('/dashboard'); }} />
-            <Tab icon={<ContactsIcon />} onClick={(e) => { this.props.history.push('/contacts'); }} />
-            <Tab icon={<SettingsIcon />} onClick={(e) => { this.props.history.push('/settings'); }} />
+            <Tab value='/dashboard' icon={<CalendarIcon />} onClick={(e) => { this.props.history.push('/dashboard'); }} />
+            <Tab value='/contacts' icon={<ContactsIcon />} onClick={(e) => { this.props.history.push('/contacts'); }} />
+            <Tab value='/settings' icon={<SettingsIcon />} onClick={(e) => { this.props.history.push('/settings'); }} />
           </Tabs>
         </Paper>
       </Hidden>

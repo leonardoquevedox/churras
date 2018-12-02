@@ -15,8 +15,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SettingsIcon from '@material-ui/icons/Settings';
 import CalendarIcon from '@material-ui/icons/CalendarTodayOutlined'
+import ContactsIcon from '@material-ui/icons/Contacts';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Hidden } from '@material-ui/core';
 import withRouter from 'react-router-dom/withRouter';
 
@@ -135,7 +136,6 @@ class MiniDrawer extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
-
                         <Typography variant="h6" color="inherit" noWrap>
                             {this.state.title}
                         </Typography>
@@ -160,18 +160,26 @@ class MiniDrawer extends React.Component {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem button>
+                            <ListItem button onClick={(e) => { this.props.history.push('/dashboard'); }}>
                                 <ListItemIcon>
-                                    <CalendarIcon />
+                                    <CalendarIcon color={this.props.location.pathname === '/dashboard' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Churrascos' />
                             </ListItem>
                         </List>
+                        <List>
+                            <ListItem button onClick={(e) => { this.props.history.push('/contacts'); }}>
+                                <ListItemIcon>
+                                    <ContactsIcon color={this.props.location.pathname === '/contacts' ? 'primary' : 'error'} />
+                                </ListItemIcon>
+                                <ListItemText primary='Galera' />
+                            </ListItem>
+                        </List>
                         <Divider />
                         <List>
-                            <ListItem button>
+                            <ListItem button onClick={(e) => { this.props.history.push('/settings'); }}>
                                 <ListItemIcon>
-                                    <SettingsIcon />
+                                    <SettingsIcon color={this.props.location.pathname === '/settings' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Configurações' />
                             </ListItem>

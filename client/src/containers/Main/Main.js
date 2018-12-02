@@ -37,7 +37,7 @@ class Main extends Component {
         <meta name="theme-color" content={theme.palette.primary.main} />
         <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
         <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
-        <title>Churras: Dashboard</title>
+        <title>Churras</title>
       </Helmet>
       <NavBar />
       <Switch>

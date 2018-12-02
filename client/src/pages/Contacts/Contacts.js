@@ -85,6 +85,9 @@ const styles = theme => ({
     position: 'absolute',
     bottom: theme.spacing.unit * 10,
     right: theme.spacing.unit * 4,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main
+    }
   }
 })
 
@@ -120,7 +123,7 @@ class Contacts extends Component {
           <div className={classes.hero}>
             <div className={classes.content}>
               <EmptyState message='Bah! Ainda não tem ninguém por aqui. Mas não te preocupa: É só clicar no botão ali embaixo pra criar um e convidar a galera ;)' />
-              <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
+              <Tooltip id="tooltip-icon2" title="Adicionar pessoa" placement="top">
                 <Fab color="primary" aria-label="Add" size='large' className={classes.fab}>
                   <AddIcon />
                 </Fab>

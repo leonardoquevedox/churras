@@ -5,8 +5,8 @@ import Contacts from '../pages/Contacts';
 import Settings from '../pages/Settings';
 
 const routes = [
-  <Route exact key="dashboard" path="/dashboard" name="Dashboard" component={Dashboard} />,
-  <Route exact key="contacts" path="/contacts" name="Contatos" component={Contacts} />,
+  <Route exact key="dashboard" path="/dashboard" name="Churrascos" component={Dashboard} />,
+  <Route exact key="contacts" path="/contacts" name="Galera" component={Contacts} />,
   <Route exact key="settings" path="/settings" name="Configurações" component={Settings} />,
 ]
 
