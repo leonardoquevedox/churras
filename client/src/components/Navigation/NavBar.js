@@ -6,7 +6,6 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,16 +15,22 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import SettingsIcon from '@material-ui/icons/Settings';
+import CalendarIcon from '@material-ui/icons/CalendarTodayOutlined'
+import { Hidden } from '@material-ui/core';
+import withRouter from 'react-router-dom/withRouter';
+
+import routes from '../../config/routes'
 
 const drawerWidth = 240;
 
 const styles = theme => ({
     root: {
         display: 'flex',
+        marginBottom: '40px',
     },
     appBar: {
+        paddingLeft: '16px',
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
@@ -41,8 +46,7 @@ const styles = theme => ({
         }),
     },
     menuButton: {
-        marginLeft: 12,
-        marginRight: 36,
+        marginRight: 20,
     },
     hide: {
         display: 'none',
@@ -86,6 +90,7 @@ const styles = theme => ({
 class MiniDrawer extends React.Component {
     state = {
         open: false,
+        title: 'Churras'
     };
 
     toggleDrawer = () => {
@@ -93,65 +98,86 @@ class MiniDrawer extends React.Component {
         else this.setState({ open: true });
     };
 
+    componentDidMount() {
+        this.onRouteChanged();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+            this.onRouteChanged();
+        }
+    }
+
+    onRouteChanged() {
+        routes.forEach((route) => {
+            if (route.props.path === this.props.location.pathname) {
+                this.setState({ title: route.props.name });
+            }
+        });
+    }
+
     render() {
         const { classes, theme } = this.props;
-
         return (
             <div className={classes.root}>
-                <CssBaseline />
                 <AppBar
                     position="fixed"
                     className={classes.appBar}
                 >
                     <Toolbar disableGutters>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.toggleDrawer}
-                            className={classes.menuButton}
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                        <Hidden only={['xs']}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={this.toggleDrawer}
+                                className={classes.menuButton}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        </Hidden>
+
                         <Typography variant="h6" color="inherit" noWrap>
-                            Churrascos
-                         </Typography>
+                            {this.state.title}
+                        </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    variant="permanent"
-                    className={classes.drawer}
-                    classes={{
-                        paper: classNames({
-                            [classes.drawerOpen]: this.state.open,
-                            [classes.drawerClose]: !this.state.open,
-                        }),
-                    }}
-                    open={this.state.open}
-                >
-                    <div className={classes.toolbar}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                        </IconButton>
-                    </div>
-                    <Divider />
-                    <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
+                <Hidden only={['xs']}>
+                    <Drawer
+                        variant="permanent"
+                        className={classes.drawer}
+                        classes={{
+                            paper: classNames({
+                                [classes.drawerOpen]: this.state.open,
+                                [classes.drawerClose]: !this.state.open,
+                            }),
+                        }}
+                        open={this.state.open}
+                    >
+                        <div className={classes.toolbar}>
+                            <IconButton onClick={this.handleDrawerClose}>
+                                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                            </IconButton>
+                        </div>
+                        <Divider />
+                        <List>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <CalendarIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Churrascos' />
                             </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <SettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Configurações' />
                             </ListItem>
-                        ))}
-                    </List>
-                </Drawer>
+                        </List>
+                    </Drawer>
+                </Hidden>
             </div>
         );
     }
@@ -162,4 +188,4 @@ MiniDrawer.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer);
+export default withRouter(withStyles(styles, { withTheme: true })(MiniDrawer));

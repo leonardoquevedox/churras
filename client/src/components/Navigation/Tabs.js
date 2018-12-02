@@ -4,14 +4,18 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+import SettingsIcon from '@material-ui/icons/Settings';
+import CalendarIcon from '@material-ui/icons/CalendarTodayOutlined'
+import ContactsIcon from '@material-ui/icons/Contacts';
+import { Hidden } from '@material-ui/core';
+import withRouter from 'react-router-dom/withRouter';
 
 const styles = {
   root: {
     flexGrow: 1,
-    maxWidth: 500,
+    position: 'fixed',
+    bottom: '0px',
+    width: '100%'
   },
 };
 
@@ -28,19 +32,21 @@ class IconLabelTabs extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Paper square className={classes.root}>
-        <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
-          fullWidth
-          indicatorColor="secondary"
-          textColor="secondary"
-        >
-          <Tab icon={<PhoneIcon />} label="RECENTS" />
-          <Tab icon={<FavoriteIcon />} label="FAVORITES" />
-          <Tab icon={<PersonPinIcon />} label="NEARBY" />
-        </Tabs>
-      </Paper>
+      <Hidden only={['sm', 'md', 'lg', 'xl']}>
+        <Paper square className={classes.root}>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            fullWidth
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            <Tab icon={<CalendarIcon />} onClick={(e) => { this.props.history.push('/dashboard'); }} />
+            <Tab icon={<ContactsIcon />} onClick={(e) => { this.props.history.push('/contacts'); }} />
+            <Tab icon={<SettingsIcon />} onClick={(e) => { this.props.history.push('/settings'); }} />
+          </Tabs>
+        </Paper>
+      </Hidden>
     );
   }
 }
@@ -49,4 +55,4 @@ IconLabelTabs.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IconLabelTabs);
+export default withRouter(withStyles(styles)(IconLabelTabs));
