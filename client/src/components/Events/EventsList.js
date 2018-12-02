@@ -1,6 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import EmptyState from './EmptyState'
+import EmptyState from '../EmptyState'
 import EventItem from './EventItem'
 import { Grid } from '@material-ui/core';
 
@@ -22,25 +22,25 @@ class EventsList extends React.Component {
                 amountRaised: 100.00
             },
             {
-                title: "Níver do Gui qewiojqowieq qweoiuqweuqwieu qweiuqwueihqwuieh",
+                title: "Final de Ano",
                 observations: "Lorem asduiqdw asiuqhwdbqwdqwe qwe qe qwe qw eqe qweqweqweqweq eqweqwe qweqweqwe qweqweqwe Lorem ipsum dolem sit amet",
                 date: new Date(),
                 amountRaised: 100.00
             },
             {
-                title: "Níver do Gui asiodjqoiwe qweoiqwjeoiqwe",
+                title: "Sem motivo",
                 observations: "Lorem asduiqdw asiuqhwdbqwdqwe qwe qe qwe qw eqe qweqweqweqweq eqweqwe qweqweqwe qweqweqwe Lorem ipsum dolem sit amet",
                 date: new Date(),
                 amountRaised: 100.00
             },
             {
-                title: "Níver do Gui qiwehuiqwe qwejqwie",
+                title: "Níver do Gui",
                 observations: "Lorem asduiqdw asiuqhwdbqwdqwe qwe qe qwe qw eqe qweqweqweqweq eqweqwe qweqweqwe qweqweqwe Lorem ipsum dolem sit amet",
                 date: new Date(),
                 amountRaised: 100.00
             },
             {
-                title: "Níver do Gui queqwu",
+                title: "Níver do Gui",
                 observations: "Lorem asduiqdw asiuqhwdbqwdqwe qwe qe qwe qw eqe qweqweqweqweq eqweqwe qweqweqwe qweqweqwe Lorem ipsum dolem sit amet",
                 date: new Date(),
                 amountRaised: 100.00

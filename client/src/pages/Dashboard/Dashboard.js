@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import EventsList from '../../components/EventsList'
+import EventsList from '../../components/Events/EventsList'
 
 const styles = theme => ({
   main: {
