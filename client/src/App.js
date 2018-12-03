@@ -3,6 +3,8 @@ import Loadable from 'react-loadable'
 import LoadingComponent from 'rmw-shell/lib/components/LoadingComponent'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import A2HSProvider from 'a2hs'
+import theme from './config/themes/custom';
+import { MuiThemeProvider } from '@material-ui/core';
 
 const Loading = () => <LoadingComponent />
 
@@ -16,17 +18,17 @@ export const LandingPageAsync = Loadable({
   loading: Loading
 });
 
-window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
-
 export default function App() {
   return (
     <A2HSProvider>
-      <Router>
-        <Switch>
-          <Route path="/" exact component={LandingPageAsync} />
-          <Route component={MainAsync} />
-        </Switch>
-      </Router>
+      <MuiThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={LandingPageAsync} />
+            <Route component={MainAsync} />
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
     </A2HSProvider>
   )
 }

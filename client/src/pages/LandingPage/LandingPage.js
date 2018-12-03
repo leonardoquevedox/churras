@@ -46,7 +46,7 @@ const styles = theme => ({
     letterSpacing: '.1rem',
     textIndent: '.7rem',
     marginTop: '10px',
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: theme.typography.fontWeightLight,
     [theme.breakpoints.only('xs')]: {
       fontSize: 24,
@@ -56,7 +56,7 @@ const styles = theme => ({
     whiteSpace: 'wrap'
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 14,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
       maxWidth: "200px"
@@ -82,13 +82,6 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing.unit * 3
-  },
-  logo: {
-    color: 'red',
-    margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 4}px`,
-    width: '100%',
-    height: '40vw',
-    maxHeight: 250
   },
   fullWidthForm: {
     width: "100%",
@@ -122,15 +115,8 @@ class LandingPage extends Component {
     }
   }
 
-
   render() {
     const { classes, history, theme } = this.props;
-    theme.palette.primary = {
-      contrastText: "#fff",
-      dark: "#666666",
-      light: "#7986cb",
-      main: "#fe1800"
-    }
     return (
       <div className={classes.main}>
         <Helmet>
@@ -169,8 +155,8 @@ class LandingPage extends Component {
               <img
                 src='/icon.png'
                 alt='Material-UI Logo'
-                width="200"
-                height="200"
+                width="125"
+                height="125"
                 style={{ margin: "auto", display: "block" }}
               />
               <div className={classes.text}>
@@ -213,7 +199,6 @@ class LandingPage extends Component {
                       type="password"
                       style={{ padding: "10px" }}
                       placeholder="Tua senha"
-                      className={classes.primaryColor}
                       autoComplete="true"
                       startAdornment={
                         <InputAdornment
@@ -229,7 +214,7 @@ class LandingPage extends Component {
                     fullWidth
                     onClick={() => { history.push('/dashboard') }}
                     className={classes.button}
-                    variant='outlined'
+                    variant='contained'
                     color='primary'
                   >
                     {'Partiu!'}

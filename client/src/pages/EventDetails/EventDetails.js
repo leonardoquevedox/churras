@@ -97,15 +97,7 @@ class Dashboard extends Component {
     componentDidMount() { }
 
     render() {
-
-        const { classes, theme } = this.props;
-
-        theme.palette.primary = {
-            contrastText: "#fff",
-            dark: "#666666",
-            light: "#7986cb",
-            main: "#fe1800"
-        }
+        const { classes } = this.props;
         return (
             <div className={classes.main}>
                 <div className={classes.root}>
@@ -120,7 +112,6 @@ class Dashboard extends Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }

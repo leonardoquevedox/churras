@@ -49,6 +49,10 @@ const styles = theme => ({
     },
     link: {
         color: theme.palette.primary.main
+    },
+    cardTitle: {
+        color: '#444444',
+        textTransform: 'uppercase'
     }
 })
 
@@ -56,11 +60,11 @@ class EventItem extends React.Component {
 
     render() {
         const { classes, contact } = this.props;
-        console.log();
         return (
             <Card className={classes.card}>
                 <CardHeader
                     className={classes.cardHeader}
+                    classes={{ title: classes.cardTitle }}
                     avatar={
                         <Avatar aria-label="Recipe" className={classes.avatar}>
                             {contact.name[0]}
