@@ -15,7 +15,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     flex: '1 0 100%',
-    paddingTop: '20px', 
+    paddingTop: '20px',
     // height: '100%',
     // overflow: 'hidden'
   },
@@ -98,7 +98,7 @@ class EventsDashboardPage extends Component {
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     return (
       <div className={classes.main}>
         <div className={classes.root}>
@@ -109,7 +109,7 @@ class EventsDashboardPage extends Component {
           </div>
         </div>
         <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
-          <Fab color="primary" aria-label="Add" size='large' className={classes.fab}>
+          <Fab color="primary" aria-label="Add" size='large' className={classes.fab} onClick={(e) => { this.props.history.push('event') }}>
             <AddIcon />
           </Fab>
         </Tooltip>

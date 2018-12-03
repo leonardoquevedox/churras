@@ -7,12 +7,8 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import { GitHubIcon } from 'rmw-shell/lib/components/Icons'
 import { Helmet } from 'react-helmet'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment } from '@material-ui/core';
-import LockIcon from '@material-ui/icons/Lock'
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
 
 const styles = theme => ({
   main: {
@@ -88,6 +84,10 @@ const styles = theme => ({
     maxWidth: "400px",
     padding: "16px",
     display: "inline-grid"
+  },
+  lightColor: {
+    color: "white",
+    textDecoration: "none"
   }
 })
 
@@ -127,15 +127,7 @@ class SigninPage extends Component {
         </Helmet>
         <AppBar color="primary" position='static'>
           <Toolbar disableGutters>
-            <Typography align='center'
-              component='h1'
-              color='inherit'
-              gutterBottom
-              className={classes.headline}>
-              Churras
-            </Typography>
-            <div style={{ flex: 1 }} />
-            <Tooltip id="tooltip-icon2" title="GitHub repository">
+            <Tooltip id="tooltip-icon2" title="GitHub repository" className={classes.rightDivider}>
               <IconButton
                 name='github'
                 aria-label='Open Github'
@@ -147,6 +139,32 @@ class SigninPage extends Component {
                 <GitHubIcon />
               </IconButton>
             </Tooltip>
+            <span>|</span>
+            <Button onClick={(e) => { this.props.history.push('signin') }}>
+              <Typography
+                align='center'
+                component='div'
+                color='inherit'
+                gutterBottom
+                className={classes.lightColor}
+              >
+                {'Entre'}
+              </Typography>
+            </Button>
+            <span>|</span>
+            <Button onClick={(e) => { this.props.history.push('signup') }}>
+              <Typography
+                align='center'
+                component='div'
+                color='inherit'
+                gutterBottom
+                className={classes.lightColor}
+              >
+                {'Cadastre-se'}
+              </Typography>
+            </Button>
+            <span>|</span>
+            <div style={{ flex: 1 }} />
           </Toolbar>
         </AppBar>
         <div className={classes.root}>
@@ -167,7 +185,7 @@ class SigninPage extends Component {
                   gutterBottom
                   className={classes.title}
                 >
-                  {'E aí, partiu um churras?'}
+                  {'Seja bem vindx ao Churras!'}
                 </Typography>
                 <Typography
                   align='center'
@@ -175,52 +193,8 @@ class SigninPage extends Component {
                   color='inherit'
                   className={classes.subtitle}
                 >
-                  {'Insere tuas informações abaixo e vem com a gente:'}
+                  {'Sua nova plataforma de gerenciamento de churrascos com a galera!'}
                 </Typography>
-                <form className={classes.fullWidthForm}>
-                  <FormControl fullWidth className={classes.margin}>
-                    <Input
-                      type="e-mail"
-                      style={{ padding: "10px" }}
-                      placeholder="Teu e-mail"
-                      autoComplete="true"
-                      startAdornment={
-                        <InputAdornment
-                          position="start"
-                          className={classes.primaryColor}
-                        >
-                          <AccountCircle />
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                  <FormControl fullWidth className={classes.margin}>
-                    <Input
-                      type="password"
-                      style={{ padding: "10px" }}
-                      placeholder="Tua senha"
-                      autoComplete="true"
-                      startAdornment={
-                        <InputAdornment
-                          position="start"
-                          className={classes.primaryColor}
-                        >
-                          <LockIcon />
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                  <Button
-                    fullWidth
-                    onClick={() => { history.push('/dashboard') }}
-                    className={classes.button}
-                    variant='contained'
-                    color='primary'
-                  >
-                    {'Partiu!'}
-                  </Button>
-                </form>
-
               </div>
             </div>
           </div>

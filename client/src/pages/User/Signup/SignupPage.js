@@ -203,7 +203,6 @@ class SigninPage extends Component {
                     {'Cadastrar!'}
                   </Button>
                 </form>
-
               </div>
             </div>
           </div>
