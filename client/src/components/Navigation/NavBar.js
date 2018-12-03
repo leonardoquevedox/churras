@@ -160,9 +160,9 @@ class MiniDrawer extends React.Component {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem button onClick={(e) => { this.props.history.push('/dashboard'); }}>
+                            <ListItem button onClick={(e) => { this.props.history.push('/home'); }}>
                                 <ListItemIcon>
-                                    <CalendarIcon color={this.props.location.pathname === '/dashboard' ? 'primary' : 'error'} />
+                                    <CalendarIcon color={this.props.location.pathname === '/home' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Churrascos' />
                             </ListItem>

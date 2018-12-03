@@ -40,7 +40,7 @@ class IconLabelTabs extends React.Component {
             textColor="primary"
             value={location.pathname}
           >
-            <Tab value='/dashboard' icon={<CalendarIcon />} onClick={(e) => { this.props.history.push('/dashboard'); }} />
+            <Tab value='/home' icon={<CalendarIcon />} onClick={(e) => { this.props.history.push('/home'); }} />
             <Tab value='/contacts' icon={<ContactsIcon />} onClick={(e) => { this.props.history.push('/contacts'); }} />
             <Tab value='/settings' icon={<SettingsIcon />} onClick={(e) => { this.props.history.push('/settings'); }} />
           </Tabs>

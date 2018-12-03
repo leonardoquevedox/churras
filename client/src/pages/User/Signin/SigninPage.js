@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Input, FormControl, InputAdornment } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock'
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Link from 'react-router-dom/Link';
 
 
 const styles = theme => ({
@@ -59,7 +60,7 @@ const styles = theme => ({
     fontSize: 14,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
-      maxWidth: "200px"
+      maxWidth: "300px"
     },
   },
   headline: {
@@ -91,28 +92,10 @@ const styles = theme => ({
   }
 })
 
-class LandingPage extends Component {
-
-
-  isAuthorised = () => {
-    try {
-      const key = Object.keys(localStorage).find(e => e.match(/persist:root/))
-      const data = JSON.parse(localStorage.getItem(key))
-      const auth = JSON.parse(data.auth)
-
-      return auth && auth.isAuthorised
-
-    } catch (ex) {
-      return false
-    }
-  }
+class SigninPage extends Component {
 
   componentDidMount() {
     const { history } = this.props
-
-    if (this.isAuthorised()) {
-      history.push('/signin')
-    }
   }
 
   render() {
@@ -220,7 +203,28 @@ class LandingPage extends Component {
                     {'Partiu!'}
                   </Button>
                 </form>
-
+                <div>
+                  <Typography
+                    align='center'
+                    component='div'
+                    color='inherit'
+                    className={classes.subtitle}
+                  >
+                    {'Ainda não tem uma conta?'}&nbsp;
+                    <Link className={classes.primaryColor} to="signup">Cadastre-se</Link>
+                  </Typography>
+                </div>
+                <div>
+                  <Typography
+                    align='center'
+                    component='div'
+                    color='inherit'
+                    className={classes.subtitle}
+                  >
+                    {'Esqueceu sua senha?'}&nbsp;
+                    <Link className={classes.primaryColor} to="password-recovery">Clique aqui</Link>
+                  </Typography>
+                </div>
               </div>
             </div>
           </div>
@@ -231,4 +235,4 @@ class LandingPage extends Component {
   }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(LandingPage))
+export default withRouter(withStyles(styles, { withTheme: true })(SigninPage))

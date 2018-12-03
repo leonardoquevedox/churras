@@ -10,7 +10,12 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     flex: '1 0 100%',
-    paddingTop: '20px'
+    paddingTop: '20px',
+    backgroundColor: '#efefef',
+    minHeight: 'calc(100vh - 60px)',
+    [theme.breakpoints.only(['xs', 'sm'])]: {
+      minHeight: 'calc(100vh - 200px)',
+    }
     // height: '100%',
     // overflow: 'hidden'
   },
@@ -32,7 +37,7 @@ const styles = theme => ({
   }
 })
 
-class Settings extends Component {
+class UserSettingsPage extends Component {
 
 
   isAuthorised = () => {
@@ -71,4 +76,4 @@ class Settings extends Component {
   }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(Settings))
+export default withRouter(withStyles(styles, { withTheme: true })(UserSettingsPage))

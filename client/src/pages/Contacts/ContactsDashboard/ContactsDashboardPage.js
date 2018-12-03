@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import ContactsList from '../../components/Contacts/ContactsList'
+import ContactsList from '../../../components/Contacts/ContactsList'
 
 const styles = theme => ({
   main: {
@@ -15,7 +15,13 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     flex: '1 0 100%',
-    paddingTop: '20px'
+    paddingTop: '20px',
+    backgroundColor: '#efefef',
+    minHeight: 'calc(100vh - 60px)',
+    [theme.breakpoints.only(['xs', 'sm'])]: {
+      minHeight: 'calc(100vh - 200px)',
+    }
+
   },
   fab: {
     position: 'fixed',
@@ -27,7 +33,7 @@ const styles = theme => ({
   }
 })
 
-class Contacts extends Component {
+class ContactsPage extends Component {
 
   componentDidMount() { }
 
@@ -53,4 +59,4 @@ class Contacts extends Component {
   }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(Contacts))
+export default withRouter(withStyles(styles, { withTheme: true })(ContactsPage))

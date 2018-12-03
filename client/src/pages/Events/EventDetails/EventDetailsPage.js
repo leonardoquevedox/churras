@@ -5,8 +5,6 @@ import { withStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import EmptyState from '../../components/EmptyState'
-
 const styles = theme => ({
     main: {
         display: 'flex',
@@ -91,7 +89,7 @@ const styles = theme => ({
     }
 })
 
-class Dashboard extends Component {
+class EventDetailsPage extends Component {
     state = {};
 
     componentDidMount() { }
@@ -116,4 +114,4 @@ class Dashboard extends Component {
     }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(Dashboard))
+export default withRouter(withStyles(styles, { withTheme: true })(EventDetailsPage))

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import EventsList from '../../components/Events/EventsList'
+import EventsList from '../../../components/Events/EventsList'
 
 const styles = theme => ({
   main: {
@@ -15,7 +15,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     flex: '1 0 100%',
-    paddingTop: '20px'
+    paddingTop: '20px', 
     // height: '100%',
     // overflow: 'hidden'
   },
@@ -91,7 +91,7 @@ const styles = theme => ({
   }
 })
 
-class Dashboard extends Component {
+class EventsDashboardPage extends Component {
   state = {};
 
   componentDidMount() { }
@@ -119,4 +119,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(Dashboard))
+export default withRouter(withStyles(styles, { withTheme: true })(EventsDashboardPage))
