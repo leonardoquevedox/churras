@@ -7,7 +7,7 @@
 
 // --------------- Module Imports
 const User = require('./user.model');
-const auth = require('../../utils/auth.utils');
+const auth = require('../../services/auth.service');
 
 // --------------- Module Controller
 const UserCtrl = module.exports = {

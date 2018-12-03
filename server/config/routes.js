@@ -8,17 +8,17 @@
 const express = require('express');
 const path = require('path');
 const klawSync = require('klaw-sync');
-const entitiesPath = path.resolve(__dirname, '..', 'entities');
+const routesPath = path.resolve(__dirname, '..', 'routes');
 const isWin = process.platform === 'win32';
-const entities = klawSync(entitiesPath) // Returns the folder files list
-    .map((entity) => { if (entity) return entity.path; }) // Maps object to file path only
-    .filter((entity) => { return entity && (entity.indexOf('router.js') > -1) }) // Filters files leaving the routes
+const routes = klawSync(routesPath) // Returns the folder files list
+    .map((route) => { if (route) return route.path; }) // Maps object to file path only
+    .filter((route) => { return route && (route.indexOf('router.js') > -1) }) // Filters files leaving the routes
 
 module.exports = {
     init: (app) => {
         let routePath = '';
         let router = express.Router();
-        entities.forEach((route) => {
+        routes.forEach((route) => {
             routePath = isWin ? route.split('\\') : route.split('/');
             routePath = routePath[routePath.length - 2];
             router.use(`/${routePath}`, require(`${route}`));

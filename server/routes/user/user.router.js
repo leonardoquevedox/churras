@@ -9,8 +9,8 @@
 const express = require('express');
 const router = new express.Router();
 const controller = require('./user.controller');
-const auth = require('../../utils/auth.utils');
-const execute = require('../../utils/async.utils');
+const auth = require('../../services/auth.service');
+const execute = require('../../services/async.service');
 
 // --------------- Module Controller
 router.post('/', execute(async (req, res) => {
