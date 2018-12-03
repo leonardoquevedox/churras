@@ -49,6 +49,8 @@ const server = app.listen(port, () => {
     swaggify.init(app);
     database.connect();
     console.log((`☮ Server: API listening on http://${host}:${port}`).green.bold);
+    let isSwaggerUpdate = process.env.npm_config_updateswagger;
+    if(isSwaggerUpdate) process.exit();
 });
 
 // mars.socket(app, server);

@@ -18,10 +18,10 @@ const appRoot = path.join(rootPath, 'client');
 const serverRoot = path.join(rootPath, 'server');
 const apiClientDir = path.join(appRoot, 'src', 'api'); // Sets the output filename
 
-async function getApiClient() {
+function getApiClient() {
     process.env.PORT = '3400'; // Sets the server PORT in order to prevent EADDRESS issues
     console.log((`☮ API Client Generator: Running server in order to update swagger.json...`.yellow.bold));
-    exec("npm start", { cwd: serverRoot });// Starting the server
+    exec("npm start --updateswagger", { cwd: serverRoot });// Starting the server
     const swagger = require(path.join(serverRoot, 'swagger.json'));
     let opt = {
         swagger: swagger, // Swagger.json file
@@ -37,11 +37,14 @@ async function generate() {
     let routesPath = path.join(apiClientDir, '/routes.js'); // Sets the routes output where the actual logics will be stored
     let commonjs = await babel.transform(client, { plugins: ['@babel/plugin-transform-modules-commonjs'] }).code; // Adapts the code with babel for compatibilty
     fs.ensureDirSync(apiClientDir); // Creates the output dir
-    fs.writeFileSync(routesPath, commonjs); // Writes the routes logics file
-    fs.writeFileSync(indexPath, getIndexFile(routesPath)); // Writes the exports file
-    fs.writeFileSync(indexPath.replace('.js', '.d.ts'), getDefinitionFile(routesPath)); // Writes the defition file for Typescript compatibility
+    fs.writeFileSync(routesPath, client); // Writes the routes logics file
+    fs.writeFileSync(indexPath, getIndexFile(routesPath)); // Writes the defition file for Typescript compatibility
     console.log((`☮ API Client Generator: API client generated successfully!`.green.bold)); // Finishes the build
     process.exit();
+};
+
+function getIndexFile(routesPath) {
+    return `import * as API from "./routes";\nexport { API };`; // Gets the index file content
 };
 
 generate();

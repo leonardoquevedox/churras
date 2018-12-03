@@ -1,53 +1,32 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updatePasswordURL = exports.updatePassword_TYPE = exports.updatePassword_RAW_URL = exports.updatePassword = exports.recoverPasswordURL = exports.recoverPassword_TYPE = exports.recoverPassword_RAW_URL = exports.recoverPassword = exports.authenticateUserURL = exports.authenticateUser_TYPE = exports.authenticateUser_RAW_URL = exports.authenticateUser = exports.isUniqueUsernameURL = exports.isUniqueUsername_TYPE = exports.isUniqueUsername_RAW_URL = exports.isUniqueUsername = exports.getUserDataURL = exports.getUserData_TYPE = exports.getUserData_RAW_URL = exports.getUserData = exports.updateUserURL = exports.updateUser_TYPE = exports.updateUser_RAW_URL = exports.updateUser = exports.createUserURL = exports.createUser_TYPE = exports.createUser_RAW_URL = exports.createUser = exports.request = exports.setDomain = exports.getDomain = void 0;
-
-var _axios = _interopRequireDefault(require("axios"));
-
-var _qs = _interopRequireDefault(require("qs"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 /* eslint-disable */
-let domain = '';
-
-const getDomain = () => {
-  return domain;
-};
-
-exports.getDomain = getDomain;
-
-const setDomain = $domain => {
-  domain = $domain;
-};
-
-exports.setDomain = setDomain;
-
-const request = (method, url, body, queryParameters, form, config) => {
-  method = method.toLowerCase();
-  let keys = Object.keys(queryParameters);
-  let queryUrl = url;
-
+import axios from 'axios'
+import qs from 'qs'
+let domain = ''
+export const getDomain = () => {
+  return domain
+}
+export const setDomain = ($domain) => {
+  domain = $domain
+}
+export const request = (method, url, body, queryParameters, form, config) => {
+  method = method.toLowerCase()
+  let keys = Object.keys(queryParameters)
+  let queryUrl = url
   if (keys.length > 0) {
-    queryUrl = url + '?' + _qs.default.stringify(queryParameters);
-  } // let queryUrl = url+(keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
-
-
-  if (body) {
-    return _axios.default[method](queryUrl, body, config);
-  } else if (method === 'get' || method === 'delete' || method === 'head' || method === 'option') {
-    return _axios.default[method](queryUrl, config);
-  } else {
-    return _axios.default[method](queryUrl, _qs.default.stringify(form), config);
+    queryUrl = url + '?' + qs.stringify(queryParameters)
   }
-};
+  // let queryUrl = url+(keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+  if (body) {
+    return axios[method](queryUrl, body, config)
+  } else if (method === 'get' || method === 'delete' || method === 'head' || method === 'option') {
+    return axios[method](queryUrl, config)
+  } else {
+    return axios[method](queryUrl, qs.stringify(form), config)
+  }
+}
 /*==========================================================
  *                    
  ==========================================================*/
-
 /**
  * 
  * request: createUser
@@ -56,61 +35,43 @@ const request = (method, url, body, queryParameters, form, config) => {
  * raw_url: createUser_RAW_URL
  * @param user - JSON representation of the user to be created.
  */
-
-
-exports.request = request;
-
-const createUser = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const createUser = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users';
-  let body;
-  let queryParameters = {};
-  let form = {};
-
+  }
+  let path = '/users'
+  let body
+  let queryParameters = {}
+  let form = {}
   if (parameters['user'] !== undefined) {
-    body = parameters['user'];
+    body = parameters['user']
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('post', domain + path, body, queryParameters, form, config);
-};
-
-exports.createUser = createUser;
-
-const createUser_RAW_URL = function () {
-  return '/users';
-};
-
-exports.createUser_RAW_URL = createUser_RAW_URL;
-
-const createUser_TYPE = function () {
-  return 'post';
-};
-
-exports.createUser_TYPE = createUser_TYPE;
-
-const createUserURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users';
-
+  return request('post', domain + path, body, queryParameters, form, config)
+}
+export const createUser_RAW_URL = function() {
+  return '/users'
+}
+export const createUser_TYPE = function() {
+  return 'post'
+}
+export const createUserURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
 /**
  * 
  * request: updateUser
@@ -120,69 +81,49 @@ const createUserURL = function (parameters = {}) {
  * @param xAccessToken - JWT created on user creation or authentication.
  * @param user - JSON representation of the user to be created.
  */
-
-
-exports.createUserURL = createUserURL;
-
-const updateUser = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const updateUser = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users';
-  let body;
-  let queryParameters = {};
-  let form = {};
-
+  }
+  let path = '/users'
+  let body
+  let queryParameters = {}
+  let form = {}
   if (parameters['xAccessToken'] !== undefined) {
-    config.headers['x-access-token'] = parameters['xAccessToken'];
+    config.headers['x-access-token'] = parameters['xAccessToken']
   }
-
   if (parameters['xAccessToken'] === undefined) {
-    return Promise.reject(new Error('Missing required  parameter: xAccessToken'));
+    return Promise.reject(new Error('Missing required  parameter: xAccessToken'))
   }
-
   if (parameters['user'] !== undefined) {
-    body = parameters['user'];
+    body = parameters['user']
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('put', domain + path, body, queryParameters, form, config);
-};
-
-exports.updateUser = updateUser;
-
-const updateUser_RAW_URL = function () {
-  return '/users';
-};
-
-exports.updateUser_RAW_URL = updateUser_RAW_URL;
-
-const updateUser_TYPE = function () {
-  return 'put';
-};
-
-exports.updateUser_TYPE = updateUser_TYPE;
-
-const updateUserURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users';
-
+  return request('put', domain + path, body, queryParameters, form, config)
+}
+export const updateUser_RAW_URL = function() {
+  return '/users'
+}
+export const updateUser_TYPE = function() {
+  return 'put'
+}
+export const updateUserURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
 /**
  * 
  * request: getUserData
@@ -191,65 +132,46 @@ const updateUserURL = function (parameters = {}) {
  * raw_url: getUserData_RAW_URL
  * @param xAccessToken - JWT created on user creation or authentication.
  */
-
-
-exports.updateUserURL = updateUserURL;
-
-const getUserData = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const getUserData = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users/profile';
-  let body;
-  let queryParameters = {};
-  let form = {};
-
+  }
+  let path = '/users/profile'
+  let body
+  let queryParameters = {}
+  let form = {}
   if (parameters['xAccessToken'] !== undefined) {
-    config.headers['x-access-token'] = parameters['xAccessToken'];
+    config.headers['x-access-token'] = parameters['xAccessToken']
   }
-
   if (parameters['xAccessToken'] === undefined) {
-    return Promise.reject(new Error('Missing required  parameter: xAccessToken'));
+    return Promise.reject(new Error('Missing required  parameter: xAccessToken'))
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('get', domain + path, body, queryParameters, form, config);
-};
-
-exports.getUserData = getUserData;
-
-const getUserData_RAW_URL = function () {
-  return '/users/profile';
-};
-
-exports.getUserData_RAW_URL = getUserData_RAW_URL;
-
-const getUserData_TYPE = function () {
-  return 'get';
-};
-
-exports.getUserData_TYPE = getUserData_TYPE;
-
-const getUserDataURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users/profile';
-
+  return request('get', domain + path, body, queryParameters, form, config)
+}
+export const getUserData_RAW_URL = function() {
+  return '/users/profile'
+}
+export const getUserData_TYPE = function() {
+  return 'get'
+}
+export const getUserDataURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users/profile'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
 /**
  * 
  * request: isUniqueUsername
@@ -258,63 +180,45 @@ const getUserDataURL = function (parameters = {}) {
  * raw_url: isUniqueUsername_RAW_URL
  * @param username - 
  */
-
-
-exports.getUserDataURL = getUserDataURL;
-
-const isUniqueUsername = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const isUniqueUsername = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users/username/exists/{username}';
-  let body;
-  let queryParameters = {};
-  let form = {};
-  path = path.replace('{username}', `${parameters['username']}`);
-
+  }
+  let path = '/users/username/exists/{username}'
+  let body
+  let queryParameters = {}
+  let form = {}
+  path = path.replace('{username}', `${parameters['username']}`)
   if (parameters['username'] === undefined) {
-    return Promise.reject(new Error('Missing required  parameter: username'));
+    return Promise.reject(new Error('Missing required  parameter: username'))
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('get', domain + path, body, queryParameters, form, config);
-};
-
-exports.isUniqueUsername = isUniqueUsername;
-
-const isUniqueUsername_RAW_URL = function () {
-  return '/users/username/exists/{username}';
-};
-
-exports.isUniqueUsername_RAW_URL = isUniqueUsername_RAW_URL;
-
-const isUniqueUsername_TYPE = function () {
-  return 'get';
-};
-
-exports.isUniqueUsername_TYPE = isUniqueUsername_TYPE;
-
-const isUniqueUsernameURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users/username/exists/{username}';
-  path = path.replace('{username}', `${parameters['username']}`);
-
+  return request('get', domain + path, body, queryParameters, form, config)
+}
+export const isUniqueUsername_RAW_URL = function() {
+  return '/users/username/exists/{username}'
+}
+export const isUniqueUsername_TYPE = function() {
+  return 'get'
+}
+export const isUniqueUsernameURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users/username/exists/{username}'
+  path = path.replace('{username}', `${parameters['username']}`)
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
 /**
  * 
  * request: authenticateUser
@@ -323,61 +227,43 @@ const isUniqueUsernameURL = function (parameters = {}) {
  * raw_url: authenticateUser_RAW_URL
  * @param user - User credentials object.
  */
-
-
-exports.isUniqueUsernameURL = isUniqueUsernameURL;
-
-const authenticateUser = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const authenticateUser = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users/authenticate';
-  let body;
-  let queryParameters = {};
-  let form = {};
-
+  }
+  let path = '/users/authenticate'
+  let body
+  let queryParameters = {}
+  let form = {}
   if (parameters['user'] !== undefined) {
-    body = parameters['user'];
+    body = parameters['user']
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('post', domain + path, body, queryParameters, form, config);
-};
-
-exports.authenticateUser = authenticateUser;
-
-const authenticateUser_RAW_URL = function () {
-  return '/users/authenticate';
-};
-
-exports.authenticateUser_RAW_URL = authenticateUser_RAW_URL;
-
-const authenticateUser_TYPE = function () {
-  return 'post';
-};
-
-exports.authenticateUser_TYPE = authenticateUser_TYPE;
-
-const authenticateUserURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users/authenticate';
-
+  return request('post', domain + path, body, queryParameters, form, config)
+}
+export const authenticateUser_RAW_URL = function() {
+  return '/users/authenticate'
+}
+export const authenticateUser_TYPE = function() {
+  return 'post'
+}
+export const authenticateUserURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users/authenticate'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
 /**
  * 
  * request: recoverPassword
@@ -386,61 +272,43 @@ const authenticateUserURL = function (parameters = {}) {
  * raw_url: recoverPassword_RAW_URL
  * @param user - User e-mail.
  */
-
-
-exports.authenticateUserURL = authenticateUserURL;
-
-const recoverPassword = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const recoverPassword = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users/password/recover';
-  let body;
-  let queryParameters = {};
-  let form = {};
-
+  }
+  let path = '/users/password/recover'
+  let body
+  let queryParameters = {}
+  let form = {}
   if (parameters['user'] !== undefined) {
-    body = parameters['user'];
+    body = parameters['user']
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('post', domain + path, body, queryParameters, form, config);
-};
-
-exports.recoverPassword = recoverPassword;
-
-const recoverPassword_RAW_URL = function () {
-  return '/users/password/recover';
-};
-
-exports.recoverPassword_RAW_URL = recoverPassword_RAW_URL;
-
-const recoverPassword_TYPE = function () {
-  return 'post';
-};
-
-exports.recoverPassword_TYPE = recoverPassword_TYPE;
-
-const recoverPasswordURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users/password/recover';
-
+  return request('post', domain + path, body, queryParameters, form, config)
+}
+export const recoverPassword_RAW_URL = function() {
+  return '/users/password/recover'
+}
+export const recoverPassword_TYPE = function() {
+  return 'post'
+}
+export const recoverPasswordURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users/password/recover'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
 /**
  * 
  * request: updatePassword
@@ -450,68 +318,46 @@ const recoverPasswordURL = function (parameters = {}) {
  * @param xAccessToken - JWT created on user creation or authentication.
  * @param user - User credentials object.
  */
-
-
-exports.recoverPasswordURL = recoverPasswordURL;
-
-const updatePassword = function (parameters = {}) {
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
+export const updatePassword = function(parameters = {}) {
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
-  };
-  let path = '/users/password/update';
-  let body;
-  let queryParameters = {};
-  let form = {};
-
+  }
+  let path = '/users/password/update'
+  let body
+  let queryParameters = {}
+  let form = {}
   if (parameters['xAccessToken'] !== undefined) {
-    config.headers['x-access-token'] = parameters['xAccessToken'];
+    config.headers['x-access-token'] = parameters['xAccessToken']
   }
-
   if (parameters['xAccessToken'] === undefined) {
-    return Promise.reject(new Error('Missing required  parameter: xAccessToken'));
+    return Promise.reject(new Error('Missing required  parameter: xAccessToken'))
   }
-
   if (parameters['user'] !== undefined) {
-    body = parameters['user'];
+    body = parameters['user']
   }
-
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
-
-  return request('post', domain + path, body, queryParameters, form, config);
-};
-
-exports.updatePassword = updatePassword;
-
-const updatePassword_RAW_URL = function () {
-  return '/users/password/update';
-};
-
-exports.updatePassword_RAW_URL = updatePassword_RAW_URL;
-
-const updatePassword_TYPE = function () {
-  return 'post';
-};
-
-exports.updatePassword_TYPE = updatePassword_TYPE;
-
-const updatePasswordURL = function (parameters = {}) {
-  let queryParameters = {};
-  const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/users/password/update';
-
+  return request('post', domain + path, body, queryParameters, form, config)
+}
+export const updatePassword_RAW_URL = function() {
+  return '/users/password/update'
+}
+export const updatePassword_TYPE = function() {
+  return 'post'
+}
+export const updatePasswordURL = function(parameters = {}) {
+  let queryParameters = {}
+  const domain = parameters.$domain ? parameters.$domain : getDomain()
+  let path = '/users/password/update'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
-      queryParameters[parameterName] = parameters.$queryParameters[parameterName];
-    });
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+      queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    })
   }
-
-  let keys = Object.keys(queryParameters);
-  return domain + path + (keys.length > 0 ? '?' + keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&') : '');
-};
-
-exports.updatePasswordURL = updatePasswordURL;
+  let keys = Object.keys(queryParameters)
+  return domain + path + (keys.length > 0 ? '?' + (keys.map(key => key + '=' + encodeURIComponent(queryParameters[key])).join('&')) : '')
+}
