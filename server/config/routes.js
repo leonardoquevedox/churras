@@ -22,7 +22,7 @@ module.exports = {
             routePath = isWin ? route.split('\\') : route.split('/');
             routePath = routePath[routePath.length - 2];
             router.use(`/${routePath}`, require(`${route}`));
-            console.log(`♂ Initializing ${routePath.replace('-', ' ')} routes...`.yellow);
+            console.log(`☮ Initializing ${routePath.replace('-', ' ')} routes...`.yellow);
         });
         app.use(router); // Add to app routes
     }

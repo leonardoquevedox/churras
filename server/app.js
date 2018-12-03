@@ -21,6 +21,7 @@ const errorhandler = require('errorhandler');
 const compression = require('compression');
 const secure = require('express-force-https');
 const database = require('./config/database');
+const swaggify = require('./config/swagger');
 const routes = require('./config/routes');
 const staticZipConfig = {
     enableBrotli: true,
@@ -45,8 +46,9 @@ app.set('port', port);
 
 const server = app.listen(port, () => {
     routes.init(app);
+    swaggify.init(app);
     database.connect();
-    console.log((`♂ Server: API listening on http://${host}:${port}`).green.bold);
+    console.log((`☮ Server: API listening on http://${host}:${port}`).green.bold);
 });
 
 // mars.socket(app, server);

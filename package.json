@@ -11,7 +11,17 @@
         "nodejs"
     ],
     "main": "app.js",
-    "scripts": {},
-    "dependencies": {},
-    "devDependencies": {}
+    "scripts": {
+        "client:generate:api": "node .bin/client/generate/api"
+    },
+    "dependencies": {
+        "colors": "^1.3.2",
+        "shelljs": "^0.8.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.1.6",
+        "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+        "fs-extra": "^7.0.1",
+        "swagger-es6": "^1.0.0"
+    }
 }

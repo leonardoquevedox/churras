@@ -1,3 +1,10 @@
+/**
+ * @license MIT
+ * @version 1.1.0
+ * @author Leonardo Quevedo
+ * @description Seeds configuration.
+ */
+
 module.exports = {
     init: async () => {
         app.use('/plant', (req, res) => { // import data for test

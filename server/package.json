@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "author": "Leonardo Quevedo",
   "homepage": "http://www.github.com/leopq",
-  "description": "Awesome Mars Framework Application!",
+  "description": "Awesome Express Server!",
   "license": "MIT",
   "keywords": [
     "mean",
-    "ionic",
-    "awesome"
+    "express"
   ],
   "main": "app.js",
   "scripts": {

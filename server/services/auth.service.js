@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const compose = require('composable-middleware');
 const randomstring = require('just.randomstring');
-const User = require('../entities/user/user.model');
+const User = require('../routes/users/user.model');
 
 const auth = module.exports = {
     hasValidToken: () => {

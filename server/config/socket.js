@@ -13,7 +13,7 @@ module.exports = {
         io.use(wildcard());
         io.on('connection', function (socket) {
             socket.emit('connection');
-            console.log((`♂ Mars Server: An user connected.`).green);
+            console.log((`☕Socket: An user connected.`).green);
             socket.on('*', (event) => {
                 let name = event.data ? event.data[0] : '';
                 let data = event.data ? (event.data[1] || {}) : {};

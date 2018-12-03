@@ -10,13 +10,13 @@ const mongoose = require('mongoose');
 module.exports = {
     connect: async function () {
         try {
-            console.log(`♂ Connecting to MongoDB: ${process.env.MONGODB_URI}...`.yellow);
+            console.log(`☮ Connecting to MongoDB: ${process.env.MONGODB_URI}...`.yellow);
             mongoose.Promise = require('bluebird');
             mongoose.set('useCreateIndex', true);
             await mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
             return mongoose.connection.db;
         } catch (error) {
-            console.log(`♂ MongoDB connection failure: ${error}!`.red);
+            console.log(`☮ MongoDB connection failure: ${error}!`.red);
         }
     },
 

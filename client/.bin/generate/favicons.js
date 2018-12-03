@@ -38,5 +38,5 @@ favicons(picture, configuration, (error, response) => {
             fs.writeFile(path.join(output, "icon.png"), resized);
         }));
     }
-    console.log((`♂ Favicon generator: Favicons generated successfully!`.green));
+    console.log((`☮ Favicon generator: Favicons generated successfully!`.green));
 });
