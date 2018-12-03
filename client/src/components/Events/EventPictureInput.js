@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -41,7 +41,7 @@ class EventPictureInput extends React.Component {
     };
 
     render() {
-        const { classes, event, history } = this.props;
+        const { classes } = this.props;
         return (
             <section style={{ display: "block", textAlign: "center" }}>
                 {/* Picture preview */}

@@ -16,7 +16,6 @@ const styles = theme => ({
     flexGrow: 1,
     flex: '1 0 100%',
     paddingTop: '20px',
-    backgroundColor: '#efefef',
     minHeight: 'calc(100vh - 60px)',
     [theme.breakpoints.only(['xs', 'sm'])]: {
       minHeight: 'calc(100vh - 200px)',

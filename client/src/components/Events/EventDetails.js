@@ -92,9 +92,9 @@ const styles = theme => ({
 class EventDetails extends React.Component {
 
     render() {
-        const { classes, event, history } = this.props;
+        const { classes, style } = this.props;
         return (
-            <div>
+            <div style={{...style}}>
                 <Typography
                     align='center'
                     color='inherit'
@@ -202,7 +202,7 @@ class EventDetails extends React.Component {
                         </Grid>
                         <Button
                             fullWidth
-                            onClick={() => { history.push('/home') }}
+                            onClick={() => { this.props.onSave() }}
                             className={classes.button}
                             variant='contained'
                             color='primary'

@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import { GitHubIcon } from 'rmw-shell/lib/components/Icons'
 import { Helmet } from 'react-helmet'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -140,7 +140,7 @@ class SigninPage extends Component {
               </IconButton>
             </Tooltip>
             <span>|</span>
-            <Button onClick={(e) => { this.props.history.push('signin') }}>
+            <Button onClick={(e) => { history.push('signin') }}>
               <Typography
                 align='center'
                 component='div'
@@ -152,7 +152,7 @@ class SigninPage extends Component {
               </Typography>
             </Button>
             <span>|</span>
-            <Button onClick={(e) => { this.props.history.push('signup') }}>
+            <Button onClick={(e) => { history.push('signup') }}>
               <Typography
                 align='center'
                 component='div'

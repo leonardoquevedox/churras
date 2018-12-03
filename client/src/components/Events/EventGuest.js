@@ -4,7 +4,8 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Input, InputAdornment, Switch, FormControlLabel } from '@material-ui/core';
+import ContributionIcon from '@material-ui/icons/AttachMoney';
 
 const styles = theme => ({
     card: {
@@ -44,9 +45,6 @@ const styles = theme => ({
     cardHeader: {
         paddingBottom: '0px'
     },
-    cardContent: {
-        paddingTop: '0px',
-    },
     link: {
         color: theme.palette.primary.main
     },
@@ -56,10 +54,14 @@ const styles = theme => ({
     }
 })
 
-class ContactItem extends React.Component {
+class EventGuest extends React.Component {
+
+    state = {
+        withDrinks: false
+    }
 
     render() {
-        const { classes, contact } = this.props;
+        const { classes, guest, theme } = this.props;
         return (
             <Card className={classes.card}>
                 <CardHeader
@@ -67,22 +69,47 @@ class ContactItem extends React.Component {
                     classes={{ title: classes.cardTitle }}
                     avatar={
                         <Avatar aria-label="Recipe" className={classes.avatar}>
-                            {contact.name[0]}
+                            {guest.name[0]}
                         </Avatar>
                     }
-                    title={contact.name}
-                    subheader={contact.email}
+                    title={guest.name}
+                    subheader={guest.email}
                 />
                 <CardContent className={classes.cardContent}>
-                    <div className={classes.textCenter}>
-                        <Button className={classes.link}>
-                            Ver mais
-                    </Button>
-                    </div>
+                    <Input
+                        type="text"
+                        style={{ padding: "10px" }}
+                        placeholder="Contribuição"
+                        autoComplete="true"
+                        autoCapitalize="true"
+                        startAdornment={
+                            <InputAdornment
+                                position="start"
+                                style={{ color: theme.palette.primary.main }}
+                            >
+                                <ContributionIcon />
+                            </InputAdornment>
+                        }
+                    />
+                    <FormControlLabel
+                        control={
+                            <Switch
+
+                                checked={this.state.withDrinks}
+                                onChange={(e) => { this.setState({ withDrinks: e.target.checked }) }}
+                                value="checkedB"
+                                color="primary"
+                            />
+                        }
+                        label="Com bebida"
+                    />
                 </CardContent>
+                <Button color="primary" variant="outlined" className={classes.textCenter}>
+                    Incluir no churrasco
+                </Button>
             </Card>
         )
     }
 }
 
-export default withStyles(styles, { withTheme: true })(ContactItem)
+export default withStyles(styles, { withTheme: true })(EventGuest)

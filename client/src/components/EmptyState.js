@@ -25,11 +25,11 @@ const styles = theme => ({
 class EmptyState extends React.Component {
 
     render() {
-        const { classes } = this.props;
+        const { classes, message } = this.props;
         return (
             <div className={classes.content}>
                 <div className={classes.message}>
-                    {this.props.message}
+                    {message}
                 </div>
                 <div>
                     <img src='/persona.png' alt='Assistente do aplicativo.' className={classes.persona}></img>

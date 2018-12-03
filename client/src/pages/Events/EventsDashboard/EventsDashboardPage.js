@@ -109,7 +109,7 @@ class EventsDashboardPage extends Component {
           </div>
         </div>
         <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
-          <Fab color="primary" aria-label="Add" size='large' className={classes.fab} onClick={(e) => { this.props.history.push('event') }}>
+          <Fab color="primary" aria-label="Add" size='large' className={classes.fab} onClick={(e) => { history.push('event') }}>
             <AddIcon />
           </Fab>
         </Tooltip>

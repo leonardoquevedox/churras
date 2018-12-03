@@ -94,9 +94,7 @@ const styles = theme => ({
 
 class SigninPage extends Component {
 
-  componentDidMount() {
-    const { history } = this.props
-  }
+  componentDidMount() { }
 
   render() {
     const { classes, history, theme } = this.props;
@@ -195,7 +193,7 @@ class SigninPage extends Component {
                   </FormControl>
                   <Button
                     fullWidth
-                    onClick={() => { history.push('/dashboard') }}
+                    onClick={() => { history.push('/home') }}
                     className={classes.button}
                     variant='contained'
                     color='primary'

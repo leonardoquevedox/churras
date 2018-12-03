@@ -43,6 +43,7 @@
 		"react-markdown": "4.x",
 		"react-materialui-notifications": "0.x",
 		"react-mic": "12.x",
+		"react-number-format": "^4.0.5",
 		"react-player": "1.x",
 		"react-redux": "5.x",
 		"react-router": "4.x",

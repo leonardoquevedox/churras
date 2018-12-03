@@ -24,6 +24,14 @@ class IconLabelTabs extends React.Component {
     value: 0,
   };
 
+  tabs = [
+    { value: '/home', icon: <CalendarIcon />, onClick: (e) => { this.props.history.push('/home'); } },
+    { value: '/contacts', icon: <ContactsIcon />, onClick: (e) => { this.props.history.push('/contacts'); } },
+    { value: '/settings', icon: <SettingsIcon />, onClick: (e) => { this.props.history.push('/settings'); } }
+  ]
+
+  tabValues = this.tabs.map((x) => x.value)
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -38,11 +46,11 @@ class IconLabelTabs extends React.Component {
             fullWidth
             indicatorColor="primary"
             textColor="primary"
-            value={location.pathname}
+            value={(this.tabValues.indexOf(location.pathname) > -1) ? location.pathname : '/home'}
           >
-            <Tab value='/home' icon={<CalendarIcon />} onClick={(e) => { this.props.history.push('/home'); }} />
-            <Tab value='/contacts' icon={<ContactsIcon />} onClick={(e) => { this.props.history.push('/contacts'); }} />
-            <Tab value='/settings' icon={<SettingsIcon />} onClick={(e) => { this.props.history.push('/settings'); }} />
+            {this.tabs.map((tab, index) =>
+              <Tab key={index} value={tab.value} icon={tab.icon} onClick={(e) => { tab.onClick() }} />
+            )}
           </Tabs>
         </Paper>
       </Hidden>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-
+import { Tabs, Tab } from '@material-ui/core';
 import EventDetails from '../../../components/Events/EventDetails'
+import EventGuestsList from '../../../components/Events/EventGuestsList'
 
 const styles = theme => ({
     main: {
@@ -34,7 +35,9 @@ const styles = theme => ({
 })
 
 class EventDetailsPage extends Component {
-    state = {};
+    state = {
+        selectedTab: 0
+    }
 
     componentDidMount() { }
 
@@ -45,7 +48,17 @@ class EventDetailsPage extends Component {
                 <div className={classes.root}>
                     <div className={classes.hero}>
                         <div className={classes.content}>
-                            <EventDetails />
+                            <Tabs color="primary" fullWidth value={this.state.selectedTab}>
+                                <Tab value={0} label="Informações" onClick={(e) => { this.setState({ selectedTab: 0 }) }} />
+                                <Tab value={1} label="Participantes" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                            </Tabs>
+                            <EventDetails
+                                onSave={(e) => { this.setState({ selectedTab: 1 }) }}
+                                style={{ display: (this.state.selectedTab === 0 ? 'block' : 'none') }}
+                            />
+                            <EventGuestsList 
+                                style={{ display: (this.state.selectedTab === 1 ? 'block' : 'none') }}
+                            />
                         </div>
                     </div>
                 </div>

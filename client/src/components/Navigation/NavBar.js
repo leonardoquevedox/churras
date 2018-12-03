@@ -118,7 +118,7 @@ class MiniDrawer extends React.Component {
     }
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes, theme, history, location } = this.props;
         return (
             <div className={classes.root}>
                 <AppBar
@@ -160,26 +160,26 @@ class MiniDrawer extends React.Component {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem button onClick={(e) => { this.props.history.push('/home'); }}>
+                            <ListItem button onClick={(e) => { history.push('/home'); }}>
                                 <ListItemIcon>
-                                    <CalendarIcon color={this.props.location.pathname === '/home' ? 'primary' : 'error'} />
+                                    <CalendarIcon color={location.pathname === '/home' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Churrascos' />
                             </ListItem>
                         </List>
                         <List>
-                            <ListItem button onClick={(e) => { this.props.history.push('/contacts'); }}>
+                            <ListItem button onClick={(e) => { history.push('/contacts'); }}>
                                 <ListItemIcon>
-                                    <ContactsIcon color={this.props.location.pathname === '/contacts' ? 'primary' : 'error'} />
+                                    <ContactsIcon color={location.pathname === '/contacts' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Galera' />
                             </ListItem>
                         </List>
                         <Divider />
                         <List>
-                            <ListItem button onClick={(e) => { this.props.history.push('/settings'); }}>
+                            <ListItem button onClick={(e) => { history.push('/settings'); }}>
                                 <ListItemIcon>
-                                    <SettingsIcon color={this.props.location.pathname === '/settings' ? 'primary' : 'error'} />
+                                    <SettingsIcon color={location.pathname === '/settings' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Configurações' />
                             </ListItem>
