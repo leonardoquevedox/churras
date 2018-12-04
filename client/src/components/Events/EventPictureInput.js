@@ -21,6 +21,14 @@ const styles = theme => ({
             width: '100px',
         }
     },
+    readOnlyPic: {
+        height: '200px',
+        width: '200px',
+        borderRadius: '50%',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        margin: 'auto'
+    },
     picOptions: {
         display: 'inline-block',
         maxWidth: '150px',
@@ -65,28 +73,32 @@ class EventPictureInput extends React.Component {
     }
 
     render() {
-        const { classes } = this.props
+        const { classes, readOnly } = this.props;
+        console.log(this.props);
         return (
             <section style={{ display: 'inline', textAlign: 'center' }}>
                 {/* Picture preview */}
-                <div className={classes.picPreviewWrapper}>
-                    <div className={classes.picPreview} style={{ backgroundImage: `url('./barbecue-${this.state.selected.src}.jpg')` }}></div>
+                <div className={readOnly? "" : classes.picPreviewWrapper}>
+                    <div className={readOnly ? classes.readOnlyPic : classes.picPreview} style={{ backgroundImage: `url('./barbecue-${this.state.selected.src}.jpg')` }}></div>
                 </div>
                 {/* Picture options */}
-                <div className={classes.picOptions}>
-                    {EventPictureInput.pictures.map((picture, index) =>
-                        <div
-                            onClick={(e) => { this.onPictureChange(picture) }}
-                            key={index}
-                            className={classes.picOption}
-                            style={{
-                                backgroundImage: `url('./barbecue-${picture.src}.jpg')`,
-                                opacity: (this.state.selected.src === picture.src ? '1.0' : '0.5')
-                            }}
-                        >
-                        </div>
-                    )}
-                </div>
+                {!readOnly &&
+                    <div className={classes.picOptions}>
+                        {EventPictureInput.pictures.map((picture, index) =>
+                            <div
+                                onClick={(e) => { this.onPictureChange(picture) }}
+                                key={index}
+                                className={classes.picOption}
+                                style={{
+                                    backgroundImage: `url('./barbecue-${picture.src}.jpg')`,
+                                    opacity: (this.state.selected.src === picture.src ? '1.0' : '0.5')
+                                }}
+                            >
+                            </div>
+                        )}
+                    </div>
+                }
+
             </section>
         )
     }

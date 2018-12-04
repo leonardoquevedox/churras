@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Input, FormControl, InputAdornment, Typography, Grid } from '@material-ui/core'
 import CalendarIcon from '@material-ui/icons/CalendarToday'
 import BubbleIcon from '@material-ui/icons/BubbleChart'
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
+import ObservationsIcon from '@material-ui/icons/NewReleases'
 import EventPictureInput from './EventPictureInput'
 import InputMask from 'react-input-mask'
 import moment from 'moment-mini'
@@ -23,7 +23,7 @@ const styles = theme => ({
     },
     secondColumn: {
         [theme.breakpoints.up('md')]: {
-            marginTop: '132px',
+            marginTop: '154px',
             marginLeft: '0px'
         }
     },
@@ -46,6 +46,18 @@ const styles = theme => ({
     },
     bottomDivider: {
         paddingBottom: '16px'
+    },
+    label: {
+        marginTop: '15px',
+        color: '#888888'
+    },
+    infoTitle: {
+        fontSize: '18px',
+        paddingLeft: '10px',
+        marginBottom: '0px'
+    },
+    textareaIcon: {
+        marginTop: '-20px'
     }
 })
 
@@ -73,24 +85,25 @@ class EventDetails extends React.Component {
     }
     render() {
         const { event } = this.state
-        const { classes, style } = this.props
+        const { classes, style, readOnly } = this.props
         return (
             <div style={{ ...style }} className={classes.fullWidthContent}>
                 <Grid container spacing={16}>
-                    <Grid item xs={12} md={6}>
-                        <div className={`${classes.maxWidthContainer} ${classes.firstColumn}`}>
+                    <Grid item xs={12} md={readOnly ? 12 : 6}>
+                        <div className={`${classes.maxWidthContainer} ${readOnly ? "" : classes.firstColumn}`}>
                             <div className={classes.bottomDivider} >
                                 {/* Image input message */}
                                 <Typography
                                     align='left'
                                     color='inherit'
                                     gutterBottom
-                                    style={{ marginTop: '15px', color: '#888888' }}
+                                    style={{}}
                                 >
-                                    {'1. Escolha a imagem do evento: '}
+                                    {readOnly ? '' : '1. Escolha a imagem do evento: '}
                                 </Typography>
-                                {/* Image input */}
+                                {/* Image input */}{}
                                 <EventPictureInput
+                                    readOnly={readOnly}
                                     event={event}
                                     onChange={(picture) => {
                                         this.setState({ event: { ...event, picture: picture } })
@@ -102,9 +115,9 @@ class EventDetails extends React.Component {
                                 align='left'
                                 color='inherit'
                                 gutterBottom
-                                style={{ marginTop: '15px', color: '#888888' }}
+                                className={readOnly ? classes.infoTitle : classes.label}
                             >
-                                {'2. Escolha a data do evento: '}
+                                {readOnly ? 'Data:' : '2. Escolha a data do evento: '}
                             </Typography>
                             {/* Event date input */}
                             <FormControl fullWidth className={classes.margin}>
@@ -113,6 +126,8 @@ class EventDetails extends React.Component {
                                     mask='99/99'
                                     maskChar='X'
                                     value={event.scheduledTo}
+                                    disableUnderline={readOnly}
+                                    readOnly={readOnly}
                                     onChange={(e) => {
                                         this.setState({ event: { ...event, scheduledTo: e.target.value } })
                                     }}
@@ -135,16 +150,16 @@ class EventDetails extends React.Component {
                         </div>
                     </Grid>
                     {/* Event information row */}
-                    <Grid item xs={12} md={6}>
-                        <form className={`${classes.maxWidthContainer} ${classes.secondColumn}`}>
+                    <Grid item xs={12} md={readOnly ? 12 : 6}>
+                        <form className={`${classes.maxWidthContainer} ${readOnly ? "" : classes.secondColumn}`}>
                             {/* Event title input message */}
                             <Typography
                                 align='left'
                                 color='inherit'
                                 gutterBottom
-                                style={{ marginTop: '15px', color: '#888888' }}
+                                className={readOnly ? classes.infoTitle : classes.label}
                             >
-                                {'3. Escolha um título para o evento: '}
+                                {readOnly ? 'Por quê?' : '3. Escolha um título para o evento: '}
                             </Typography>
                             {/* Event title input */}
                             <FormControl fullWidth className={classes.margin}>
@@ -156,6 +171,8 @@ class EventDetails extends React.Component {
                                             event: { ...event, title: e.target.value }
                                         })
                                     }}
+                                    readOnly={readOnly}
+                                    disableUnderline={readOnly}
                                     placeholder='Por que o evento vai ocorrer?'
                                     autoComplete='true'
                                     startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
@@ -168,9 +185,9 @@ class EventDetails extends React.Component {
                                 align='left'
                                 color='inherit'
                                 gutterBottom
-                                style={{ marginTop: '15px', color: '#888888' }}
+                                className={readOnly ? classes.infoTitle : classes.label}
                             >
-                                {'4. Adicione observações pra galera (opcional): '}
+                                {readOnly ? 'Observações' : '4. Adicione observações pra galera (opcional): '}
                             </Typography>
                             {/* Event title input */}
                             <FormControl fullWidth className={classes.margin}>
@@ -182,12 +199,14 @@ class EventDetails extends React.Component {
                                             event: { ...event, observations: e.target.value }
                                         })
                                     }}
+                                    readOnly={readOnly}
+                                    disableUnderline={readOnly}
                                     multiline={true}
-                                    rows='6'
+                                    rows='3'
                                     placeholder='Observações'
                                     autoComplete='true'
-                                    startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
-                                        <ChatBubbleIcon />
+                                    startAdornment={<InputAdornment position='start' className={`${classes.primaryColor} ${classes.textareaIcon}`} >
+                                        <ObservationsIcon />
                                     </InputAdornment>}
                                 />
                             </FormControl>
@@ -195,7 +214,7 @@ class EventDetails extends React.Component {
                         </form>
                     </Grid>
                     {/* Save button */}
-                    <Button
+                    {!readOnly && <Button
                         fullWidth
                         onClick={() => {
                             let formatted = this.format(event)
@@ -207,7 +226,7 @@ class EventDetails extends React.Component {
                         color='primary'
                     >
                         {'Salvar'}
-                    </Button>
+                    </Button>}
                 </Grid>
             </div>
         )

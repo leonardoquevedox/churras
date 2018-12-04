@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Tabs, Tab } from '@material-ui/core'
+import { Tabs, Tab, Grid } from '@material-ui/core'
+import Tooltip from '@material-ui/core/Tooltip'
+import Fab from '@material-ui/core/Fab'
+import EditIcon from '@material-ui/icons/Edit'
+import CheckIcon from '@material-ui/icons/Check'
 import EventDetails from '../../../components/Events/EventDetails'
 import EventContributionInput from '../../../components/Events/EventContributionInput'
 import EventGuestsList from '../../../components/Events/EventGuestsList'
@@ -33,6 +37,17 @@ const styles = theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    paddingTop: {
+        paddingTop: '16px'
+    },
+    fab: {
+        position: 'fixed',
+        bottom: theme.spacing.unit * 10,
+        right: theme.spacing.unit * 4,
+        '&:hover': {
+            backgroundColor: theme.palette.primary.main
+        }
     }
 })
 
@@ -41,6 +56,7 @@ class EventDetailsPage extends Component {
         error: { show: false },
         isLoading: false,
         selectedTab: 1,
+        readOnly: false,
         token: '',
         event: {}
     }
@@ -49,8 +65,11 @@ class EventDetailsPage extends Component {
         this.setState({ token: AuthUtils.getToken() }, () => {
             const urlParams = new URLSearchParams(window.location.search)
             const eventId = urlParams.get('id')
-            if (eventId) this.getEvent(eventId)
-            else this.setState({ loaded: true })
+            if (eventId) {
+                this.setState({ readOnly: true }); // Initializes view as readonly
+                this.getEvent(eventId); // Gets event data
+            }
+            else this.setState({ loaded: true, readOnly: false })
         })
     }
 
@@ -93,7 +112,7 @@ class EventDetailsPage extends Component {
     }
 
     render() {
-        const { event, error, selectedTab } = this.state
+        const { event, readOnly, error, selectedTab } = this.state
         const { classes } = this.props
         return (
             <div className={classes.main}>
@@ -102,21 +121,37 @@ class EventDetailsPage extends Component {
                         {/* Awaits for event to load if id is passed */}
                         {this.state.loaded &&
                             <div className={classes.content}>
-                                <Tabs color='primary' fullWidth value={selectedTab}>
-                                    <Tab value={1} label='Informações' onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
-                                    <Tab value={2} label='Contribuições' onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
-                                    <Tab value={3} label='Participantes' onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
-                                </Tabs>
-                                <EventDetails
-                                    event={event}
-                                    style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
-                                    onSave={(data) => {
-                                        let updatedEvent = Object.assign(event, data)
-                                        this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) })
-                                    }}
-                                />
+                                {/* Tabs for creation process */}
+                                {!readOnly &&
+                                    <Tabs color='primary' fullWidth value={selectedTab}>
+                                        <Tab value={1} label='Informações' onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                                        <Tab value={2} label='Contribuições' onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
+                                        <Tab value={3} label='Participantes' onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
+                                    </Tabs>
+                                }
+                                <Grid container spacing={0} className={readOnly ? classes.paddingTop : ''}>
+                                    <Grid item xs={12} md={readOnly ? 6 : 12}>
+                                        <EventDetails
+                                            event={event}
+                                            readOnly={readOnly}
+                                            style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
+                                            onSave={(data) => {
+                                                let updatedEvent = Object.assign(event, data)
+                                                this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) })
+                                            }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} md={readOnly ? 6 : 12}>
+                                        <EventGuestsList
+                                            event={event}
+                                            readOnly={readOnly}
+                                            style={{ display: (selectedTab === 3 || readOnly ? 'block' : 'none') }}
+                                        />
+                                    </Grid>
+                                </Grid>
                                 <EventContributionInput
                                     event={event}
+                                    readOnly={readOnly}
                                     style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
                                     onSave={(data) => {
                                         let updatedEvent = Object.assign(event, data)
@@ -124,10 +159,7 @@ class EventDetailsPage extends Component {
                                         this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 3 }) })
                                     }}
                                 />
-                                <EventGuestsList
-                                    event={event}
-                                    style={{ display: (selectedTab === 3 ? 'block' : 'none') }}
-                                />
+
                             </div>}
                     </div>
                 </div>
@@ -138,6 +170,17 @@ class EventDetailsPage extends Component {
                     message={error.message}
                     onAccept={(e) => { this.setState({ error: { ...error, show: false } }) }}
                 />
+                <Tooltip id='tooltip-icon2' title={readOnly ? 'Editar evento' : 'Concluir edição'} placement='top'>
+                    <Fab color='primary'
+                        aria-label='Add'
+                        size='large'
+                        className={classes.fab}
+                        onClick={(e) => { this.setState({ readOnly: !this.state.readOnly }) }}
+                    >
+                        {readOnly && <EditIcon />}
+                        {!readOnly && <CheckIcon />}
+                    </Fab>
+                </Tooltip>
             </div>
         )
     }

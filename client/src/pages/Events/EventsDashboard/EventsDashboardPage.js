@@ -1,8 +1,8 @@
 // --- 3rd party imports
 import React, { Component } from 'react'
-import Tooltip from '@material-ui/core/Tooltip'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 
