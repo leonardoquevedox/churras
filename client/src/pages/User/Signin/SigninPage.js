@@ -127,7 +127,7 @@ class SigninPage extends Component {
     this.setState({ isLoading: true }); // Sets loading state 
     API.authenticateUser({ user: this.state.user }).then((response) => { // In case of success...
       AuthUtils.storeProfile(response.data);
-      this.props.history.push('/home');
+      this.props.history.push('/');
     }).catch((error) => {  // In case of error...
       this.setState({ // Shows error message
         authError: {

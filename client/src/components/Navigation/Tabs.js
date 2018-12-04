@@ -25,7 +25,7 @@ class IconLabelTabs extends React.Component {
   };
 
   tabs = [
-    { value: '/home', icon: <CalendarIcon />, onClick: (e) => { this.props.history.push('/home'); } },
+    { value: '/', icon: <CalendarIcon />, onClick: (e) => { this.props.history.push('/'); } },
     { value: '/contacts', icon: <ContactsIcon />, onClick: (e) => { this.props.history.push('/contacts'); } },
     { value: '/settings', icon: <SettingsIcon />, onClick: (e) => { this.props.history.push('/settings'); } }
   ]
@@ -46,7 +46,7 @@ class IconLabelTabs extends React.Component {
             fullWidth
             indicatorColor="primary"
             textColor="primary"
-            value={(this.tabValues.indexOf(location.pathname) > -1) ? location.pathname : '/home'}
+            value={(this.tabValues.indexOf(location.pathname) > -1) ? location.pathname : '/'}
           >
             {this.tabs.map((tab, index) =>
               <Tab key={index} value={tab.value} icon={tab.icon} onClick={(e) => { tab.onClick() }} />

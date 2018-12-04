@@ -110,7 +110,7 @@ class MiniDrawer extends React.Component {
     }
 
     onRouteChanged() {
-        routes.forEach((route) => {
+        routes.protected.forEach((route) => {
             if (route.props.path === this.props.location.pathname) {
                 this.setState({ title: route.props.name });
             }
@@ -160,9 +160,9 @@ class MiniDrawer extends React.Component {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem button onClick={(e) => { history.push('/home'); }}>
+                            <ListItem button onClick={(e) => { history.push('/'); }}>
                                 <ListItemIcon>
-                                    <CalendarIcon color={location.pathname === '/home' ? 'primary' : 'error'} />
+                                    <CalendarIcon color={location.pathname === '/' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Churrascos' />
                             </ListItem>

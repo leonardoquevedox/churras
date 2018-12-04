@@ -41,15 +41,22 @@ const styles = theme => ({
     },
     fullWidthForm: {
         width: "80%",
-        maxWidth: "700px",
+        maxWidth: "600px",
         padding: "16px",
         margin: "auto"
     }
 })
 
 class EventDetails extends React.Component {
-
+    state = {
+        event: {
+            title: '',
+            date: new Date(),
+            observations: '',
+        }
+    }
     render() {
+        const { event } = this.state;
         const { classes, style } = this.props;
         return (
             <div style={{ ...style }}>
@@ -70,6 +77,12 @@ class EventDetails extends React.Component {
                         {/* Event date input */}
                         <Input
                             type="text"
+                            value={event.date}
+                            onChange={(e) => {
+                                this.setState({
+                                    event: { ...event, date: e.target.value }
+                                })
+                            }}
                             placeholder="Quando?"
                             autoComplete="true"
                             autoCapitalize="true"
@@ -82,6 +95,12 @@ class EventDetails extends React.Component {
                     <FormControl fullWidth className={classes.margin}>
                         <Input
                             type="textarea"
+                            value={event.title}
+                            onChange={(e) => {
+                                this.setState({
+                                    event: { ...event, title: e.target.value }
+                                })
+                            }}
                             placeholder="Por quê?"
                             autoComplete="true"
                             startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
@@ -93,6 +112,12 @@ class EventDetails extends React.Component {
                     <FormControl fullWidth className={classes.margin}>
                         <Input
                             type="text"
+                            value={event.observations}
+                            onChange={(e) => {
+                                this.setState({
+                                    event: { ...event, observations: e.target.value }
+                                })
+                            }}
                             multiline={true}
                             rows="4"
                             placeholder="Observações"
@@ -105,7 +130,7 @@ class EventDetails extends React.Component {
                     {/* Save button */}
                     <Button
                         fullWidth
-                        onClick={() => { this.props.onSave() }}
+                        onClick={() => { this.props.onSave(event) }}
                         className={classes.button}
                         variant='contained'
                         color='primary'

@@ -54,7 +54,7 @@ class EventGuestsList extends React.Component {
                 </div>
                 {/* Events! */}
                 <div style={{ display: (this.state.guests.length > 0 ? 'block' : 'none') }}>
-                    <Grid container justify="flex-start" spacing={16}>
+                    <Grid container justify="flex-start" spacing={8}>
                         {this.state.guests.map((contact, index) => (
                             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                                 <EventGuest guest={contact} />

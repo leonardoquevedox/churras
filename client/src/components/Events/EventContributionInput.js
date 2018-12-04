@@ -8,7 +8,7 @@ import ContributionIcon from '@material-ui/icons/AttachMoney';
 const styles = theme => ({
     fullWidthForm: {
         width: "80%",
-        maxWidth: "700px",
+        maxWidth: "600px",
         padding: "16px",
         margin: "auto"
     },

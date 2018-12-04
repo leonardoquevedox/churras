@@ -50,7 +50,7 @@ class Main extends Component {
       </Helmet>
       <NavBar />
       <Switch>
-        {routes}
+        {routes.protected}
       </Switch>
       <Tabs />
     </div>

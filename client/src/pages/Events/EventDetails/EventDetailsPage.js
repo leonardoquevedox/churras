@@ -37,32 +37,46 @@ const styles = theme => ({
 
 class EventDetailsPage extends Component {
     state = {
-        selectedTab: 1
+        selectedTab: 1,
+        event: {}
     }
 
     componentDidMount() { }
 
     render() {
+        const { event, selectedTab } = this.state;
         const { classes } = this.props;
         return (
             <div className={classes.main}>
                 <div className={classes.root}>
                     <div className={classes.hero}>
                         <div className={classes.content}>
-                            <Tabs color="primary" fullWidth value={this.state.selectedTab}>
+                            <Tabs color="primary" fullWidth value={selectedTab}>
                                 <Tab value={1} label="1. Informações" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
                                 <Tab value={2} label="2. Contribuições" onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
                                 <Tab value={3} label="3. Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
                             </Tabs>
                             <EventDetails
-                                onSave={(e) => { this.setState({ selectedTab: 2 }) }}
-                                style={{ display: (this.state.selectedTab === 1 ? 'block' : 'none') }}
+                                onSave={(data) => {
+                                    console.log(data);
+                                    this.setState({
+                                        event: { ...event, data },
+                                        selectedTab: 2
+                                    })
+                                }}
+                                style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
                             />
                             <EventContributionInput
-                                onSave={(e) => { this.setState({ selectedTab: 3 }) }}
-                                style={{ display: (this.state.selectedTab === 2 ? 'block' : 'none') }} />
+                                onSave={(data) => {
+                                    console.log(data);
+                                    this.setState({
+                                        event: { ...event, data },
+                                        selectedTab: 3
+                                    })
+                                }}
+                                style={{ display: (selectedTab === 2 ? 'block' : 'none') }} />
                             <EventGuestsList
-                                style={{ display: (this.state.selectedTab === 3 ? 'block' : 'none') }}
+                                style={{ display: (selectedTab === 3 ? 'block' : 'none') }}
                             />
                         </div>
                     </div>

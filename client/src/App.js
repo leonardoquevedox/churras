@@ -9,10 +9,6 @@ import { MuiThemeProvider } from '@material-ui/core';
 import API from './api';
 import AuthUtils from './utils/AuthUtils';
 
-import UserSignup from './pages/User/Signup';
-import UserSignin from './pages/User/Signin';
-import PasswordRecovery from './pages/User/PasswordRecovery';
-
 import config from './config';
 API.setDomain(config.api.GATEWAY_URL);
 
@@ -28,24 +24,19 @@ export const LandingPageAsync = Loadable({
   loading: Loading
 });
 
-// Checking user authentication status...
-(function () {
-  if(AuthUtils.isLoggedIn()) console.log('User is logged in.');
-})();
-
 export default function App() {
   return (
     <A2HSProvider>
       <MuiThemeProvider theme={theme}>
         <Router>
           <Switch>
-            {/* Unprotected routes */}
-            <Route path="/" exact component={LandingPageAsync} />
-            <Route path="/signup" exact component={UserSignup} />
-            <Route path="/signin" exact component={UserSignin} />
-            <Route path="/password-recovery" exact component={PasswordRecovery} />
+            {/* Unprotected routes */
+              !AuthUtils.isLoggedIn() && config.routes.unprotected
+            }
             {/* Protected routes */}
-            <Route component={MainAsync} />
+            {AuthUtils.isLoggedIn() &&
+              <Route component={MainAsync} />
+            }
           </Switch>
         </Router>
       </MuiThemeProvider>
