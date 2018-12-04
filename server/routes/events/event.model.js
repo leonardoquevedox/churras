@@ -18,6 +18,10 @@ const EventSchema = mongoose.Schema({
     observations: { type: String, required: true },
     picture: { type: Object, required: false },
     scheduledTo: { type: Date, required: true },
+    suggestedContribution: {
+        withDrinks: { type: Number, required: false },
+        withoutDrinks: { type: Number, required: false },
+    }
 });
 
 // --------------- Module Plugins and Indexes

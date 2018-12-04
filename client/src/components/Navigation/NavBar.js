@@ -160,7 +160,7 @@ class MiniDrawer extends React.Component {
                         <Divider />
                         <List>
                             <ListItem button onClick={(e) => {
-                                if (location.pathname.indexOf('event') == -1) history.push('/');
+                                if (location.pathname.indexOf('event') === -1) history.push('/');
                             }}>
                                 <ListItemIcon>
                                     <CalendarIcon color={location.pathname === '/' ? 'primary' : 'error'} />

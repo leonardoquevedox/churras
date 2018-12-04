@@ -58,8 +58,6 @@ class EventItem extends React.Component {
 
     render() {
         const { classes, event, history } = this.props;
-        console.log();
-        const randomPic = Math.floor(Math.random() * 5) + 1;
         return (
             <Card className={classes.card}>
                 <CardMedia
@@ -82,9 +80,7 @@ class EventItem extends React.Component {
                     <ShareIcon />
                 </IconButton>
             </CardActions> */}
-
                 <CardContent className={classes.cardContent}>
-
                     <div className={classes.textCenter}>
                         <Button className={classes.link} onClick={(e) => { history.push('/event/' + event._id) }}>
                             Ver mais

@@ -29,8 +29,7 @@ class EventContributionInput extends React.Component {
 
     state = {
         event: {
-            contributionWithDrinks: 0.00,
-            contributionWithoutDrinks: 0.00
+            suggestedContribution: {}
         }
     }
 
@@ -48,7 +47,21 @@ class EventContributionInput extends React.Component {
                     {/* Contribution with drinks value */}
                     <FormControl fullWidth className={classes.margin}>
                         <CurrencyFormat
+                            value={event.suggestedContribution.withDrinks}
+                            onValueChange={(e) => {
+                                let updatedEvent = {
+                                    ...event, // Clones everything from original event
+                                    suggestedContribution: { //override the given property
+                                        ...event.suggestedContribution, // Clones everything from event.user
+                                        withDrinks: e.floatValue // Overrides 'withDrinks' value
+                                    }
+                                };
+                                this.setState({ event: updatedEvent })
+                            }}
                             customInput={Input}
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            decimalSeparator=","
                             prefix="R$"
                             placeholder="Com bebida"
                             startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
@@ -58,7 +71,21 @@ class EventContributionInput extends React.Component {
                     {/* Contribution without drinks value */}
                     <FormControl fullWidth className={classes.margin}>
                         <CurrencyFormat
+                            value={event.suggestedContribution.withoutDrinks}
+                            onValueChange={(e) => {
+                                let updatedEvent = {
+                                    ...event, // Clones everything from original event
+                                    suggestedContribution: { //override the given property
+                                        ...event.suggestedContribution, // Clones everything from event.user
+                                        withoutDrinks: e.floatValue // Overrides 'withDrinks' value
+                                    }
+                                };
+                                this.setState({ event: updatedEvent })
+                            }}
                             customInput={Input}
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            decimalSeparator=","
                             prefix="R$"
                             placeholder="Sem bebida"
                             startAdornment={<InputAdornment position="start" className={classes.primaryColor} >

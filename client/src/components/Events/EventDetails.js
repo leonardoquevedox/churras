@@ -125,7 +125,6 @@ class EventDetails extends React.Component {
                                         />
                                     }
                                 </InputMask>
-
                             </FormControl>
                         </div>
                     </Grid>

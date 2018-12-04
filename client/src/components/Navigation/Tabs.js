@@ -6,7 +6,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CalendarIcon from '@material-ui/icons/CalendarTodayOutlined'
-import ContactsIcon from '@material-ui/icons/Contacts';
 import { Hidden } from '@material-ui/core';
 import withRouter from 'react-router-dom/withRouter';
 

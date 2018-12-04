@@ -92,6 +92,7 @@ class EventDetailsPage extends Component {
                                 style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
                                 onSave={(data) => {
                                     let updatedEvent = Object.assign(event, data);
+                                    console.log(data);
                                     this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 3 }) });
                                 }}
                             />
