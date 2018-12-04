@@ -35,7 +35,7 @@ async function generate() {
     let client = getApiClient();
     let indexPath = path.join(apiClientDir, '/index.js'); // Sets the module output where the exports will live
     let routesPath = path.join(apiClientDir, '/API.js'); // Sets the routes output where the actual logics will be stored
-    let commonjs = await babel.transform(client, { plugins: ['@babel/plugin-transform-modules-commonjs'] }).code; // Adapts the code with babel for compatibilty
+    let commonjs = await babel.transform(client, { plugins: ['@babel/plugin-transform-modules-commonjs'] }).code.replace("use strict", ""); // Adapts the code with babel for compatibilty
     fs.ensureDirSync(apiClientDir); // Creates the output dir
     fs.writeFileSync(routesPath, commonjs); // Writes the routes logics file
     fs.writeFileSync(indexPath, getIndexFile(routesPath)); // Writes the defition file for Typescript compatibility

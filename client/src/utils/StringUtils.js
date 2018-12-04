@@ -1,12 +1,11 @@
 export default class StringUtils {
     static toCPF(str) {
-        return str.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
+        return str.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
     };
 
     static numbersOnly(str) {
         return str.replace(/[^\d]/g, "");
     };
-
 
     static contaisNumbers(str) {
         let numbersOnString = str.match(/\d+/g);

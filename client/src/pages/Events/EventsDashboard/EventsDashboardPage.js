@@ -104,21 +104,22 @@ class EventsDashboardPage extends Component {
   };
 
   componentDidMount() {
-    this.setState({ accessToken: AuthUtils.getToken() });
+    this.setState({ accessToken: AuthUtils.getToken() }, () => {
+      this.getEvents();
+    });
   }
 
   getEvents() {
     this.setState({ isLoading: true }); // Sets loading state 
     API.getEventsByUser({ xAccessToken: this.state.accessToken }).then((response) => { // In case of success...
-      AuthUtils.storeProfile(response.data);
-      this.props.history.push('/home');
+      this.setState({ events: response.data });
     }).catch((error) => {  // In case of error...
       this.setState({ // Shows error message
         authError: {
           ...this.state.authError,
           show: true,
-          title: 'Ops! Houve um erro no processo de autenticação.',
-          message: 'Verifique suas credenciais e tente novamente ;)'
+          title: 'Ops! Houve um erro ao buscar sua lista de churrascos.',
+          message: 'Por favor, tente novamente mais tarde.'
         },
         isLoading: false
       });

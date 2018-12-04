@@ -13,7 +13,7 @@ import EmailIcon from '@material-ui/icons/Email';
 
 import ObjectUtils from '../../../utils/ObjectUtils';
 import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert';
-import * as API from '../../../api/ApiClient';
+import API from '../../../api';
 
 const styles = theme => ({
   main: {

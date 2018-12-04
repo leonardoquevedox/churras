@@ -120,7 +120,7 @@ class SigninPage extends Component {
   componentDidMount() { }
 
   isValidSignupForm() {
-    return ObjectUtils.hasKeys(this.state.user, ['email', 'password']);
+    return ObjectUtils.hasKeys(this.state.user, ['email', 'password']) && StringUtils.isValidEmail(this.state.user.email);
   }
 
   authenticate() {
