@@ -218,7 +218,6 @@ class SigninPage extends Component {
                           user: { ...user, email: e.target.value }
                         })
                       }}
-                      style={{ padding: "10px" }}
                       placeholder="Teu e-mail"
                       autoComplete="true"
                       startAdornment={
@@ -240,7 +239,6 @@ class SigninPage extends Component {
                           user: { ...user, password: e.target.value }
                         })
                       }}
-                      style={{ padding: "10px" }}
                       placeholder="Tua senha"
                       autoComplete="true"
                       startAdornment={

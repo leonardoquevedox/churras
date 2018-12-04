@@ -8,7 +8,11 @@ const styles = theme => ({
         margin: "auto",
         borderRadius: "50%",
         backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
+        [theme.breakpoints.down('md')]: {
+            height: "175px",
+            width: "175px",
+        }
     },
     picOptions: {
         width: "100%",
@@ -46,8 +50,8 @@ class EventPictureInput extends React.Component {
             <section style={{ display: "block", textAlign: "center" }}>
                 {/* Picture preview */}
                 <div className={classes.picPreview} style={{ backgroundImage: `url('./barbecue-${this.state.selected.src}.jpg')` }}></div>
+                {/* Picture options */}
                 <div className={classes.picOptions}>
-                    {/* Picture options */}
                     {this.pictures.map((picture, index) =>
                         <div
                             onClick={(e) => { this.setState({ selected: picture }) }}

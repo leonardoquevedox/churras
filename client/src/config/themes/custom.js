@@ -24,6 +24,9 @@ const custom = createMuiTheme({
                 padding: '0 30px',
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
             },
+            outlined: {
+                borderRadius: '20px'
+            },
             // Name of the rule
             fab: {
                 // Some CSS
@@ -37,6 +40,9 @@ const custom = createMuiTheme({
             }
         },
         MuiInput: {
+            root: {
+                padding: '10px',
+            },
             underline: {
                 '&:before': {
                     borderBottom: '1px solid rgba(20, 20, 20, 0.2)'

@@ -13,26 +13,8 @@ const styles = theme => ({
         maxWidth: 400,
         height: '100%'
     },
-    media: {
-        height: 0,
-        backgroundPosition: 'top',
-        paddingTop: '150px', // 16:9
-    },
     actions: {
         display: 'flex',
-    },
-    expand: {
-        transform: 'rotate(0deg)',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-        marginLeft: 'auto',
-        [theme.breakpoints.up('sm')]: {
-            marginRight: -8,
-        },
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
     },
     avatar: {
         backgroundColor: theme.palette.primary.main,
@@ -51,6 +33,9 @@ const styles = theme => ({
     cardTitle: {
         color: '#444444',
         textTransform: 'uppercase'
+    },
+    cardContent: {
+        textAlign: 'center'
     }
 })
 
@@ -67,11 +52,7 @@ class EventGuest extends React.Component {
                 <CardHeader
                     className={classes.cardHeader}
                     classes={{ title: classes.cardTitle }}
-                    avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
-                            {guest.name[0]}
-                        </Avatar>
-                    }
+                    avatar={<Avatar aria-label="Recipe" className={classes.avatar}> {guest.name[0]} </Avatar>}
                     title={guest.name}
                     subheader={guest.email}
                 />
@@ -83,10 +64,7 @@ class EventGuest extends React.Component {
                         autoComplete="true"
                         autoCapitalize="true"
                         startAdornment={
-                            <InputAdornment
-                                position="start"
-                                style={{ color: theme.palette.primary.main }}
-                            >
+                            <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
                                 <ContributionIcon />
                             </InputAdornment>
                         }
@@ -94,7 +72,6 @@ class EventGuest extends React.Component {
                     <FormControlLabel
                         control={
                             <Switch
-
                                 checked={this.state.withDrinks}
                                 onChange={(e) => { this.setState({ withDrinks: e.target.checked }) }}
                                 value="checkedB"
@@ -103,10 +80,11 @@ class EventGuest extends React.Component {
                         }
                         label="Com bebida"
                     />
+                    <Button color="primary" variant="outlined" className={classes.textCenter}>
+                        Incluir no churrasco
+                    </Button>
                 </CardContent>
-                <Button color="primary" variant="outlined" className={classes.textCenter}>
-                    Incluir no churrasco
-                </Button>
+
             </Card>
         )
     }

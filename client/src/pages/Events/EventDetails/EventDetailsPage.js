@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Tabs, Tab } from '@material-ui/core';
 import EventDetails from '../../../components/Events/EventDetails'
+import EventContributionInput from '../../../components/Events/EventContributionInput'
 import EventGuestsList from '../../../components/Events/EventGuestsList'
 
 const styles = theme => ({
@@ -36,7 +37,7 @@ const styles = theme => ({
 
 class EventDetailsPage extends Component {
     state = {
-        selectedTab: 0
+        selectedTab: 1
     }
 
     componentDidMount() { }
@@ -49,15 +50,19 @@ class EventDetailsPage extends Component {
                     <div className={classes.hero}>
                         <div className={classes.content}>
                             <Tabs color="primary" fullWidth value={this.state.selectedTab}>
-                                <Tab value={0} label="Informações" onClick={(e) => { this.setState({ selectedTab: 0 }) }} />
-                                <Tab value={1} label="Participantes" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                                <Tab value={1} label="1. Informações" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                                <Tab value={2} label="2. Contribuições" onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
+                                <Tab value={3} label="3. Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
                             </Tabs>
                             <EventDetails
-                                onSave={(e) => { this.setState({ selectedTab: 1 }) }}
-                                style={{ display: (this.state.selectedTab === 0 ? 'block' : 'none') }}
-                            />
-                            <EventGuestsList 
+                                onSave={(e) => { this.setState({ selectedTab: 2 }) }}
                                 style={{ display: (this.state.selectedTab === 1 ? 'block' : 'none') }}
+                            />
+                            <EventContributionInput
+                                onSave={(e) => { this.setState({ selectedTab: 3 }) }}
+                                style={{ display: (this.state.selectedTab === 2 ? 'block' : 'none') }} />
+                            <EventGuestsList
+                                style={{ display: (this.state.selectedTab === 3 ? 'block' : 'none') }}
                             />
                         </div>
                     </div>
