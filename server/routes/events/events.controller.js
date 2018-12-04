@@ -17,6 +17,7 @@ const EventCtrl = module.exports = {
     save: async function (event) {
         event.isNew = !(event && event._id); // Checks the event is being created
         if (!event.isNew) event = DatabaseService.purify(event); // Removes metadata in case is not
+        console.log(event);
         let saved = event.isNew ? await Event.create(event) : await Event.findOneAndUpdate({ _id: event._id }, event, { new: true }); // Creates pet with the given information
         return saved; // Returns the saved event
     },

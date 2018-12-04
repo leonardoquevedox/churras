@@ -5,7 +5,7 @@ import { Input, FormControl, InputAdornment, Typography, Grid } from '@material-
 import CalendarIcon from '@material-ui/icons/CalendarToday'
 import BubbleIcon from '@material-ui/icons/BubbleChart'
 import ObservationsIcon from '@material-ui/icons/NewReleases'
-import EventPictureInput from './EventPictureInput'
+import EventPicture from './EventPicture'
 import InputMask from 'react-input-mask'
 import moment from 'moment-mini'
 
@@ -68,28 +68,31 @@ class EventDetails extends React.Component {
         this.state = {
             event: this.props.event || { // Loads event data or initializes it if is empty
                 title: '',
-                picture: EventPictureInput.pictures[0],
+                picture: EventPicture.pictures[0],
                 scheduledTo: '',
                 observations: ''
             }
         }
+        this.state.event.formattedDate = (new Date(this.state.event.scheduledTo)).toLocaleDateString('pt-BR');
     }
 
 
     isValidEventForm() {
         return ObjectUtils.hasKeys(this.state.event, ['title', 'scheduledTo', 'observations'])
     }
+
     format(event) {
-        let parsedDate = event.scheduledTo instanceof Date ? event.scheduledTo : moment(event.scheduledTo, 'DD/MM').toDate() // Parses event date
+        let parsedDate = moment(event.formattedDate, 'DD/MM').toDate() // Parses event date
         return Object.assign(event, { scheduledTo: parsedDate })
     }
+
     render() {
         const { event } = this.state
         const { classes, style, readOnly } = this.props
         return (
             <div style={{ ...style }} className={classes.fullWidthContent}>
                 <Grid container spacing={16}>
-                    <Grid item xs={12} md={readOnly ? 12 : 6}>
+                    <Grid item xs={12} md={readOnly ? 6 : 6}>
                         <div className={`${classes.maxWidthContainer} ${readOnly ? "" : classes.firstColumn}`}>
                             <div className={classes.bottomDivider} >
                                 {/* Image input message */}
@@ -102,7 +105,7 @@ class EventDetails extends React.Component {
                                     {readOnly ? '' : '1. Escolha a imagem do evento: '}
                                 </Typography>
                                 {/* Image input */}{}
-                                <EventPictureInput
+                                <EventPicture
                                     readOnly={readOnly}
                                     event={event}
                                     onChange={(picture) => {
@@ -125,11 +128,11 @@ class EventDetails extends React.Component {
                                 <InputMask
                                     mask='99/99'
                                     maskChar='X'
-                                    value={event.scheduledTo}
+                                    value={event.formattedDate}
                                     disableUnderline={readOnly}
                                     readOnly={readOnly}
                                     onChange={(e) => {
-                                        this.setState({ event: { ...event, scheduledTo: e.target.value } })
+                                        this.setState({ event: { ...event, formattedDate: e.target.value } })
                                     }}
                                 >
                                     {/* Based on the mask properties... */}
@@ -150,7 +153,7 @@ class EventDetails extends React.Component {
                         </div>
                     </Grid>
                     {/* Event information row */}
-                    <Grid item xs={12} md={readOnly ? 12 : 6}>
+                    <Grid item xs={12} md={readOnly ? 6 : 6}>
                         <form className={`${classes.maxWidthContainer} ${readOnly ? "" : classes.secondColumn}`}>
                             {/* Event title input message */}
                             <Typography
@@ -210,7 +213,6 @@ class EventDetails extends React.Component {
                                     </InputAdornment>}
                                 />
                             </FormControl>
-
                         </form>
                     </Grid>
                     {/* Save button */}

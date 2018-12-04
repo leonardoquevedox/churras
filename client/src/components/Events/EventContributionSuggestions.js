@@ -33,7 +33,6 @@ class EventContributionInput extends React.Component {
             event: this.props.event && this.props.event.suggestedContribution ? // Verifies if event has the proper data
             this.props.event : { suggestedContribution: {} } // Loads event data or initializes it if is empty
         }
-        console.log(this.state)
     }
 
     render() {

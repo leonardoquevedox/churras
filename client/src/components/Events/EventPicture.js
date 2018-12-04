@@ -74,7 +74,6 @@ class EventPictureInput extends React.Component {
 
     render() {
         const { classes, readOnly } = this.props;
-        console.log(this.props);
         return (
             <section style={{ display: 'inline', textAlign: 'center' }}>
                 {/* Picture preview */}

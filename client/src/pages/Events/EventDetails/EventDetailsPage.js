@@ -7,7 +7,7 @@ import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
 import CheckIcon from '@material-ui/icons/Check'
 import EventDetails from '../../../components/Events/EventDetails'
-import EventContributionInput from '../../../components/Events/EventContributionInput'
+import EventContributionSuggestions from '../../../components/Events/EventContributionSuggestions'
 import EventGuestsList from '../../../components/Events/EventGuestsList'
 
 import API from '../../../api'
@@ -38,8 +38,8 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    paddingTop: {
-        paddingTop: '16px'
+    padding: {
+        padding: '16px'
     },
     fab: {
         position: 'fixed',
@@ -129,19 +129,19 @@ class EventDetailsPage extends Component {
                                         <Tab value={3} label='Participantes' onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
                                     </Tabs>
                                 }
-                                <Grid container spacing={0} className={readOnly ? classes.paddingTop : ''}>
-                                    <Grid item xs={12} md={readOnly ? 6 : 12}>
+                                <Grid container spacing={16} className={readOnly ? classes.padding : ''}>
+                                    <Grid item xs={12} md={readOnly ? 12 : 12}>
                                         <EventDetails
                                             event={event}
                                             readOnly={readOnly}
-                                            style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
+                                            style={{ display: (selectedTab === 1 || readOnly ? 'block' : 'none') }}
                                             onSave={(data) => {
                                                 let updatedEvent = Object.assign(event, data)
                                                 this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) })
                                             }}
                                         />
                                     </Grid>
-                                    <Grid item xs={12} md={readOnly ? 6 : 12}>
+                                    <Grid item xs={12} md={readOnly ? 12 : 12}>
                                         <EventGuestsList
                                             event={event}
                                             readOnly={readOnly}
@@ -149,7 +149,7 @@ class EventDetailsPage extends Component {
                                         />
                                     </Grid>
                                 </Grid>
-                                <EventContributionInput
+                                <EventContributionSuggestions
                                     event={event}
                                     readOnly={readOnly}
                                     style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
@@ -175,8 +175,12 @@ class EventDetailsPage extends Component {
                         aria-label='Add'
                         size='large'
                         className={classes.fab}
-                        onClick={(e) => { this.setState({ readOnly: !this.state.readOnly }) }}
-                    >
+                        onClick={(e) => {
+                            if (!this.state.readOnly) // In case the user is editing...
+                                this.saveEvent(this.state.event, () => { this.setState({ readOnly: true, selectedTab: 1 }) }) // Saves the event...
+                            else // Otherwise, just enable editions
+                                this.setState({ readOnly: false })
+                        }}>
                         {readOnly && <EditIcon />}
                         {!readOnly && <CheckIcon />}
                     </Fab>
