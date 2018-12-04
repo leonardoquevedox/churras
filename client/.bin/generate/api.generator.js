@@ -13,7 +13,7 @@ const exec = require('shelljs').exec;
 const fs = require('fs-extra');
 const path = require('path');
 
-const rootPath = path.resolve(__dirname, '../../../../');
+const rootPath = path.resolve(__dirname, '../../../');
 const appRoot = path.join(rootPath, 'client');
 const serverRoot = path.join(rootPath, 'server');
 const apiClientDir = path.join(appRoot, 'src', 'api'); // Sets the output filename
@@ -25,8 +25,8 @@ function getApiClient() {
     const swagger = require(path.join(serverRoot, 'swagger.json'));
     let opt = {
         swagger: swagger, // Swagger.json file
-        moduleName: 'ApiClient', // Exported module name
-        className: 'ApiClient' // Exported class name
+        moduleName: 'Client', // Exported module name
+        className: 'Client' // Exported class name
     };
     return swaggerGen(opt); // Generates the code
 }
@@ -34,17 +34,17 @@ function getApiClient() {
 async function generate() {
     let client = getApiClient();
     let indexPath = path.join(apiClientDir, '/index.js'); // Sets the module output where the exports will live
-    let routesPath = path.join(apiClientDir, '/ApiClient.js'); // Sets the routes output where the actual logics will be stored
+    let routesPath = path.join(apiClientDir, '/API.js'); // Sets the routes output where the actual logics will be stored
     let commonjs = await babel.transform(client, { plugins: ['@babel/plugin-transform-modules-commonjs'] }).code; // Adapts the code with babel for compatibilty
     fs.ensureDirSync(apiClientDir); // Creates the output dir
-    fs.writeFileSync(routesPath, client); // Writes the routes logics file
-    // fs.writeFileSync(indexPath, getIndexFile(routesPath)); // Writes the defition file for Typescript compatibility
+    fs.writeFileSync(routesPath, commonjs); // Writes the routes logics file
+    fs.writeFileSync(indexPath, getIndexFile(routesPath)); // Writes the defition file for Typescript compatibility
     console.log((`☮ API Client Generator: API client generated successfully!`.green.bold)); // Finishes the build
     process.exit();
 };
 
 function getIndexFile(routesPath) {
-    return `export default "./routes";\nexport { API };`; // Gets the index file content
+    return `import * as API from "./API";\nexport default API;`; // Gets the index file content
 };
 
 generate();

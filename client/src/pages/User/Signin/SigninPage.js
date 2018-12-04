@@ -17,7 +17,8 @@ import Link from 'react-router-dom/Link';
 import AuthUtils from '../../../utils/AuthUtils';
 import StringUtils from '../../../utils/StringUtils';
 import ObjectUtils from '../../../utils/ObjectUtils';
-import * as API from '../../../api/ApiClient';
+import API from '../../../api';
+
 import SimpleAlertDialog from "../../../components/Interaction/SimpleAlert";
 
 const styles = theme => ({

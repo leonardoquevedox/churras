@@ -59,7 +59,7 @@ router.get('/by-user', auth.isAuthenticated(), async (req, res) => {
     }
 }).describe({
     tags: [router.entity],
-    operationId: "getEvent",
+    operationId: "getEventsByUser",
     responses: SwaggerUtils.defaultResponses(),
     parameters: [SwaggerUtils.authParam()]
 });

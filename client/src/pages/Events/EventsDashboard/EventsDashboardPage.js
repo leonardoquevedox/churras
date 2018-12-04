@@ -1,3 +1,4 @@
+// --- 3rd party imports
 import React, { Component } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import { withRouter } from 'react-router-dom'
@@ -5,6 +6,11 @@ import { withStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
+// --- Application Core imports
+import API from '../../../api';
+// --- Utils imports
+import AuthUtils from '../../../utils/AuthUtils';
+// ---- Components imports
 import EventsList from '../../../components/Events/EventsList'
 
 const styles = theme => ({
@@ -93,10 +99,31 @@ const styles = theme => ({
 
 class EventsDashboardPage extends Component {
   state = {
+    accessToken: "",
     events: []
   };
 
-  componentDidMount() { }
+  componentDidMount() {
+    this.setState({ accessToken: AuthUtils.getToken() });
+  }
+
+  getEvents() {
+    this.setState({ isLoading: true }); // Sets loading state 
+    API.getEventsByUser({ xAccessToken: this.state.accessToken }).then((response) => { // In case of success...
+      AuthUtils.storeProfile(response.data);
+      this.props.history.push('/home');
+    }).catch((error) => {  // In case of error...
+      this.setState({ // Shows error message
+        authError: {
+          ...this.state.authError,
+          show: true,
+          title: 'Ops! Houve um erro no processo de autenticação.',
+          message: 'Verifique suas credenciais e tente novamente ;)'
+        },
+        isLoading: false
+      });
+    });
+  }
 
   render() {
     const { events } = this.state;
