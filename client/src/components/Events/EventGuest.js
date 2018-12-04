@@ -1,14 +1,14 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import { Input, InputAdornment, FormControlLabel, Grid, Checkbox, FormControl } from '@material-ui/core';
-import ContributionIcon from '@material-ui/icons/AttachMoney';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import EmailIcon from '@material-ui/icons/Email';
-import CurrencyFormat from 'react-currency-format';
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardContent from '@material-ui/core/CardContent'
+import { Input, InputAdornment, FormControlLabel, Grid, Checkbox, FormControl } from '@material-ui/core'
+import ContributionIcon from '@material-ui/icons/AttachMoney'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import EmailIcon from '@material-ui/icons/Email'
+import CurrencyFormat from 'react-currency-format'
 
 const styles = theme => ({
     card: {
@@ -73,7 +73,7 @@ class EventGuest extends React.Component {
     }
 
     render() {
-        const { classes, guest, theme } = this.props;
+        const { classes, guest, theme } = this.props
         return (
             <Card className={classes.card}>
                 <CardHeader
@@ -87,13 +87,13 @@ class EventGuest extends React.Component {
                         <Grid item xs={12}>
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
-                                    type="text"
-                                    placeholder="Nome"
-                                    autoComplete="true"
-                                    autoCapitalize="true"
+                                    type='text'
+                                    placeholder='Nome'
+                                    autoComplete='true'
+                                    autoCapitalize='true'
                                     classes={{ input: classes.smallFont }}
                                     startAdornment={
-                                        <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                                        <InputAdornment position='start' style={{ color: theme.palette.primary.main }}>
                                             <AccountCircle />
                                         </InputAdornment>
                                     }
@@ -101,13 +101,13 @@ class EventGuest extends React.Component {
                             </FormControl>
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
-                                    type="e-mail"
-                                    placeholder="e-mail"
-                                    autoComplete="true"
-                                    autoCapitalize="true"
+                                    type='e-mail'
+                                    placeholder='e-mail'
+                                    autoComplete='true'
+                                    autoCapitalize='true'
                                     classes={{ input: classes.smallFont }}
                                     startAdornment={
-                                        <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                                        <InputAdornment position='start' style={{ color: theme.palette.primary.main }}>
                                             <EmailIcon />
                                         </InputAdornment>
                                     }
@@ -116,9 +116,9 @@ class EventGuest extends React.Component {
                             <FormControl fullWidth className={classes.margin}>
                                 <CurrencyFormat
                                     customInput={Input}
-                                    prefix="R$"
-                                    placeholder="Contribuição"
-                                    startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                                    prefix='R$'
+                                    placeholder='Contribuição'
+                                    startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                         <ContributionIcon />
                                     </InputAdornment>} />
                             </FormControl>
@@ -129,11 +129,11 @@ class EventGuest extends React.Component {
                                     <Checkbox
                                         checked={this.state.withDrinks}
                                         onChange={(e) => { this.setState({ withDrinks: e.target.checked }) }}
-                                        value="checkedB"
-                                        color="primary"
+                                        value='checkedB'
+                                        color='primary'
                                     />
                                 }
-                                label="Com bebida"
+                                label='Com bebida'
                                 classes={{ label: `${classes.smallFont}` }}
                             />
                         </Grid>
@@ -143,21 +143,21 @@ class EventGuest extends React.Component {
                                     <Checkbox
                                         checked={this.state.paid}
                                         onChange={(e) => { this.setState({ paid: e.target.checked }) }}
-                                        value="checkedB"
-                                        color="primary"
+                                        value='checkedB'
+                                        color='primary'
                                     />
                                 }
-                                label="Pago"
+                                label='Pago'
                                 classes={{ label: `${classes.smallFont}` }}
                             />
                         </Grid>
                     </Grid>
                     {!guest.paid && /* Initial state */
-                        < Button color="primary" variant="contained" className={classes.button}>
+                        < Button color='primary' variant='contained' className={classes.button}>
                             {'Enviar convite'}
                         </Button>}
                     {guest.paid && /* Invited state */
-                        <Button color="primary" variant="contained" className={classes.button}>
+                        <Button color='primary' variant='contained' className={classes.button}>
                             {'Salvar'}
                         </Button>}
                 </CardContent>

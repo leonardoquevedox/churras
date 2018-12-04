@@ -1,12 +1,12 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import { Avatar } from '@material-ui/core';
-import withRouter from 'react-router-dom/withRouter';
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardMedia from '@material-ui/core/CardMedia'
+import CardContent from '@material-ui/core/CardContent'
+import { Avatar } from '@material-ui/core'
+import withRouter from 'react-router-dom/withRouter'
 
 const styles = theme => ({
     card: {
@@ -57,26 +57,26 @@ const styles = theme => ({
 class EventItem extends React.Component {
 
     render() {
-        const { classes, event, history } = this.props;
+        const { classes, event, history } = this.props
         return (
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.media}
                     image={`/barbecue-${event.picture ? event.picture.src : '01'}.jpg`}
-                    title="Paella dish"
+                    title='Paella dish'
                 />
                 <CardHeader
                     className={classes.cardHeader}
                     avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
+                        <Avatar aria-label='Recipe' className={classes.avatar}>
                             T
                         </Avatar>
                     }
                     title={event.title}
-                    subheader={(new Date(event.scheduledTo)).toLocaleDateString("pt-br")}
+                    subheader={(new Date(event.scheduledTo)).toLocaleDateString('pt-br')}
                 />
                 {/* <CardActions className={classes.actions} disableActionSpacing>
-                <IconButton aria-label="Share">
+                <IconButton aria-label='Share'>
                     <ShareIcon />
                 </IconButton>
             </CardActions> */}

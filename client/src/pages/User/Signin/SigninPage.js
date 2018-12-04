@@ -9,17 +9,17 @@ import { GitHubIcon } from 'rmw-shell/lib/components/Icons'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment, CircularProgress } from '@material-ui/core';
+import { Input, FormControl, InputAdornment, CircularProgress } from '@material-ui/core'
 import LockIcon from '@material-ui/icons/Lock'
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Link from 'react-router-dom/Link';
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import Link from 'react-router-dom/Link'
 
-import AuthUtils from '../../../utils/AuthUtils';
-import StringUtils from '../../../utils/StringUtils';
-import ObjectUtils from '../../../utils/ObjectUtils';
-import API from '../../../api';
+import AuthUtils from '../../../utils/AuthUtils'
+import StringUtils from '../../../utils/StringUtils'
+import ObjectUtils from '../../../utils/ObjectUtils'
+import API from '../../../api'
 
-import SimpleAlertDialog from "../../../components/Interaction/SimpleAlert";
+import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert'
 
 const styles = theme => ({
   main: {
@@ -41,7 +41,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
-    color: "#666666"
+    color: '#666666'
   },
   text: {
     display: 'flex',
@@ -66,7 +66,7 @@ const styles = theme => ({
     fontSize: 14,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
-      maxWidth: "300px"
+      maxWidth: '300px'
     },
   },
   headline: {
@@ -91,10 +91,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   },
   fullWidthForm: {
-    width: "100%",
-    maxWidth: "400px",
-    padding: "16px",
-    display: "inline-grid"
+    width: '100%',
+    maxWidth: '400px',
+    padding: '16px',
+    display: 'inline-grid'
   },
   buttonProgress: {
     color: 'white',
@@ -110,51 +110,51 @@ class SigninPage extends Component {
 
   state = {
     user: {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     },
     isLoading: false,
-    authError: { show: false, title: "", message: "" }
+    authError: { show: false, title: '', message: '' }
   }
 
   componentDidMount() { }
 
   isValidSignupForm() {
-    return ObjectUtils.hasKeys(this.state.user, ['email', 'password']) && StringUtils.isValidEmail(this.state.user.email);
+    return ObjectUtils.hasKeys(this.state.user, ['email', 'password']) && StringUtils.isValidEmail(this.state.user.email)
   }
 
   authenticate() {
-    this.setState({ isLoading: true }); // Sets loading state 
+    this.setState({ isLoading: true }) // Sets loading state 
     API.authenticateUser({ user: this.state.user }).then((response) => { // In case of success...
-      AuthUtils.storeProfile(response.data);
-      this.props.history.push('/');
+      AuthUtils.storeProfile(response.data)
+      this.props.history.push('/')
     }).catch((error) => {  // In case of error...
       this.setState({ // Shows error message
         authError: {
           ...this.state.authError,
           show: true,
           title: 'Ops! Houve um erro no processo de autenticação.',
-          message: 'Verifique suas credenciais e tente novamente ;)'
+          message: 'Verifique suas credenciais e tente novamente )'
         },
         isLoading: false
-      });
-    });
+      })
+    })
   }
 
   render() {
-    const { classes, theme } = this.props;
-    const { user, isLoading, authError } = this.state;
+    const { classes, theme } = this.props
+    const { user, isLoading, authError } = this.state
     return (
       <div className={classes.main}>
         {/* Head */}
         <Helmet>
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
-          <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
+          <meta name='theme-color' content={theme.palette.primary.main} />
+          <meta name='apple-mobile-web-app-status-bar-style' content={theme.palette.primary.main} />
+          <meta name='msapplication-navbutton-color' content={theme.palette.primary.main} />
           <title>Churras</title>
         </Helmet>
         {/* View header */}
-        <AppBar color="primary" position='static'>
+        <AppBar color='primary' position='static'>
           <Toolbar disableGutters>
             {/* Application name */}
             <Typography align='center'
@@ -166,7 +166,7 @@ class SigninPage extends Component {
             </Typography>
             <div style={{ flex: 1 }} />
             {/* Github icon */}
-            <Tooltip id="tooltip-icon2" title="GitHub repository">
+            <Tooltip id='tooltip-icon2' title='GitHub repository'>
               <IconButton name='github' aria-label='Open Github' color='inherit' href='https://github.com/leopq/churras' target='_blank' rel='noopener'>
                 <GitHubIcon />
               </IconButton>
@@ -181,9 +181,9 @@ class SigninPage extends Component {
               <img
                 src='/icon.png'
                 alt='Material-UI Logo'
-                width="125"
-                height="125"
-                style={{ margin: "auto", display: "block" }}
+                width='125'
+                height='125'
+                style={{ margin: 'auto', display: 'block' }}
               />
               {/* View text content */}
               <div className={classes.text}>
@@ -211,18 +211,18 @@ class SigninPage extends Component {
                   <FormControl fullWidth className={classes.margin}>
                     {/* E-mail input */}
                     <Input
-                      type="e-mail"
+                      type='e-mail'
                       value={user.email}
                       onChange={(e) => {
                         this.setState({
                           user: { ...user, email: e.target.value }
                         })
                       }}
-                      placeholder="Teu e-mail"
-                      autoComplete="true"
+                      placeholder='Teu e-mail'
+                      autoComplete='true'
                       startAdornment={
                         <InputAdornment
-                          position="start"
+                          position='start'
                           className={classes.primaryColor}
                         >
                           <AccountCircle />
@@ -233,17 +233,17 @@ class SigninPage extends Component {
                   {/* Password input */}
                   <FormControl fullWidth className={classes.margin}>
                     <Input
-                      type="password"
+                      type='password'
                       onChange={(e) => {
                         this.setState({
                           user: { ...user, password: e.target.value }
                         })
                       }}
-                      placeholder="Tua senha"
-                      autoComplete="true"
+                      placeholder='Tua senha'
+                      autoComplete='true'
                       startAdornment={
                         <InputAdornment
-                          position="start"
+                          position='start'
                           className={classes.primaryColor}
                         >
                           <LockIcon />
@@ -272,8 +272,8 @@ class SigninPage extends Component {
                     color='inherit'
                     className={classes.subtitle}
                   >
-                    {'Ainda não tem uma conta?'}&nbsp;
-                    <Link className={classes.primaryColor} to="signup">Cadastre-se</Link>
+                    {'Ainda não tem uma conta?'}&nbsp
+                    <Link className={classes.primaryColor} to='signup'>Cadastre-se</Link>
                   </Typography>
                 </div>
                 {/* Password Recovery */}
@@ -283,8 +283,8 @@ class SigninPage extends Component {
                     component='div'
                     color='inherit'
                     className={classes.subtitle}>
-                    {'Esqueceu sua senha?'}&nbsp;
-                    <Link className={classes.primaryColor} to="password-recovery">Clique aqui</Link>
+                    {'Esqueceu sua senha?'}&nbsp
+                    <Link className={classes.primaryColor} to='password-recovery'>Clique aqui</Link>
                   </Typography>
                 </div>
                 {/* Error dialog */}

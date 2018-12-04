@@ -27,7 +27,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
-    color: "#666666"
+    color: '#666666'
   },
   text: {
     display: 'flex',
@@ -56,12 +56,12 @@ class ContactDetailsPage extends Component {
   componentDidMount() { }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme } = this.props
     theme.palette.primary = {
-      contrastText: "#fff",
-      dark: "#666666",
-      light: "#7986cb",
-      main: "#fe1800"
+      contrastText: '#fff',
+      dark: '#666666',
+      light: '#7986cb',
+      main: '#fe1800'
     }
     return (
       <div className={classes.main}>

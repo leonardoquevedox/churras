@@ -1,20 +1,20 @@
-import config from '../config/index';
-import StringUtils from './StringUtils';
+import config from '../config/index'
+import StringUtils from './StringUtils'
 
 export default class AuthUtils {
 
     /* Class attributes */
-    static USER_TOKEN_KEY = StringUtils.toUnderscoreCase(`${config.application_name}_USER_TOKEN`).toUpperCase();
-    static USER_PROFILE_KEY = StringUtils.toUnderscoreCase(`${config.application_name}_USER_PROFILE`).toUpperCase();
+    static USER_TOKEN_KEY = StringUtils.toUnderscoreCase(`${config.application_name}_USER_TOKEN`).toUpperCase()
+    static USER_PROFILE_KEY = StringUtils.toUnderscoreCase(`${config.application_name}_USER_PROFILE`).toUpperCase()
 
     /**
     * @function storeProfile
     * Sets both logged in user and token within the app.
     */
     static storeProfile(user) {
-        if (!user) return;
-        AuthUtils.setUser(user);
-        AuthUtils.setToken(user.token);
+        if (!user) return
+        AuthUtils.setUser(user)
+        AuthUtils.setToken(user.token)
     }
 
     /**
@@ -24,7 +24,7 @@ export default class AuthUtils {
     static getUser() {
         return localStorage.hasOwnProperty(AuthUtils.USER_PROFILE_KEY) ?
             JSON.parse(localStorage[AuthUtils.USER_PROFILE_KEY]) :
-            undefined;
+            undefined
     }
 
     /**
@@ -32,7 +32,7 @@ export default class AuthUtils {
      * Checks if the user is logged in on the app.
      */
     static setUser(user) {
-        return localStorage[AuthUtils.USER_PROFILE_KEY] = JSON.stringify(user);
+        return localStorage[AuthUtils.USER_PROFILE_KEY] = JSON.stringify(user)
     }
 
     /**
@@ -42,7 +42,7 @@ export default class AuthUtils {
     static getToken() {
         return localStorage.hasOwnProperty(AuthUtils.USER_TOKEN_KEY) ?
             JSON.parse(localStorage[AuthUtils.USER_TOKEN_KEY]) :
-            undefined;
+            undefined
     }
 
     /**
@@ -50,7 +50,7 @@ export default class AuthUtils {
    * Sets the logged in user within the app.
    */
     static setToken(token) {
-        return localStorage[AuthUtils.USER_TOKEN_KEY] = JSON.stringify(token);
+        return localStorage[AuthUtils.USER_TOKEN_KEY] = JSON.stringify(token)
     }
 
     /**
@@ -58,6 +58,6 @@ export default class AuthUtils {
     * Checks if the user is logged in on the app.
     */
     static isLoggedIn() {
-        return localStorage[AuthUtils.USER_TOKEN_KEY] !== undefined;
+        return localStorage[AuthUtils.USER_TOKEN_KEY] !== undefined
     }
 }

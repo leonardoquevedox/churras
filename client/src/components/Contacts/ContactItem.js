@@ -1,10 +1,10 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import { Avatar } from '@material-ui/core';
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardContent from '@material-ui/core/CardContent'
+import { Avatar } from '@material-ui/core'
 
 const styles = theme => ({
     card: {
@@ -59,14 +59,14 @@ const styles = theme => ({
 class ContactItem extends React.Component {
 
     render() {
-        const { classes, contact } = this.props;
+        const { classes, contact } = this.props
         return (
             <Card className={classes.card}>
                 <CardHeader
                     className={classes.cardHeader}
                     classes={{ title: classes.cardTitle }}
                     avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
+                        <Avatar aria-label='Recipe' className={classes.avatar}>
                             {contact.name[0]}
                         </Avatar>
                     }

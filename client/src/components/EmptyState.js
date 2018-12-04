@@ -26,7 +26,7 @@ const styles = theme => ({
 class EmptyState extends React.Component {
 
     render() {
-        const { classes, message } = this.props;
+        const { classes, message } = this.props
         return (
             <div className={classes.content}>
                 <div className={classes.message}>

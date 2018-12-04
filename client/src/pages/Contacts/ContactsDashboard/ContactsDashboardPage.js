@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 
 import ContactsList from '../../../components/Contacts/ContactsList'
 
@@ -37,7 +37,7 @@ class ContactsPage extends Component {
   componentDidMount() { }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <div className={classes.main}>
         <div className={classes.root}>
@@ -47,8 +47,8 @@ class ContactsPage extends Component {
             </div>
           </div>
         </div>
-        <Tooltip id="tooltip-icon2" title="Adicionar pessoa" placement="top">
-          <Fab color="primary" aria-label="Add" size='large' className={classes.fab}>
+        <Tooltip id='tooltip-icon2' title='Adicionar pessoa' placement='top'>
+          <Fab color='primary' aria-label='Add' size='large' className={classes.fab}>
             <AddIcon />
           </Fab>
         </Tooltip>

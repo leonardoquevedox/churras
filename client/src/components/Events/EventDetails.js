@@ -1,15 +1,15 @@
 import Button from '@material-ui/core/Button'
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment, Typography, Grid } from '@material-ui/core';
-import CalendarIcon from '@material-ui/icons/CalendarToday';
-import BubbleIcon from '@material-ui/icons/BubbleChart';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import { Input, FormControl, InputAdornment, Typography, Grid } from '@material-ui/core'
+import CalendarIcon from '@material-ui/icons/CalendarToday'
+import BubbleIcon from '@material-ui/icons/BubbleChart'
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import EventPictureInput from './EventPictureInput'
-import InputMask from 'react-input-mask';
+import InputMask from 'react-input-mask'
 import moment from 'moment-mini'
 
-import ObjectUtils from '../../utils/ObjectUtils';
+import ObjectUtils from '../../utils/ObjectUtils'
 
 const styles = theme => ({
     maxWidthContainer: {
@@ -38,8 +38,8 @@ const styles = theme => ({
         display: 'block'
     },
     fullWidthContent: {
-        padding: "10px",
-        margin: "auto"
+        padding: '10px',
+        margin: 'auto'
     },
     datepicker: {
         marginTop: '-10px'
@@ -52,7 +52,7 @@ const styles = theme => ({
 class EventDetails extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             event: this.props.event || { // Loads event data or initializes it if is empty
                 title: '',
@@ -65,15 +65,15 @@ class EventDetails extends React.Component {
 
 
     isValidEventForm() {
-        return ObjectUtils.hasKeys(this.state.event, ['title', 'scheduledTo', 'observations']);
+        return ObjectUtils.hasKeys(this.state.event, ['title', 'scheduledTo', 'observations'])
     }
     format(event) {
-        let parsedDate = event.scheduledTo instanceof Date ? event.scheduledTo : moment(event.scheduledTo, 'DD/MM').toDate(); // Parses event date
-        return Object.assign(event, { scheduledTo: parsedDate });
+        let parsedDate = event.scheduledTo instanceof Date ? event.scheduledTo : moment(event.scheduledTo, 'DD/MM').toDate() // Parses event date
+        return Object.assign(event, { scheduledTo: parsedDate })
     }
     render() {
-        const { event } = this.state;
-        const { classes, style } = this.props;
+        const { event } = this.state
+        const { classes, style } = this.props
         return (
             <div style={{ ...style }} className={classes.fullWidthContent}>
                 <Grid container spacing={16}>
@@ -85,7 +85,7 @@ class EventDetails extends React.Component {
                                     align='left'
                                     color='inherit'
                                     gutterBottom
-                                    style={{ marginTop: "15px", color: "#888888" }}
+                                    style={{ marginTop: '15px', color: '#888888' }}
                                 >
                                     {'1. Escolha a imagem do evento: '}
                                 </Typography>
@@ -102,7 +102,7 @@ class EventDetails extends React.Component {
                                 align='left'
                                 color='inherit'
                                 gutterBottom
-                                style={{ marginTop: "15px", color: "#888888" }}
+                                style={{ marginTop: '15px', color: '#888888' }}
                             >
                                 {'2. Escolha a data do evento: '}
                             </Typography>
@@ -110,8 +110,8 @@ class EventDetails extends React.Component {
                             <FormControl fullWidth className={classes.margin}>
                                 {/* Masked input */}
                                 <InputMask
-                                    mask="99/99"
-                                    maskChar="X"
+                                    mask='99/99'
+                                    maskChar='X'
                                     value={event.scheduledTo}
                                     onChange={(e) => {
                                         this.setState({ event: { ...event, scheduledTo: e.target.value } })
@@ -122,10 +122,10 @@ class EventDetails extends React.Component {
                                         /* Renders Material UI input: */
                                         <Input
                                             {...inputProps}
-                                            type="tel"
-                                            placeholder="Quando vai rolar? (dd/mm)"
-                                            autoComplete="true"
-                                            startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                                            type='tel'
+                                            placeholder='Quando vai rolar? (dd/mm)'
+                                            autoComplete='true'
+                                            startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                                 <CalendarIcon />
                                             </InputAdornment>}
                                         />
@@ -142,23 +142,23 @@ class EventDetails extends React.Component {
                                 align='left'
                                 color='inherit'
                                 gutterBottom
-                                style={{ marginTop: "15px", color: "#888888" }}
+                                style={{ marginTop: '15px', color: '#888888' }}
                             >
                                 {'3. Escolha um título para o evento: '}
                             </Typography>
                             {/* Event title input */}
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
-                                    type="textarea"
+                                    type='textarea'
                                     value={event.title}
                                     onChange={(e) => {
                                         this.setState({
                                             event: { ...event, title: e.target.value }
                                         })
                                     }}
-                                    placeholder="Por que o evento vai ocorrer?"
-                                    autoComplete="true"
-                                    startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                                    placeholder='Por que o evento vai ocorrer?'
+                                    autoComplete='true'
+                                    startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                         <BubbleIcon />
                                     </InputAdornment>}
                                 />
@@ -168,14 +168,14 @@ class EventDetails extends React.Component {
                                 align='left'
                                 color='inherit'
                                 gutterBottom
-                                style={{ marginTop: "15px", color: "#888888" }}
+                                style={{ marginTop: '15px', color: '#888888' }}
                             >
                                 {'4. Adicione observações pra galera (opcional): '}
                             </Typography>
                             {/* Event title input */}
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
-                                    type="text"
+                                    type='text'
                                     value={event.observations}
                                     onChange={(e) => {
                                         this.setState({
@@ -183,10 +183,10 @@ class EventDetails extends React.Component {
                                         })
                                     }}
                                     multiline={true}
-                                    rows="6"
-                                    placeholder="Observações"
-                                    autoComplete="true"
-                                    startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                                    rows='6'
+                                    placeholder='Observações'
+                                    autoComplete='true'
+                                    startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                         <ChatBubbleIcon />
                                     </InputAdornment>}
                                 />
@@ -198,7 +198,7 @@ class EventDetails extends React.Component {
                     <Button
                         fullWidth
                         onClick={() => {
-                            let formatted = this.format(event);
+                            let formatted = this.format(event)
                             this.props.onSave(formatted)
                         }}
                         disabled={!this.isValidEventForm()}

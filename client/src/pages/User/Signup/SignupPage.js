@@ -6,14 +6,14 @@ import Typography from '@material-ui/core/Typography'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment, CircularProgress } from '@material-ui/core';
+import { Input, FormControl, InputAdornment, CircularProgress } from '@material-ui/core'
 import LockIcon from '@material-ui/icons/Lock'
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import EmailIcon from '@material-ui/icons/Email';
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import EmailIcon from '@material-ui/icons/Email'
 
-import ObjectUtils from '../../../utils/ObjectUtils';
-import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert';
-import API from '../../../api';
+import ObjectUtils from '../../../utils/ObjectUtils'
+import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert'
+import API from '../../../api'
 
 const styles = theme => ({
   main: {
@@ -108,26 +108,26 @@ class SigninPage extends Component {
   componentDidMount() { }
 
   isValidSignupForm(){
-   return ObjectUtils.hasKeys(this.state.user, ['name', 'email', 'password', 'passwordConfirmation']);
+   return ObjectUtils.hasKeys(this.state.user, ['name', 'email', 'password', 'passwordConfirmation'])
   }
 
   signup() {
-    this.setState({ isLoading: true }); // Sets loading state 
+    this.setState({ isLoading: true }) // Sets loading state 
     API.createUser({ user: this.state.user }).then((response) => { // In case of success...
-      console.log(response.data);
-      this.props.history.push('/home');
+      console.log(response.data)
+      this.props.history.push('/home')
     }).catch((error) => {  // In case of error...
-      let message = '';
+      let message = ''
       switch (error.response.status) {
         default:
-          message = 'Por favor, tente novamente mais tarde.';
-          break;
+          message = 'Por favor, tente novamente mais tarde.'
+          break
         case 409:
-          message = 'Já existe um usuário com este e-mail. Por favor, tente com outro endereço ou efetue o login.';
-          break;
+          message = 'Já existe um usuário com este e-mail. Por favor, tente com outro endereço ou efetue o login.'
+          break
         case 400:
-          message = 'Por favor, verifique as informações preenchidas e tente novamente ;)';
-          break;
+          message = 'Por favor, verifique as informações preenchidas e tente novamente )'
+          break
       }
       this.setState({ // Shows error message
         responseError: {
@@ -137,13 +137,13 @@ class SigninPage extends Component {
           message: message
         },
         isLoading: false
-      });
-    });
+      })
+    })
   }
 
   render() {
-    const { classes, theme } = this.props;
-    const { user, isLoading, responseError } = this.state;
+    const { classes, theme } = this.props
+    const { user, isLoading, responseError } = this.state
     return (
       <div className={classes.main}>
         <Helmet>

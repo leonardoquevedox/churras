@@ -5,7 +5,7 @@ export default class ObjectUtils {
     * Checks if an object has a list of given keys.
     */
     static hasKeys(obj, keys) {
-        return keys.every((key) => ObjectUtils.hasKey(obj, key));
+        return keys.every((key) => ObjectUtils.hasKey(obj, key))
     }
 
     /**
@@ -13,8 +13,8 @@ export default class ObjectUtils {
     * Checks if a given key exists on the object.
     */
     static hasKey(obj, key) {
-        return key.split(".").reduce(function (o, x) {
-            return (typeof o == "undefined" || o === null) ? o : o[x];
-        }, obj);
+        return key.split('.').reduce(function (o, x) {
+            return (typeof o == 'undefined' || o === null) ? o : o[x]
+        }, obj)
     }
 }

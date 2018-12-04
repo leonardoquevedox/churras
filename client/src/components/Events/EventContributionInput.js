@@ -1,17 +1,17 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment, Typography, Button } from '@material-ui/core';
-import CocktailIcon from '@material-ui/icons/LocalBar';
-import WaterIcon from '@material-ui/icons/LocalDrink';
-import ContributionIcon from '@material-ui/icons/AttachMoney';
-import CurrencyFormat from 'react-currency-format';
+import { Input, FormControl, InputAdornment, Typography, Button } from '@material-ui/core'
+import CocktailIcon from '@material-ui/icons/LocalBar'
+import WaterIcon from '@material-ui/icons/LocalDrink'
+import ContributionIcon from '@material-ui/icons/AttachMoney'
+import CurrencyFormat from 'react-currency-format'
 
 const styles = theme => ({
     fullWidthForm: {
-        width: "80%",
-        maxWidth: "600px",
-        padding: "16px",
-        margin: "auto"
+        width: '80%',
+        maxWidth: '600px',
+        padding: '16px',
+        margin: 'auto'
     },
     button: {
         marginTop: theme.spacing.unit * 3,
@@ -28,23 +28,23 @@ const styles = theme => ({
 class EventContributionInput extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             event: this.props.event && this.props.event.suggestedContribution ? // Verifies if event has the proper data
             this.props.event : { suggestedContribution: {} } // Loads event data or initializes it if is empty
         }
-        console.log(this.state);
+        console.log(this.state)
     }
 
     render() {
-        const { classes, style } = this.props;
-        const { event } = this.state;
+        const { classes, style } = this.props
+        const { event } = this.state
         return (
             <div style={{ ...style }}>
                 <form className={classes.fullWidthForm}>
                     {/* Contribution values */}
-                    <Typography align='center' variant='h6' color='inherit' gutterBottom style={{ marginTop: "15px" }}>
-                        <ContributionIcon style={{ verticalAlign: "middle" }} className={classes.primaryColor} />
+                    <Typography align='center' variant='h6' color='inherit' gutterBottom style={{ marginTop: '15px' }}>
+                        <ContributionIcon style={{ verticalAlign: 'middle' }} className={classes.primaryColor} />
                         {'Sugestão de valores pra galera:'}
                     </Typography>
                     {/* Contribution with drinks value */}
@@ -58,16 +58,16 @@ class EventContributionInput extends React.Component {
                                         ...event.suggestedContribution, // Clones everything from event.user
                                         withDrinks: e.floatValue // Overrides 'withDrinks' value
                                     }
-                                };
+                                }
                                 this.setState({ event: updatedEvent })
                             }}
                             customInput={Input}
                             decimalScale={2}
                             fixedDecimalScale={true}
-                            decimalSeparator=","
-                            prefix="R$"
-                            placeholder="Com bebida"
-                            startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                            decimalSeparator=','
+                            prefix='R$'
+                            placeholder='Com bebida'
+                            startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                 <CocktailIcon />
                             </InputAdornment>} />
                     </FormControl>
@@ -82,16 +82,16 @@ class EventContributionInput extends React.Component {
                                         ...event.suggestedContribution, // Clones everything from event.user
                                         withoutDrinks: e.floatValue // Overrides 'withDrinks' value
                                     }
-                                };
+                                }
                                 this.setState({ event: updatedEvent })
                             }}
                             customInput={Input}
                             decimalScale={2}
                             fixedDecimalScale={true}
-                            decimalSeparator=","
-                            prefix="R$"
-                            placeholder="Sem bebida"
-                            startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                            decimalSeparator=','
+                            prefix='R$'
+                            placeholder='Sem bebida'
+                            startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                 <WaterIcon />
                             </InputAdornment>} />
                     </FormControl>

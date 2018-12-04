@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import locales from '../../config/locales'
 import { Helmet } from 'react-helmet'
 import { addLocalizationData } from 'rmw-shell/lib/config/locales'
-import { withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core'
 import { withA2HS } from 'a2hs'
 import routes from '../../config/routes'
-import Switch from 'react-router-dom/Switch';
+import Switch from 'react-router-dom/Switch'
 import NavBar from '../../components/Navigation/NavBar'
 import Tabs from '../../components/Navigation/Tabs'
-import withRouter from 'react-router-dom/withRouter';
+import withRouter from 'react-router-dom/withRouter'
 
 const styles = theme => ({
   content: {
@@ -30,12 +30,12 @@ class Main extends Component {
   }
 
   render() {
-    const { theme, classes } = this.props;
+    const { theme, classes } = this.props
     theme.palette.primary = {
-      contrastText: "#fff",
-      dark: "#666666",
-      light: "#7986cb",
-      main: "#fe1800"
+      contrastText: '#fff',
+      dark: '#666666',
+      light: '#7986cb',
+      main: '#fe1800'
     }
     return <div className={classes.content}>
       <Helmet>
@@ -43,9 +43,9 @@ class Main extends Component {
         <link async rel='stylesheet' href='index.css' />
       </Helmet>
       <Helmet>
-        <meta name="theme-color" content={theme.palette.primary.main} />
-        <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
-        <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
+        <meta name='theme-color' content={theme.palette.primary.main} />
+        <meta name='apple-mobile-web-app-status-bar-style' content={theme.palette.primary.main} />
+        <meta name='msapplication-navbutton-color' content={theme.palette.primary.main} />
         <title>Churras</title>
       </Helmet>
       <NavBar />

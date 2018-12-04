@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import EmptyState from '../EmptyState'
 import ContactItem from './ContactItem'
-import { Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 
 const styles = theme => ({
     content: {
@@ -43,18 +43,18 @@ class ContactsList extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes } = this.props
         return (
             <div className={classes.content}>
                 {/* No contacts... */}
                 <div style={{ display: (this.state.contacts.length === 0 ? 'block' : 'none') }}>
                     <EmptyState
-                        message='Bah! Nenhum churrasco cadastrado por enquanto. Mas não te preocupa: É só clicar no botão ali embaixo pra criar um e convidar a galera ;)'
+                        message='Bah! Nenhum churrasco cadastrado por enquanto. Mas não te preocupa: É só clicar no botão ali embaixo pra criar um e convidar a galera )'
                     />
                 </div>
                 {/* Events! */}
                 <div style={{ display: (this.state.contacts.length > 0 ? 'block' : 'none') }}>
-                    <Grid container justify="flex-start" spacing={16}>
+                    <Grid container justify='flex-start' spacing={16}>
                         {this.state.contacts.map((contact, index) => (
                             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                                 <ContactItem contact={contact} />

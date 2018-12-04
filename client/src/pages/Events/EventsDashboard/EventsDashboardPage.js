@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 
 // --- Application Core imports
-import API from '../../../api';
+import API from '../../../api'
 // --- Utils imports
-import AuthUtils from '../../../utils/AuthUtils';
+import AuthUtils from '../../../utils/AuthUtils'
 // ---- Components imports
 import EventsList from '../../../components/Events/EventsList'
 
@@ -48,7 +48,7 @@ const styles = theme => ({
     fontSize: 18,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
-      maxWidth: "200px"
+      maxWidth: '200px'
     },
   },
   headline: {
@@ -85,22 +85,22 @@ const styles = theme => ({
 
 class EventsDashboardPage extends Component {
   state = {
-    accessToken: "",
+    accessToken: '',
     events: []
-  };
+  }
 
   componentDidMount() {
     this.setState({ accessToken: AuthUtils.getToken() }, () => {
-      this.getEvents();
-    });
+      this.getEvents()
+    })
   }
 
   getEvents() {
-    this.setState({ isLoading: true }); // Sets loading state 
+    this.setState({ isLoading: true }) // Sets loading state 
     API.getEventsList({ xAccessToken: this.state.accessToken }).then((response) => { // In case of success...
-      this.setState({ events: response.data });
+      this.setState({ events: response.data })
     }).catch((error) => {  // In case of error...
-      console.log(error);
+      console.log(error)
       this.setState({ // Shows error message
         authError: {
           ...this.state.authError,
@@ -109,13 +109,13 @@ class EventsDashboardPage extends Component {
           message: 'Por favor, tente novamente mais tarde.'
         },
         isLoading: false
-      });
-    });
+      })
+    })
   }
 
   render() {
-    const { events } = this.state;
-    const { classes, history } = this.props;
+    const { events } = this.state
+    const { classes, history } = this.props
     return (
       <div className={classes.main}>
         <div className={classes.root}>
@@ -123,8 +123,8 @@ class EventsDashboardPage extends Component {
             <EventsList events={events} />
           </div>
         </div>
-        <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
-          <Fab color="primary" aria-label="Add" size='large' className={classes.fab} onClick={(e) => { history.push('event') }}>
+        <Tooltip id='tooltip-icon2' title='Criar churrasco' placement='top'>
+          <Fab color='primary' aria-label='Add' size='large' className={classes.fab} onClick={(e) => { history.push('event') }}>
             <AddIcon />
           </Fab>
         </Tooltip>

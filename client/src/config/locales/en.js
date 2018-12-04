@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl'
 
 const messages = defineMessages({
   app_name: 'Churras',
@@ -146,6 +146,6 @@ const messages = defineMessages({
   collection: 'Collection',
   infinitelist: 'Infinitelist',
 
-});
+})
 
-export default messages;
+export default messages

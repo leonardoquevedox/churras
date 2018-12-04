@@ -1,12 +1,12 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme } from '@material-ui/core'
 
 const custom = createMuiTheme({
     palette: {
         primary: {
-            contrastText: "#fff",
-            dark: "#666666",
-            light: "#7986cb",
-            main: "#fe1800"
+            contrastText: '#fff',
+            dark: '#666666',
+            light: '#7986cb',
+            main: '#fe1800'
         }
     },
     overrides: {
@@ -70,6 +70,6 @@ const custom = createMuiTheme({
             }
         }
     }
-});
+})
 
-export default custom;
+export default custom

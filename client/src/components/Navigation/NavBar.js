@@ -1,28 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import { withStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 import CalendarIcon from '@material-ui/icons/CalendarToday'
-import SettingsIcon from '@material-ui/icons/Settings';
-import { Hidden } from '@material-ui/core';
-import withRouter from 'react-router-dom/withRouter';
+import SettingsIcon from '@material-ui/icons/Settings'
+import { Hidden } from '@material-ui/core'
+import withRouter from 'react-router-dom/withRouter'
 
 import routes from '../../config/routes'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const styles = theme => ({
     root: {
@@ -85,64 +85,64 @@ const styles = theme => ({
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
     },
-});
+})
 
 class MiniDrawer extends React.Component {
     state = {
         open: false,
         title: 'Churras'
-    };
+    }
 
     toggleDrawer = () => {
-        if (this.state.open) this.setState({ open: false });
-        else this.setState({ open: true });
-    };
+        if (this.state.open) this.setState({ open: false })
+        else this.setState({ open: true })
+    }
 
     componentDidMount() {
-        this.onRouteChanged();
+        this.onRouteChanged()
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
-            this.onRouteChanged();
+            this.onRouteChanged()
         }
     }
 
     onRouteChanged() {
         routes.protected.forEach((route) => {
             if (route.props.path === this.props.location.pathname) {
-                this.setState({ title: route.props.name });
+                this.setState({ title: route.props.name })
             }
-        });
+        })
     }
 
     render() {
-        const { classes, theme, history, location } = this.props;
+        const { classes, theme, history, location } = this.props
         return (
             <div className={classes.root}>
                 <AppBar
-                    position="fixed"
+                    position='fixed'
                     className={classes.appBar}
                 >
                     <Toolbar disableGutters>
                         <Hidden only={['xs']}>
                             <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
+                                color='inherit'
+                                aria-label='Open drawer'
                                 onClick={this.toggleDrawer}
                                 className={classes.menuButton}
                             >
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
-                        <Typography variant="h6" color="inherit" noWrap>
+                        <Typography variant='h6' color='inherit' noWrap>
                             {this.state.title}
                         </Typography>
                     </Toolbar>
                 </AppBar>
                 <Hidden only={['xs']}>
                     <Drawer
-                        variant="permanent"
+                        variant='permanent'
                         className={classes.drawer}
                         classes={{
                             paper: classNames({
@@ -160,7 +160,7 @@ class MiniDrawer extends React.Component {
                         <Divider />
                         <List>
                             <ListItem button onClick={(e) => {
-                                if (location.pathname.indexOf('event') === -1) history.push('/');
+                                if (location.pathname.indexOf('event') === -1) history.push('/')
                             }}>
                                 <ListItemIcon>
                                     <CalendarIcon color={location.pathname === '/' ? 'primary' : 'error'} />
@@ -170,7 +170,7 @@ class MiniDrawer extends React.Component {
                         </List>
                         <Divider />
                         <List>
-                            <ListItem button onClick={(e) => { history.push('/settings'); }}>
+                            <ListItem button onClick={(e) => { history.push('/settings') }}>
                                 <ListItemIcon>
                                     <SettingsIcon color={location.pathname === '/settings' ? 'primary' : 'error'} />
                                 </ListItemIcon>
@@ -180,13 +180,13 @@ class MiniDrawer extends React.Component {
                     </Drawer>
                 </Hidden>
             </div>
-        );
+        )
     }
 }
 
 MiniDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
-};
+}
 
-export default withRouter(withStyles(styles, { withTheme: true })(MiniDrawer));
+export default withRouter(withStyles(styles, { withTheme: true })(MiniDrawer))

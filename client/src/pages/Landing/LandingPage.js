@@ -30,7 +30,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
-    color: "#666666"
+    color: '#666666'
   },
   text: {
     display: 'flex',
@@ -55,7 +55,7 @@ const styles = theme => ({
     fontSize: 14,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
-      maxWidth: "200px"
+      maxWidth: '200px'
     },
   },
   headline: {
@@ -80,14 +80,14 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   },
   fullWidthForm: {
-    width: "100%",
-    maxWidth: "400px",
-    padding: "16px",
-    display: "inline-grid"
+    width: '100%',
+    maxWidth: '400px',
+    padding: '16px',
+    display: 'inline-grid'
   },
   lightColor: {
-    color: "white",
-    textDecoration: "none"
+    color: 'white',
+    textDecoration: 'none'
   }
 })
 
@@ -116,18 +116,18 @@ class SigninPage extends Component {
   }
 
   render() {
-    const { classes, history, theme } = this.props;
+    const { classes, history, theme } = this.props
     return (
       <div className={classes.main}>
         <Helmet>
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
-          <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
+          <meta name='theme-color' content={theme.palette.primary.main} />
+          <meta name='apple-mobile-web-app-status-bar-style' content={theme.palette.primary.main} />
+          <meta name='msapplication-navbutton-color' content={theme.palette.primary.main} />
           <title>Churras</title>
         </Helmet>
-        <AppBar color="primary" position='static'>
+        <AppBar color='primary' position='static'>
           <Toolbar disableGutters>
-            <Tooltip id="tooltip-icon2" title="GitHub repository" className={classes.rightDivider}>
+            <Tooltip id='tooltip-icon2' title='GitHub repository' className={classes.rightDivider}>
               <IconButton
                 name='github'
                 aria-label='Open Github'
@@ -173,9 +173,9 @@ class SigninPage extends Component {
               <img
                 src='/icon.png'
                 alt='Material-UI Logo'
-                width="125"
-                height="125"
-                style={{ margin: "auto", display: "block" }}
+                width='125'
+                height='125'
+                style={{ margin: 'auto', display: 'block' }}
               />
               <div className={classes.text}>
                 <Typography
