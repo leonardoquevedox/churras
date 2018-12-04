@@ -75,15 +75,10 @@ class EventItem extends React.Component {
                     title={event.title}
                     subheader={(new Date(event.scheduledTo)).toLocaleDateString('pt-br')}
                 />
-                {/* <CardActions className={classes.actions} disableActionSpacing>
-                <IconButton aria-label='Share'>
-                    <ShareIcon />
-                </IconButton>
-            </CardActions> */}
                 <CardContent className={classes.cardContent}>
                     <div className={classes.textCenter}>
                         <Button className={classes.link} onClick={(e) => { history.push('/event?id=' + event._id) }}>
-                            Ver mais
+                            {'Ver mais'}
                         </Button>
                     </div>
                 </CardContent>

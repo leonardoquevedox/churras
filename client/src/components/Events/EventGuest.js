@@ -154,7 +154,7 @@ class EventGuest extends React.Component {
                     </Grid>
                     {!guest.paid && /* Initial state */
                         < Button color='primary' variant='contained' className={classes.button}>
-                            {'Enviar convite'}
+                            {'Confirmar presença'}
                         </Button>}
                     {guest.paid && /* Invited state */
                         <Button color='primary' variant='contained' className={classes.button}>

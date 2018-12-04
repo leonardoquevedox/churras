@@ -15,6 +15,7 @@
   },
   "plugins": ["react"],
   "rules": {
+    "no-mixed-operators": false,
     "indent": ["error", 2],
     "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],

@@ -23,11 +23,9 @@ const styles = theme => ({
     },
     readOnlyPic: {
         height: '200px',
-        width: '200px',
-        borderRadius: '50%',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        margin: 'auto'
+        borderRadius: '10px'
     },
     picOptions: {
         display: 'inline-block',

@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import SettingsIcon from '@material-ui/icons/Settings'
 import CalendarIcon from '@material-ui/icons/CalendarTodayOutlined'
 import { Hidden } from '@material-ui/core'
 import withRouter from 'react-router-dom/withRouter'
@@ -26,7 +25,7 @@ class IconLabelTabs extends React.Component {
   tabs = [
     { value: '/', icon: <CalendarIcon />, onClick: (e) => { this.props.history.push('/') } },
     // { value: '/contacts', icon: <ContactsIcon />, onClick: (e) => { this.props.history.push('/contacts') } },
-    { value: '/settings', icon: <SettingsIcon />, onClick: (e) => { this.props.history.push('/settings') } }
+    // { value: '/settings', icon: <SettingsIcon />, onClick: (e) => { this.props.history.push('/settings') } }
   ]
 
   tabValues = this.tabs.map((x) => x.value)

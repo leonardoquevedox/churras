@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Tabs, Tab, Grid } from '@material-ui/core'
+import { Tabs, Tab } from '@material-ui/core'
 import Tooltip from '@material-ui/core/Tooltip'
 import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
@@ -12,7 +12,8 @@ import EventGuestsList from '../../../components/Events/EventGuestsList'
 
 import API from '../../../api'
 import AuthUtils from '../../../utils/AuthUtils'
-import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert'
+import SimpleAlert from '../../../components/Interaction/SimpleAlert'
+import SimpleSnackbar from '../../../components/Interaction/SimpleSnackbar'
 
 const styles = theme => ({
     main: {
@@ -57,8 +58,10 @@ class EventDetailsPage extends Component {
         isLoading: false,
         selectedTab: 1,
         readOnly: false,
+        snackbar: { open: false, message: '' },
+        event: {},
         token: '',
-        event: {}
+        isEventCreation: true
     }
 
     componentWillMount() {
@@ -66,7 +69,7 @@ class EventDetailsPage extends Component {
             const urlParams = new URLSearchParams(window.location.search)
             const eventId = urlParams.get('id')
             if (eventId) {
-                this.setState({ readOnly: true }); // Initializes view as readonly
+                this.setState({ isEventCreation: false, readOnly: true }); // Initializes view as readonly
                 this.getEvent(eventId); // Gets event data
             }
             else this.setState({ loaded: true, readOnly: false })
@@ -111,8 +114,12 @@ class EventDetailsPage extends Component {
         })
     }
 
+    showSuccessSnackbar() {
+        this.setState({ snackbar: { open: true, message: 'Evento salvo com sucesso' } });
+    }
+
     render() {
-        const { event, readOnly, error, selectedTab } = this.state
+        const { event, error, isEventCreation, selectedTab, readOnly, snackbar } = this.state
         const { classes } = this.props
         return (
             <div className={classes.main}>
@@ -122,54 +129,62 @@ class EventDetailsPage extends Component {
                         {this.state.loaded &&
                             <div className={classes.content}>
                                 {/* Tabs for creation process */}
-                                {!readOnly &&
-                                    <Tabs color='primary' fullWidth value={selectedTab}>
-                                        <Tab value={1} label='Informações' onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
-                                        <Tab value={2} label='Contribuições' onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
-                                        <Tab value={3} label='Participantes' onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
-                                    </Tabs>
+                                <Tabs color='primary' fullWidth value={selectedTab}>
+                                    <Tab value={1} label='Informações' onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                                    {!readOnly && <Tab value={2} label='Contribuições' onClick={(e) => { this.setState({ selectedTab: 2 }) }} />}
+                                    <Tab value={3} label='Participantes' onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
+                                </Tabs>
+                                {/* Event general information */}
+                                {selectedTab === 1 && // First tab content
+                                    <EventDetails
+                                        event={event}
+                                        readOnly={readOnly}
+                                        onSave={(data) => {
+                                            let updatedEvent = Object.assign(event, data)
+                                            this.saveEvent(updatedEvent, () => {
+                                                if (isEventCreation) this.setState({ selectedTab: 2 })
+                                                this.showSuccessSnackbar()
+                                            })
+                                        }}
+                                    />
                                 }
-                                <Grid container spacing={16} className={readOnly ? classes.padding : ''}>
-                                    <Grid item xs={12} md={readOnly ? 12 : 12}>
-                                        <EventDetails
-                                            event={event}
-                                            readOnly={readOnly}
-                                            style={{ display: (selectedTab === 1 || readOnly ? 'block' : 'none') }}
-                                            onSave={(data) => {
-                                                let updatedEvent = Object.assign(event, data)
-                                                this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) })
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} md={readOnly ? 12 : 12}>
-                                        <EventGuestsList
-                                            event={event}
-                                            readOnly={readOnly}
-                                            style={{ display: (selectedTab === 3 || readOnly ? 'block' : 'none') }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                                <EventContributionSuggestions
-                                    event={event}
-                                    readOnly={readOnly}
-                                    style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
-                                    onSave={(data) => {
-                                        let updatedEvent = Object.assign(event, data)
-                                        console.log(data)
-                                        this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 3 }) })
-                                    }}
-                                />
-
+                                {/* Event contribution suggestions */}
+                                {selectedTab === 2 && // Second tab content
+                                    <EventContributionSuggestions
+                                        event={event}
+                                        readOnly={readOnly}
+                                        onSave={(data) => {
+                                            let updatedEvent = Object.assign(event, data)
+                                            this.saveEvent(updatedEvent, () => {
+                                                if (isEventCreation) this.setState({ selectedTab: 3 })
+                                                this.showSuccessSnackbar()
+                                            })
+                                        }}
+                                    />
+                                }
+                                {/* Event participants list */}
+                                {selectedTab === 3 && // Third tab content
+                                    <EventGuestsList event={event} readOnly={readOnly}
+                                    />
+                                }
                             </div>}
                     </div>
                 </div>
+                {/* Event action snackbar */}
+                <SimpleSnackbar
+                    open={snackbar.open}
+                    message={snackbar.message}
+                    duration={2000}
+                    onClose={() => { this.setState({ snackbar: { open: false } }) }}
+                />
                 {/* Error dialog */}
-                <SimpleAlertDialog
+                <SimpleAlert
                     isOpen={error.show}
                     title={error.title}
                     message={error.message}
                     onAccept={(e) => { this.setState({ error: { ...error, show: false } }) }}
                 />
+                {/* Toggle edit state FAB */}
                 <Tooltip id='tooltip-icon2' title={readOnly ? 'Editar evento' : 'Concluir edição'} placement='top'>
                     <Fab color='primary'
                         aria-label='Add'
@@ -181,8 +196,8 @@ class EventDetailsPage extends Component {
                             else // Otherwise, just enable editions
                                 this.setState({ readOnly: false })
                         }}>
-                        {readOnly && <EditIcon />}
-                        {!readOnly && <CheckIcon />}
+                        {readOnly && <EditIcon />} {/* Readonly state icon */}
+                        {!readOnly && <CheckIcon />} {/* Editting state icon */}
                     </Fab>
                 </Tooltip>
             </div>

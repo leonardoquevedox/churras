@@ -31,16 +31,16 @@ class EventContributionInput extends React.Component {
         super(props)
         this.state = {
             event: this.props.event && this.props.event.suggestedContribution ? // Verifies if event has the proper data
-            this.props.event : { suggestedContribution: {} } // Loads event data or initializes it if is empty
+                this.props.event : { suggestedContribution: {} } // Loads event data or initializes it if is empty
         }
     }
 
     render() {
-        const { classes, style } = this.props
+        const { classes, readOnly, style } = this.props
         const { event } = this.state
         return (
             <div style={{ ...style }}>
-                <form className={classes.fullWidthForm}>
+                <form className={readOnly ? "" : classes.fullWidthForm}>
                     {/* Contribution values */}
                     <Typography align='center' variant='h6' color='inherit' gutterBottom style={{ marginTop: '15px' }}>
                         <ContributionIcon style={{ verticalAlign: 'middle' }} className={classes.primaryColor} />
@@ -68,7 +68,9 @@ class EventContributionInput extends React.Component {
                             placeholder='Com bebida'
                             startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                 <CocktailIcon />
-                            </InputAdornment>} />
+                            </InputAdornment>}
+                            disableUnderline={readOnly}
+                            readOnly={readOnly} />
                     </FormControl>
                     {/* Contribution without drinks value */}
                     <FormControl fullWidth className={classes.margin}>
@@ -92,18 +94,22 @@ class EventContributionInput extends React.Component {
                             placeholder='Sem bebida'
                             startAdornment={<InputAdornment position='start' className={classes.primaryColor} >
                                 <WaterIcon />
-                            </InputAdornment>} />
+                            </InputAdornment>}
+                            disableUnderline={readOnly}
+                            readOnly={readOnly} />
                     </FormControl>
                     {/* Save button */}
-                    <Button
-                        fullWidth
-                        onClick={() => { this.props.onSave(event) }}
-                        className={classes.button}
-                        variant='contained'
-                        color='primary'
-                    >
-                        {'Salvar'}
-                    </Button>
+                    {!readOnly &&
+                        <Button
+                            fullWidth
+                            onClick={() => { this.props.onSave(event) }}
+                            className={classes.button}
+                            variant='contained'
+                            color='primary'
+                        >
+                            {'Salvar'}
+                        </Button>
+                    }
                 </form>
             </div>
         )

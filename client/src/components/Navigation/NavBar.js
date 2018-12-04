@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import CalendarIcon from '@material-ui/icons/CalendarToday'
-import SettingsIcon from '@material-ui/icons/Settings'
+import GoBackIcon from '@material-ui/icons/ArrowBack'
 import { Hidden } from '@material-ui/core'
 import withRouter from 'react-router-dom/withRouter'
 
@@ -120,10 +120,7 @@ class MiniDrawer extends React.Component {
         const { classes, theme, history, location } = this.props
         return (
             <div className={classes.root}>
-                <AppBar
-                    position='fixed'
-                    className={classes.appBar}
-                >
+                <AppBar position='fixed' className={classes.appBar}>
                     <Toolbar disableGutters>
                         <Hidden only={['xs']}>
                             <IconButton
@@ -135,6 +132,17 @@ class MiniDrawer extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
+                        {
+                            (history.length > 1 && location.pathname !== '/') && // Checks if the router can go back...
+                            <IconButton
+                                color='inherit'
+                                aria-label='Go back'
+                                className={classes.menuButton}
+                                onClick={(e) => { history.goBack() }}
+                            >
+                                <GoBackIcon />
+                            </IconButton>
+                        }
                         <Typography variant='h6' color='inherit' noWrap>
                             {this.state.title}
                         </Typography>
@@ -150,8 +158,7 @@ class MiniDrawer extends React.Component {
                                 [classes.drawerClose]: !this.state.open,
                             }),
                         }}
-                        open={this.state.open}
-                    >
+                        open={this.state.open}>
                         <div className={classes.toolbar}>
                             <IconButton onClick={this.handleDrawerClose}>
                                 {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -169,14 +176,14 @@ class MiniDrawer extends React.Component {
                             </ListItem>
                         </List>
                         <Divider />
-                        <List>
+                        {/* <List>
                             <ListItem button onClick={(e) => { history.push('/settings') }}>
                                 <ListItemIcon>
                                     <SettingsIcon color={location.pathname === '/settings' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Configurações' />
                             </ListItem>
-                        </List>
+                        </List> */}
                     </Drawer>
                 </Hidden>
             </div>

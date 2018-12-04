@@ -1,13 +1,12 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import EventGuest from './EventGuest'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 const styles = theme => ({
     content: {
         minHeight: '70vh',
-        padding: '20px',
-        paddingTop: '0px'
+        padding: '30px'
     },
 })
 
@@ -17,18 +16,9 @@ class EventGuestsList extends React.Component {
     }
 
     render() {
-        const { classes, style, readOnly } = this.props
+        const { classes, style } = this.props
         return (
             <div className={classes.content} style={{ ...style }}>
-                {/* Event guest list title */}
-                <Typography
-                    align='left'
-                    variant='subtitle1'
-                    color='inherit'
-                    gutterBottom
-                >
-                    {readOnly ? 'Galera' : ''}
-                </Typography>
                 {/* Guests! */}
                 <Grid container justify='flex-start' spacing={16}>
                     {this.state.guests.map((contact, index) => (

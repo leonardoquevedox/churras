@@ -39,6 +39,11 @@ const custom = createMuiTheme({
                 color: '#ffffff !important'
             }
         },
+        MuiSvgIcon: {
+            root: {
+                verticalAlign: 'middle'
+            }
+        },
         MuiInput: {
             root: {
                 padding: '10px',
@@ -55,7 +60,11 @@ const custom = createMuiTheme({
                 }
             },
             input: {
-                fontSize: '12px !important'
+                breakpoints: {
+                    sm: {
+                        fontSize: '12px !important'
+                    }
+                },
             }
         },
         MuiTabs: {
