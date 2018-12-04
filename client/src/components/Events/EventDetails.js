@@ -6,30 +6,11 @@ import CalendarIcon from '@material-ui/icons/CalendarToday';
 import BubbleIcon from '@material-ui/icons/BubbleChart';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import EventPictureInput from './EventPictureInput'
+import InputMask from 'react-input-mask';
+
 import ObjectUtils from '../../utils/ObjectUtils';
 
 const styles = theme => ({
-    title: {
-        letterSpacing: '.1rem',
-        textIndent: '.7rem',
-        marginTop: '10px',
-        fontSize: 24,
-        fontWeight: theme.typography.fontWeightLight,
-        [theme.breakpoints.only('xs')]: {
-            fontSize: 22,
-            letterSpacing: '.1em',
-            textIndent: '.1rem'
-        },
-        whiteSpace: 'wrap'
-    },
-    headline: {
-        paddingLeft: theme.spacing.unit * 4,
-        paddingRight: theme.spacing.unit * 4,
-        marginTop: theme.spacing.unit,
-        maxWidth: 600,
-        textAlign: 'center',
-        fontSize: 18
-    },
     maxWidthContainer: {
         maxWidth: '500px',
         margin: 'auto'
@@ -64,7 +45,7 @@ const styles = theme => ({
     },
     bottomDivider: {
         paddingBottom: '16px',
-        borderBottom: '1px solid #dedede'
+        /* borderBottom: '1px solid #dedede' */
     }
 })
 
@@ -72,12 +53,12 @@ class EventDetails extends React.Component {
     state = {
         event: {
             date: '',
-            title: '',
+            name: '',
             observations: ''
         }
     }
     isValidEventForm() {
-        return ObjectUtils.hasKeys(this.state.event, ['title', 'date', 'observations']);
+        return ObjectUtils.hasKeys(this.state.event, ['name', 'date', 'observations']);
     }
     render() {
         const { event } = this.state;
@@ -111,27 +92,37 @@ class EventDetails extends React.Component {
                             </Typography>
                             {/* Event date input */}
                             <FormControl fullWidth className={classes.margin}>
-                                <Input
-                                    type="datetime"
+                                {/* Masked input */}
+                                <InputMask
+                                    mask="99/99"
+                                    maskChar="X"
                                     value={event.date}
                                     onChange={(e) => {
-                                        this.setState({
-                                            event: { ...event, date: e.target.value }
-                                        })
+                                        this.setState({ event: { ...event, date: e.target.value } })
                                     }}
-                                    placeholder="Quando vai rolar? (dd/mm)"
-                                    autoComplete="true"
-                                    startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
-                                        <CalendarIcon />
-                                    </InputAdornment>}
-                                />
+                                >
+                                    {/* Based on the mask properties... */}
+                                    {(inputProps) =>
+                                        /* Renders Material UI input: */
+                                        <Input
+                                            {...inputProps}
+                                            type="tel"
+                                            placeholder="Quando vai rolar? (dd/mm)"
+                                            autoComplete="true"
+                                            startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
+                                                <CalendarIcon />
+                                            </InputAdornment>}
+                                        />
+                                    }
+                                </InputMask>
+
                             </FormControl>
                         </div>
                     </Grid>
                     {/* Event information row */}
                     <Grid item xs={12} md={6}>
                         <form className={`${classes.maxWidthContainer} ${classes.secondColumn}`}>
-                            {/* Event title input message */}
+                            {/* Event name input message */}
                             <Typography
                                 align='left'
                                 color='inherit'
@@ -140,17 +131,17 @@ class EventDetails extends React.Component {
                             >
                                 {'3. Escolha um título para o evento: '}
                             </Typography>
-                            {/* Event title input */}
+                            {/* Event name input */}
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
                                     type="textarea"
-                                    value={event.title}
+                                    value={event.name}
                                     onChange={(e) => {
                                         this.setState({
-                                            event: { ...event, title: e.target.value }
+                                            event: { ...event, name: e.target.value }
                                         })
                                     }}
-                                    placeholder="Por quê o evento vai ocorrer?"
+                                    placeholder="Por que o evento vai ocorrer?"
                                     autoComplete="true"
                                     startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
                                         <BubbleIcon />
@@ -166,7 +157,7 @@ class EventDetails extends React.Component {
                             >
                                 {'4. Adicione observações pra galera (opcional): '}
                             </Typography>
-                            {/* Event title input */}
+                            {/* Event name input */}
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
                                     type="text"

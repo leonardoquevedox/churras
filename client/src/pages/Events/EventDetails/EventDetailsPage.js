@@ -5,6 +5,11 @@ import { Tabs, Tab } from '@material-ui/core';
 import EventDetails from '../../../components/Events/EventDetails'
 import EventContributionInput from '../../../components/Events/EventContributionInput'
 import EventGuestsList from '../../../components/Events/EventGuestsList'
+import moment from 'moment-mini'
+
+import API from '../../../api'
+import AuthUtils from '../../../utils/AuthUtils'
+import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert';
 
 const styles = theme => ({
     main: {
@@ -15,12 +20,9 @@ const styles = theme => ({
         flexGrow: 1,
         flex: '1 0 100%',
         padding: '20px'
-        // height: '100%',
-        // overflow: 'hidden'
     },
     hero: {
         height: '100%',
-        // minHeight: '80vh',
         flex: '0 0 auto',
         justifyContent: 'center',
         alignItems: 'center',
@@ -37,14 +39,39 @@ const styles = theme => ({
 
 class EventDetailsPage extends Component {
     state = {
+        error: { show: false },
+        isLoading: false,
         selectedTab: 1,
+        token: '',
         event: {}
     }
 
-    componentDidMount() { }
+    componentDidMount() {
+        this.setState({ token: AuthUtils.getToken() })
+    }
+
+    saveEvent(event, callback) {
+        this.setState({ isLoading: true }); // Sets loading state 
+        event.date = moment(event.date, 'DD/MM').toDate(); // Parses event date
+        API.saveEvent({ xAccessToken: this.state.token, event: event }).then((response) => { // In case of success...
+            this.setState({ event: response.data });
+            if (callback) callback();
+        }).catch((error) => {  // In case of error...
+            console.log(error);
+            this.setState({ // Shows error message
+                error: {
+                    ...this.state.error,
+                    show: true,
+                    title: 'Ops! Houve um erro ao salvar o churrasco.',
+                    message: 'Verifique as informações preenchidas e tente novamente ;)'
+                },
+                isLoading: false
+            });
+        });
+    }
 
     render() {
-        const { event, selectedTab } = this.state;
+        const { event, error, selectedTab } = this.state;
         const { classes } = this.props;
         return (
             <div className={classes.main}>
@@ -57,30 +84,32 @@ class EventDetailsPage extends Component {
                                 <Tab value={3} label="Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
                             </Tabs>
                             <EventDetails
-                                onSave={(data) => {
-                                    console.log(data);
-                                    this.setState({
-                                        event: { ...event, data },
-                                        selectedTab: 2
-                                    })
-                                }}
                                 style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
+                                onSave={(data) => {
+                                    let updatedEvent = Object.assign(event, data);
+                                    this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) });
+                                }}
                             />
                             <EventContributionInput
+                                style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
                                 onSave={(data) => {
-                                    console.log(data);
-                                    this.setState({
-                                        event: { ...event, data },
-                                        selectedTab: 3
-                                    })
+                                    let updatedEvent = Object.assign(event, data);
+                                    this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 3 }) });
                                 }}
-                                style={{ display: (selectedTab === 2 ? 'block' : 'none') }} />
+                            />
                             <EventGuestsList
                                 style={{ display: (selectedTab === 3 ? 'block' : 'none') }}
                             />
                         </div>
                     </div>
                 </div>
+                {/* Error dialog */}
+                <SimpleAlertDialog
+                    isOpen={error.show}
+                    title={error.title}
+                    message={error.message}
+                    onAccept={(e) => { this.setState({ error: { ...error, show: false } }) }}
+                />
             </div>
         )
     }

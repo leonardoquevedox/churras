@@ -21,9 +21,10 @@ const auth = require('../../services/auth.service');
 router.post('/', auth.isAuthenticated(), async (req, res) => {
     try {
         let eventInfo = req.body;
-        let created = await controller.create(eventInfo);
-        return res.status(200).json(created);
+        let saved = await controller.save(eventInfo);
+        return res.status(200).json(saved);
     } catch (e) { // In case of errors...
+        console.log(e);
         switch (e.message) { // Returns specific statuses
             case controller.errors.MUTIPLE_EVENTS_ON_SAME_DAY:
                 return res.status(409).json(e);

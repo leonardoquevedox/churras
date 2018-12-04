@@ -4,10 +4,11 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import { Input, InputAdornment, FormControlLabel, Grid, Checkbox } from '@material-ui/core';
+import { Input, InputAdornment, FormControlLabel, Grid, Checkbox, FormControl } from '@material-ui/core';
 import ContributionIcon from '@material-ui/icons/AttachMoney';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
+import CurrencyFormat from 'react-currency-format';
 
 const styles = theme => ({
     card: {
@@ -84,48 +85,43 @@ class EventGuest extends React.Component {
                 <CardContent className={classes.cardContent}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <Input
-                                type="text"
-                                fullWidth
-                                style={{ padding: "10px" }}
-                                placeholder="Nome"
-                                autoComplete="true"
-                                autoCapitalize="true"
-                                classes={{ input: classes.smallFont }}
-                                startAdornment={
-                                    <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
-                                        <AccountCircle />
-                                    </InputAdornment>
-                                }
-                            />
-                            <Input
-                                type="e-mail"
-                                fullWidth
-                                style={{ padding: "10px" }}
-                                placeholder="e-mail"
-                                autoComplete="true"
-                                autoCapitalize="true"
-                                classes={{ input: classes.smallFont }}
-                                startAdornment={
-                                    <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
-                                        <EmailIcon />
-                                    </InputAdornment>
-                                }
-                            />
-                            <Input
-                                type="number"
-                                fullWidth
-                                style={{ padding: "10px" }}
-                                placeholder="Contribuição"
-                                autoComplete="true"
-                                autoCapitalize="true"
-                                classes={{ input: classes.smallFont }}
-                                startAdornment={
-                                    <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                            <FormControl fullWidth className={classes.margin}>
+                                <Input
+                                    type="text"
+                                    placeholder="Nome"
+                                    autoComplete="true"
+                                    autoCapitalize="true"
+                                    classes={{ input: classes.smallFont }}
+                                    startAdornment={
+                                        <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                                            <AccountCircle />
+                                        </InputAdornment>
+                                    }
+                                />
+                            </FormControl>
+                            <FormControl fullWidth className={classes.margin}>
+                                <Input
+                                    type="e-mail"
+                                    placeholder="e-mail"
+                                    autoComplete="true"
+                                    autoCapitalize="true"
+                                    classes={{ input: classes.smallFont }}
+                                    startAdornment={
+                                        <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                                            <EmailIcon />
+                                        </InputAdornment>
+                                    }
+                                />
+                            </FormControl>
+                            <FormControl fullWidth className={classes.margin}>
+                                <CurrencyFormat
+                                    customInput={Input}
+                                    prefix="R$"
+                                    placeholder="Contribuição"
+                                    startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
                                         <ContributionIcon />
-                                    </InputAdornment>
-                                }
-                            />
+                                    </InputAdornment>} />
+                            </FormControl>
                         </Grid>
                         <Grid item xs={6}>
                             <FormControlLabel

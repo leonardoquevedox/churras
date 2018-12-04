@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 const styles = theme => ({
     content: {
         minHeight: '70vh',
-        padding: '30px',
+        padding: '16px',
         paddingTop: '20px'
     },
 })

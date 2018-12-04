@@ -16,7 +16,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CalendarIcon from '@material-ui/icons/CalendarToday'
-import ContactsIcon from '@material-ui/icons/Contacts';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Hidden } from '@material-ui/core';
 import withRouter from 'react-router-dom/withRouter';
@@ -167,14 +166,14 @@ class MiniDrawer extends React.Component {
                                 <ListItemText primary='Churrascos' />
                             </ListItem>
                         </List>
-                        <List>
+                        {/* <List>
                             <ListItem button onClick={(e) => { history.push('/contacts'); }}>
                                 <ListItemIcon>
                                     <ContactsIcon color={location.pathname === '/contacts' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Galera' />
                             </ListItem>
-                        </List>
+                        </List> */}
                         <Divider />
                         <List>
                             <ListItem button onClick={(e) => { history.push('/settings'); }}>

@@ -1,9 +1,10 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Input, FormControl, InputAdornment, Typography, Button } from '@material-ui/core';
-import DrinkIcon from '@material-ui/icons/LocalBar';
+import CocktailIcon from '@material-ui/icons/LocalBar';
 import WaterIcon from '@material-ui/icons/LocalDrink';
 import ContributionIcon from '@material-ui/icons/AttachMoney';
+import CurrencyFormat from 'react-currency-format';
 
 const styles = theme => ({
     fullWidthForm: {
@@ -27,11 +28,15 @@ const styles = theme => ({
 class EventContributionInput extends React.Component {
 
     state = {
-        withDrinks: false
+        event: {
+            contributionWithDrinks: 0.00,
+            contributionWithoutDrinks: 0.00
+        }
     }
 
     render() {
         const { classes, style } = this.props;
+        const { event } = this.state;
         return (
             <div style={{ ...style }}>
                 <form className={classes.fullWidthForm}>
@@ -42,30 +47,28 @@ class EventContributionInput extends React.Component {
                     </Typography>
                     {/* Contribution with drinks value */}
                     <FormControl fullWidth className={classes.margin}>
-                        <Input
-                            type="number"
+                        <CurrencyFormat
+                            customInput={Input}
+                            prefix="R$"
                             placeholder="Com bebida"
-                            autoComplete="true"
                             startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
-                                <DrinkIcon />
-                            </InputAdornment>}
-                        />
+                                <CocktailIcon />
+                            </InputAdornment>} />
                     </FormControl>
                     {/* Contribution without drinks value */}
                     <FormControl fullWidth className={classes.margin}>
-                        <Input
-                            type="number"
+                        <CurrencyFormat
+                            customInput={Input}
+                            prefix="R$"
                             placeholder="Sem bebida"
-                            autoComplete="true"
                             startAdornment={<InputAdornment position="start" className={classes.primaryColor} >
                                 <WaterIcon />
-                            </InputAdornment>}
-                        />
+                            </InputAdornment>} />
                     </FormControl>
                     {/* Save button */}
                     <Button
                         fullWidth
-                        onClick={() => { this.props.onSave() }}
+                        onClick={() => { this.props.onSave(event) }}
                         className={classes.button}
                         variant='contained'
                         color='primary'
