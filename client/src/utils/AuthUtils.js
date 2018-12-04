@@ -4,8 +4,8 @@ import StringUtils from './StringUtils';
 export default class AuthUtils {
 
     /* Class attributes */
-    static USER_TOKEN_KEY = StringUtils.toUnderscoreCase(`${config.application_name.toUpperCase()}_USER_TOKEN`);
-    static USER_PROFILE_KEY = StringUtils.toUnderscoreCase(`${config.application_name.toUpperCase()}_USER_PROFILE`);
+    static USER_TOKEN_KEY = StringUtils.toUnderscoreCase(`${config.application_name}_USER_TOKEN`).toUpperCase();
+    static USER_PROFILE_KEY = StringUtils.toUnderscoreCase(`${config.application_name}_USER_PROFILE`).toUpperCase();
 
     /**
     * @function storeProfile

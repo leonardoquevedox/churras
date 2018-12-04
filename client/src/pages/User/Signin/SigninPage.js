@@ -16,6 +16,7 @@ import Link from 'react-router-dom/Link';
 
 import AuthUtils from '../../../utils/AuthUtils';
 import StringUtils from '../../../utils/StringUtils';
+import ObjectUtils from '../../../utils/ObjectUtils';
 import * as API from '../../../api/ApiClient';
 import SimpleAlertDialog from "../../../components/Interaction/SimpleAlert";
 
@@ -117,6 +118,10 @@ class SigninPage extends Component {
 
   componentDidMount() { }
 
+  isValidSignupForm() {
+    return ObjectUtils.hasKeys(this.state.user, ['email', 'password']);
+  }
+
   authenticate() {
     this.setState({ isLoading: true }); // Sets loading state 
     API.authenticateUser({ user: this.state.user }).then((response) => { // In case of success...
@@ -132,7 +137,6 @@ class SigninPage extends Component {
         },
         isLoading: false
       });
-      console.log(error);
     });
   }
 
@@ -255,7 +259,7 @@ class SigninPage extends Component {
                     className={classes.button}
                     variant='contained'
                     color='primary'
-                    disabled={this.state.isLoading}
+                    disabled={this.state.isLoading || !this.isValidSignupForm()}
                   >
                     {!isLoading && 'Partiu!'}
                     {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}

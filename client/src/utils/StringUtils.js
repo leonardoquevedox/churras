@@ -19,7 +19,7 @@ export default class StringUtils {
     }
 
     static isValidEmail(str) {
-        let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        let emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         return emailRegex.test(str);
     }
 
@@ -58,5 +58,3 @@ export default class StringUtils {
         return str.substring(0, limit) + ((str.length > limit) ? "..." : "");
     }
 }
-
-StringUtils.isValidEmail("pac.leo@hotmail.com");

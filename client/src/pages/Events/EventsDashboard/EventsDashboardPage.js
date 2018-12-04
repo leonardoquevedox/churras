@@ -92,19 +92,21 @@ const styles = theme => ({
 })
 
 class EventsDashboardPage extends Component {
-  state = {};
+  state = {
+    events: []
+  };
 
   componentDidMount() { }
 
   render() {
-
+    const { events } = this.state;
     const { classes, history } = this.props;
     return (
       <div className={classes.main}>
         <div className={classes.root}>
           <div className={classes.hero}>
             <div className={classes.content}>
-              <EventsList />
+              <EventsList events={events} />
             </div>
           </div>
         </div>

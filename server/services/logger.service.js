@@ -4,11 +4,9 @@
  * @author Leonardo Quevedo
  */
 
-const chalk = require('chalk');
-
-module.exports = buildLogger = {
+module.exports = logger = {
     log: (message) => {
-        let prefix = buildLogger.timePrefix();
+        let prefix = logger.timePrefix();
         message = (prefix) + '  ' + message;
         console.log(message);
     },

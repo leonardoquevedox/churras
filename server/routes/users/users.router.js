@@ -11,7 +11,6 @@ const SwaggerUtils = require('../../swagger/swagger.utils');
 const router = new SwaggerExpressRouter('user');
 const controller = require('./users.controller');
 const auth = require('../../services/auth.service');
-const execute = require('../../services/async.service');
 
 // --------------- Module Controller
 
@@ -45,12 +44,12 @@ router.post('/', async (req, res) => {
  * @interface updateUser
  * Updates user on the database.
  */
-router.put('/', auth.isAuthenticated(), execute(async (req, res) => {
+router.put('/', auth.isAuthenticated(), async (req, res) => {
     let user = req.user;
     let updates = req.body;
     let updated = await controller.update(user, updates);
     return res.status(200).json(updated);
-})).describe({
+}).describe({
     tags: [router.entity],
     operationId: "updateUser",
     responses: SwaggerUtils.defaultResponses(),
@@ -64,11 +63,11 @@ router.put('/', auth.isAuthenticated(), execute(async (req, res) => {
  * @interface getUserData
  * Retrieves user data from the database.
  */
-router.get('/profile', auth.isAuthenticated(), execute(async (req, res) => {
+router.get('/profile', auth.isAuthenticated(), async (req, res) => {
     let user = req.user;
     let profile = await controller.get(user);
     return res.status(200).json(profile);
-})).describe({
+}).describe({
     tags: [router.entity],
     operationId: "getUserData",
     responses: SwaggerUtils.defaultResponses(),
@@ -79,11 +78,11 @@ router.get('/profile', auth.isAuthenticated(), execute(async (req, res) => {
  * @interface isUniqueUsername
  * Checks if username is unique on the database.
  */
-router.get('/username/exists/:username', execute(async (req, res) => {
+router.get('/username/exists/:username', async (req, res) => {
     let username = req.params.username;
     let isUnique = await controller.isUniqueUsername(username);
     return res.status(200).json(isUnique);
-})).describe({
+}).describe({
     tags: [router.entity],
     operationId: "isUniqueUsername",
     responses: SwaggerUtils.defaultResponses(),
@@ -94,11 +93,11 @@ router.get('/username/exists/:username', execute(async (req, res) => {
  * @interface authenticateUser
  * Tries to authenticate user.
  */
-router.post('/authenticate', auth.passwordIsValid(), execute(async (req, res) => {
+router.post('/authenticate', auth.passwordIsValid(), async (req, res) => {
     let username = req.body.email;
     let authenticated = await controller.authenticate(username);
     return res.status(200).json(authenticated);
-})).describe({
+}).describe({
     tags: [router.entity],
     operationId: "authenticateUser",
     responses: SwaggerUtils.defaultResponses(),
@@ -115,11 +114,11 @@ router.post('/authenticate', auth.passwordIsValid(), execute(async (req, res) =>
  * @interface recoverPassword
  * Sends temporary password to the user e-mail.
  */
-router.post("/password/recover", execute(async (req, res) => {
+router.post("/password/recover", async (req, res) => {
     let email = req.body.email;
     let confirmation = await controller.recoverPassword(email);
     return res.status(200).json(confirmation);
-})).describe({
+}).describe({
     tags: [router.entity],
     operationId: "recoverPassword",
     responses: SwaggerUtils.defaultResponses(),
@@ -136,12 +135,12 @@ router.post("/password/recover", execute(async (req, res) => {
  * @interface updatePassword
  * Updates user password on the database.
  */
-router.post("/password/update", auth.isAuthenticated(), auth.passwordIsValid(), execute(async (req, res) => {
+router.post("/password/update", auth.isAuthenticated(), auth.passwordIsValid(), async (req, res) => {
     let user = req.user;
     let newPassword = req.body.newPassword;
     let updated = await controller.updatePassword(user, newPassword);
     return res.status(200).json(updated);
-})).describe({
+}).describe({
     tags: [router.entity],
     operationId: "updatePassword",
     responses: SwaggerUtils.defaultResponses(),
