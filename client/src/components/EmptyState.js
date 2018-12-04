@@ -10,6 +10,7 @@ const styles = theme => ({
     },
     message: {
         textAlign: 'center',
+        margin: 'auto',
         maxWidth: '400px',
         backgroundColor: '#efefef',
         padding: '20px',

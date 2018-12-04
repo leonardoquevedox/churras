@@ -45,8 +45,32 @@ class EventDetailsPage extends Component {
         event: {}
     }
 
-    componentDidMount() {
-        this.setState({ token: AuthUtils.getToken() })
+    componentWillMount() {
+        this.setState({ token: AuthUtils.getToken() }, () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+            if (eventId) this.getEvent(eventId);
+            else this.setState({ loaded: true });
+        });
+    }
+
+    getEvent(id) {
+        this.setState({ isLoading: true }); // Sets loading state 
+        API.getEvent({ xAccessToken: this.state.token, id: id }).then((response) => { // In case of success...
+            this.setState({ event: response.data });
+        }).catch((error) => {  // In case of error...
+            this.setState({ // Shows error message
+                error: {
+                    ...this.state.error,
+                    show: true,
+                    title: 'Ops! Houve um erro ao carregar o churrasco.',
+                    message: 'Por favor, tente novamente mais tarde.'
+                },
+                isLoading: false
+            });
+        }).finally(() => {
+            this.setState({ loaded: true });
+        });
     }
 
     saveEvent(event, callback) {
@@ -75,31 +99,36 @@ class EventDetailsPage extends Component {
             <div className={classes.main}>
                 <div className={classes.root}>
                     <div className={classes.hero}>
-                        <div className={classes.content}>
-                            <Tabs color="primary" fullWidth value={selectedTab}>
-                                <Tab value={1} label="Informações" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
-                                <Tab value={2} label="Contribuições" onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
-                                <Tab value={3} label="Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
-                            </Tabs>
-                            <EventDetails
-                                style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
-                                onSave={(data) => {
-                                    let updatedEvent = Object.assign(event, data);
-                                    this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) });
-                                }}
-                            />
-                            <EventContributionInput
-                                style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
-                                onSave={(data) => {
-                                    let updatedEvent = Object.assign(event, data);
-                                    console.log(data);
-                                    this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 3 }) });
-                                }}
-                            />
-                            <EventGuestsList
-                                style={{ display: (selectedTab === 3 ? 'block' : 'none') }}
-                            />
-                        </div>
+                        {/* Awaits for event to load if id is passed */}
+                        {this.state.loaded &&
+                            <div className={classes.content}>
+                                <Tabs color="primary" fullWidth value={selectedTab}>
+                                    <Tab value={1} label="Informações" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                                    <Tab value={2} label="Contribuições" onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
+                                    <Tab value={3} label="Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
+                                </Tabs>
+                                <EventDetails
+                                    event={event}
+                                    style={{ display: (selectedTab === 1 ? 'block' : 'none') }}
+                                    onSave={(data) => {
+                                        let updatedEvent = Object.assign(event, data);
+                                        this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 2 }) });
+                                    }}
+                                />
+                                <EventContributionInput
+                                    event={event}
+                                    style={{ display: (selectedTab === 2 ? 'block' : 'none') }}
+                                    onSave={(data) => {
+                                        let updatedEvent = Object.assign(event, data);
+                                        console.log(data);
+                                        this.saveEvent(updatedEvent, () => { this.setState({ selectedTab: 3 }) });
+                                    }}
+                                />
+                                <EventGuestsList
+                                    event={event}
+                                    style={{ display: (selectedTab === 3 ? 'block' : 'none') }}
+                                />
+                            </div>}
                     </div>
                 </div>
                 {/* Error dialog */}

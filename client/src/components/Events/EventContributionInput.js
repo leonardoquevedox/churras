@@ -27,10 +27,13 @@ const styles = theme => ({
 
 class EventContributionInput extends React.Component {
 
-    state = {
-        event: {
-            suggestedContribution: {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            event: this.props.event && this.props.event.suggestedContribution ? // Verifies if event has the proper data
+            this.props.event : { suggestedContribution: {} } // Loads event data or initializes it if is empty
         }
+        console.log(this.state);
     }
 
     render() {

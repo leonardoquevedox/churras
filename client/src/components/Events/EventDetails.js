@@ -45,20 +45,25 @@ const styles = theme => ({
         marginTop: '-10px'
     },
     bottomDivider: {
-        paddingBottom: '16px',
-        /* borderBottom: '1px solid #dedede' */
+        paddingBottom: '16px'
     }
 })
 
 class EventDetails extends React.Component {
-    state = {
-        event: {
-            title: '',
-            picture: EventPictureInput.pictures[0],
-            scheduledTo: '',
-            observations: ''
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            event: this.props.event || { // Loads event data or initializes it if is empty
+                title: '',
+                picture: EventPictureInput.pictures[0],
+                scheduledTo: '',
+                observations: ''
+            }
         }
     }
+
+
     isValidEventForm() {
         return ObjectUtils.hasKeys(this.state.event, ['title', 'scheduledTo', 'observations']);
     }
@@ -85,8 +90,9 @@ class EventDetails extends React.Component {
                                     {'1. Escolha a imagem do evento: '}
                                 </Typography>
                                 {/* Image input */}
-                                <EventPictureInput 
-                                    onChange={(picture)=>{
+                                <EventPictureInput
+                                    event={event}
+                                    onChange={(picture) => {
                                         this.setState({ event: { ...event, picture: picture } })
                                     }}
                                 />

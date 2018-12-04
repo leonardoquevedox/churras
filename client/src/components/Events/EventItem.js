@@ -82,7 +82,7 @@ class EventItem extends React.Component {
             </CardActions> */}
                 <CardContent className={classes.cardContent}>
                     <div className={classes.textCenter}>
-                        <Button className={classes.link} onClick={(e) => { history.push('/event/' + event._id) }}>
+                        <Button className={classes.link} onClick={(e) => { history.push('/event?id=' + event._id) }}>
                             Ver mais
                         </Button>
                     </div>

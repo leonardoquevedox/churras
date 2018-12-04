@@ -44,7 +44,7 @@ const styles = theme => ({
 
 
 class EventPictureInput extends React.Component {
-   static pictures = [
+    static pictures = [
         { src: "01" },
         { src: "02" },
         { src: "03" },
@@ -52,11 +52,15 @@ class EventPictureInput extends React.Component {
         { src: "05" }
     ];
 
-    state = {
-        selected: EventPictureInput.pictures[0]
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: this.props.event ? this.props.event.picture : EventPictureInput.pictures[0]
+        }
+        console.log(this.props.event);
+    }
 
-    onPictureChange(selected){
+    onPictureChange(selected) {
         this.setState({ selected: selected });
         this.props.onChange(selected);
     }
