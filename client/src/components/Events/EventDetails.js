@@ -7,6 +7,7 @@ import BubbleIcon from '@material-ui/icons/BubbleChart';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import EventPictureInput from './EventPictureInput'
 import InputMask from 'react-input-mask';
+import moment from 'moment-mini'
 
 import ObjectUtils from '../../utils/ObjectUtils';
 
@@ -52,13 +53,18 @@ const styles = theme => ({
 class EventDetails extends React.Component {
     state = {
         event: {
-            date: '',
-            name: '',
+            title: '',
+            picture: EventPictureInput.pictures[0],
+            scheduledTo: '',
             observations: ''
         }
     }
     isValidEventForm() {
-        return ObjectUtils.hasKeys(this.state.event, ['name', 'date', 'observations']);
+        return ObjectUtils.hasKeys(this.state.event, ['title', 'scheduledTo', 'observations']);
+    }
+    format(event) {
+        let parsedDate = event.scheduledTo instanceof Date ? event.scheduledTo : moment(event.scheduledTo, 'DD/MM').toDate(); // Parses event date
+        return Object.assign(event, { scheduledTo: parsedDate });
     }
     render() {
         const { event } = this.state;
@@ -79,7 +85,11 @@ class EventDetails extends React.Component {
                                     {'1. Escolha a imagem do evento: '}
                                 </Typography>
                                 {/* Image input */}
-                                <EventPictureInput />
+                                <EventPictureInput 
+                                    onChange={(picture)=>{
+                                        this.setState({ event: { ...event, picture: picture } })
+                                    }}
+                                />
                             </div>
                             {/* Event date input message */}
                             <Typography
@@ -96,9 +106,9 @@ class EventDetails extends React.Component {
                                 <InputMask
                                     mask="99/99"
                                     maskChar="X"
-                                    value={event.date}
+                                    value={event.scheduledTo}
                                     onChange={(e) => {
-                                        this.setState({ event: { ...event, date: e.target.value } })
+                                        this.setState({ event: { ...event, scheduledTo: e.target.value } })
                                     }}
                                 >
                                     {/* Based on the mask properties... */}
@@ -122,7 +132,7 @@ class EventDetails extends React.Component {
                     {/* Event information row */}
                     <Grid item xs={12} md={6}>
                         <form className={`${classes.maxWidthContainer} ${classes.secondColumn}`}>
-                            {/* Event name input message */}
+                            {/* Event title input message */}
                             <Typography
                                 align='left'
                                 color='inherit'
@@ -131,14 +141,14 @@ class EventDetails extends React.Component {
                             >
                                 {'3. Escolha um título para o evento: '}
                             </Typography>
-                            {/* Event name input */}
+                            {/* Event title input */}
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
                                     type="textarea"
-                                    value={event.name}
+                                    value={event.title}
                                     onChange={(e) => {
                                         this.setState({
-                                            event: { ...event, name: e.target.value }
+                                            event: { ...event, title: e.target.value }
                                         })
                                     }}
                                     placeholder="Por que o evento vai ocorrer?"
@@ -157,7 +167,7 @@ class EventDetails extends React.Component {
                             >
                                 {'4. Adicione observações pra galera (opcional): '}
                             </Typography>
-                            {/* Event name input */}
+                            {/* Event title input */}
                             <FormControl fullWidth className={classes.margin}>
                                 <Input
                                     type="text"
@@ -182,7 +192,10 @@ class EventDetails extends React.Component {
                     {/* Save button */}
                     <Button
                         fullWidth
-                        onClick={() => { this.props.onSave(event) }}
+                        onClick={() => {
+                            let formatted = this.format(event);
+                            this.props.onSave(formatted)
+                        }}
                         disabled={!this.isValidEventForm()}
                         className={classes.button}
                         variant='contained'

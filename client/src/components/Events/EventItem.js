@@ -6,6 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import { Avatar } from '@material-ui/core';
+import withRouter from 'react-router-dom/withRouter';
 
 const styles = theme => ({
     card: {
@@ -56,14 +57,14 @@ const styles = theme => ({
 class EventItem extends React.Component {
 
     render() {
-        const { classes, event } = this.props;
+        const { classes, event, history } = this.props;
         console.log();
-        const randomPic = Math.floor(Math.random() * 5) + 1  ;
+        const randomPic = Math.floor(Math.random() * 5) + 1;
         return (
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.media}
-                    image={`/barbecue-0${randomPic}.jpg`}
+                    image={`/barbecue-${event.picture ? event.picture.src : '01'}.jpg`}
                     title="Paella dish"
                 />
                 <CardHeader
@@ -74,7 +75,7 @@ class EventItem extends React.Component {
                         </Avatar>
                     }
                     title={event.title}
-                    subheader={event.date.toLocaleDateString("pt-br")}
+                    subheader={(new Date(event.scheduledTo)).toLocaleDateString("pt-br")}
                 />
                 {/* <CardActions className={classes.actions} disableActionSpacing>
                 <IconButton aria-label="Share">
@@ -83,13 +84,11 @@ class EventItem extends React.Component {
             </CardActions> */}
 
                 <CardContent className={classes.cardContent}>
-                    {/* <Typography component="p">
-                        {event.observations}
-                    </Typography> */}
+
                     <div className={classes.textCenter}>
-                        <Button className={classes.link}>
+                        <Button className={classes.link} onClick={(e) => { history.push('/event/' + event._id) }}>
                             Ver mais
-                    </Button>
+                        </Button>
                     </div>
                 </CardContent>
             </Card>
@@ -97,4 +96,4 @@ class EventItem extends React.Component {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(EventItem)
+export default withRouter(withStyles(styles, { withTheme: true })(EventItem)) 

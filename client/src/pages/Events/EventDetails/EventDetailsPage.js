@@ -5,7 +5,6 @@ import { Tabs, Tab } from '@material-ui/core';
 import EventDetails from '../../../components/Events/EventDetails'
 import EventContributionInput from '../../../components/Events/EventContributionInput'
 import EventGuestsList from '../../../components/Events/EventGuestsList'
-import moment from 'moment-mini'
 
 import API from '../../../api'
 import AuthUtils from '../../../utils/AuthUtils'
@@ -52,7 +51,6 @@ class EventDetailsPage extends Component {
 
     saveEvent(event, callback) {
         this.setState({ isLoading: true }); // Sets loading state 
-        event.date = moment(event.date, 'DD/MM').toDate(); // Parses event date
         API.saveEvent({ xAccessToken: this.state.token, event: event }).then((response) => { // In case of success...
             this.setState({ event: response.data });
             if (callback) callback();

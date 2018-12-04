@@ -26,7 +26,7 @@ class IconLabelTabs extends React.Component {
 
   tabs = [
     { value: '/', icon: <CalendarIcon />, onClick: (e) => { this.props.history.push('/'); } },
-    { value: '/contacts', icon: <ContactsIcon />, onClick: (e) => { this.props.history.push('/contacts'); } },
+    // { value: '/contacts', icon: <ContactsIcon />, onClick: (e) => { this.props.history.push('/contacts'); } },
     { value: '/settings', icon: <SettingsIcon />, onClick: (e) => { this.props.history.push('/settings'); } }
   ]
 

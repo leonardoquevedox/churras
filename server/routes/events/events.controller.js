@@ -7,23 +7,21 @@
 
 // --------------- Module Imports
 const Event = require('./event.model');
+const DatabaseService = require('../../services/database.service');
 
 // --------------- Module Controller
 const EventCtrl = module.exports = {
     errors: {
         DUPLICATED_USER: "DUPLICATED_USER"
     },
-    save: async function (information) {
-        console.log(information);
-        return {};
-        // let exists = await Event.findOne({ email: information.email }); // Tries to locate event
-        // if (exists) throw new Error(EventCtrl.errors.DUPLICATED_USER); // In case it already exists, return error
-        // let created = await Event.create(information); // Creates event on the database
-        // let event = created.toObject(); // Turns event object into editable object
-        // return Object.assign(event, { token: Event.schema.methods.getTokenFor(event._id) }); // Returns the created event
+    save: async function (event) {
+        event.isNew = !(event && event._id); // Checks the event is being created
+        if (!event.isNew) event = DatabaseService.purify(event); // Removes metadata in case is not
+        let saved = event.isNew ? await Event.create(event) : await Event.findOneAndUpdate({ _id: event._id }, event, { new: true }); // Creates pet with the given information
+        return saved; // Returns the saved event
     },
     list: async function (id) {
-        let events = await Event.find({ guests: email }); // Tries to locate event
+        let events = await Event.find(); // Tries to locate event
         return events; // Returns the created event
     },
     get: async function (id) {
@@ -40,3 +38,7 @@ const EventCtrl = module.exports = {
         return event; // Returns the created event
     }
 }
+/* 
+Event.remove({}, (error) => {
+    console.log(error);
+}); */

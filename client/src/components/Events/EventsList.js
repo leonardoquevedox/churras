@@ -5,16 +5,11 @@ import EventItem from './EventItem'
 import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
-    content: {
-        minHeight: '70vh',
-        padding: '30px',
-        paddingTop: '5px'
-    },
+    
 })
 
 class EventsList extends React.Component {
     state = {}
-
     render() {
         const { classes, events } = this.props;
         return (
@@ -27,7 +22,7 @@ class EventsList extends React.Component {
                 </div>
                 {/* Events! */}
                 <div style={{ display: (events.length > 0 ? 'block' : 'none') }}>
-                    <Grid container justify="flex-start" spacing={16}>
+                    <Grid container alignItems="center" alignContent="center" spacing={16}>
                         {events.map((event, index) => (
                             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                                 <EventItem event={event} />

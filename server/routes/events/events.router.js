@@ -24,7 +24,6 @@ router.post('/', auth.isAuthenticated(), async (req, res) => {
         let saved = await controller.save(eventInfo);
         return res.status(200).json(saved);
     } catch (e) { // In case of errors...
-        console.log(e);
         switch (e.message) { // Returns specific statuses
             case controller.errors.MUTIPLE_EVENTS_ON_SAME_DAY:
                 return res.status(409).json(e);
@@ -46,9 +45,9 @@ router.post('/', auth.isAuthenticated(), async (req, res) => {
  * @interface saveEvent
  * Creates or updates an event on the database.
  */
-router.get('/by-user', auth.isAuthenticated(), async (req, res) => {
+router.get('/', auth.isAuthenticated(), async (req, res) => {
     try {
-        let events = await controller.getByUser(req.user._id);
+        let events = await controller.list(req.user._id);
         return res.status(200).json(events);
     } catch (e) { // In case of errors...
         switch (e.message) { // Returns specific statuses
@@ -60,7 +59,7 @@ router.get('/by-user', auth.isAuthenticated(), async (req, res) => {
     }
 }).describe({
     tags: [router.entity],
-    operationId: "getEventsByUser",
+    operationId: "getEventsList",
     responses: SwaggerUtils.defaultResponses(),
     parameters: [SwaggerUtils.authParam()]
 });

@@ -44,7 +44,7 @@ const styles = theme => ({
 
 
 class EventPictureInput extends React.Component {
-    pictures = [
+   static pictures = [
         { src: "01" },
         { src: "02" },
         { src: "03" },
@@ -53,8 +53,13 @@ class EventPictureInput extends React.Component {
     ];
 
     state = {
-        selected: this.pictures[0]
+        selected: EventPictureInput.pictures[0]
     };
+
+    onPictureChange(selected){
+        this.setState({ selected: selected });
+        this.props.onChange(selected);
+    }
 
     render() {
         const { classes } = this.props;
@@ -66,9 +71,9 @@ class EventPictureInput extends React.Component {
                 </div>
                 {/* Picture options */}
                 <div className={classes.picOptions}>
-                    {this.pictures.map((picture, index) =>
+                    {EventPictureInput.pictures.map((picture, index) =>
                         <div
-                            onClick={(e) => { this.setState({ selected: picture }) }}
+                            onClick={(e) => { this.onPictureChange(picture) }}
                             key={index}
                             className={classes.picOption}
                             style={{

@@ -159,21 +159,15 @@ class MiniDrawer extends React.Component {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem button onClick={(e) => { history.push('/'); }}>
+                            <ListItem button onClick={(e) => {
+                                if (location.pathname.indexOf('event') == -1) history.push('/');
+                            }}>
                                 <ListItemIcon>
                                     <CalendarIcon color={location.pathname === '/' ? 'primary' : 'error'} />
                                 </ListItemIcon>
                                 <ListItemText primary='Churrascos' />
                             </ListItem>
                         </List>
-                        {/* <List>
-                            <ListItem button onClick={(e) => { history.push('/contacts'); }}>
-                                <ListItemIcon>
-                                    <ContactsIcon color={location.pathname === '/contacts' ? 'primary' : 'error'} />
-                                </ListItemIcon>
-                                <ListItemText primary='Galera' />
-                            </ListItem>
-                        </List> */}
                         <Divider />
                         <List>
                             <ListItem button onClick={(e) => { history.push('/settings'); }}>

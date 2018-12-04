@@ -27,12 +27,12 @@ const unprotectedRoutes = [
 const protectedRoutes = [
   // ---------- Events Routes
   <Route exact key="home" path="/" name="Churrascos" component={EventsDashboard} />,
-  <Route exact key="event" path="/event" name="Churrasco" component={EventDetails} />,
+  <Route key="event" path="/event" name="Churrasco" component={EventDetails} />,
   // ---------- User Routes
   <Route exact key="me" path="/me" name="Meus dados" component={UserInformation} />,
   <Route exact key="settings" path="/settings" name="Configurações" component={UserSettings} />,
   // ---------- Password Routes
-  <Route exact key="password-update" path="/settings" name="Alterar senha" component={PasswordUpdate} />,
+  <Route exact key="password-update" path="/password-update" name="Alterar senha" component={PasswordUpdate} />,
   // ---------- Contacts Routes
   <Route exact key="contacts" path="/contacts" name="Galera" component={ContactsDashboard} />,
   <Route exact key="contact" path="/contact" name="Galera" component={ContactDetails} />,

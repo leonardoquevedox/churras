@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updatePasswordURL = exports.updatePassword_TYPE = exports.updatePassword_RAW_URL = exports.updatePassword = exports.recoverPasswordURL = exports.recoverPassword_TYPE = exports.recoverPassword_RAW_URL = exports.recoverPassword = exports.authenticateUserURL = exports.authenticateUser_TYPE = exports.authenticateUser_RAW_URL = exports.authenticateUser = exports.isUniqueUsernameURL = exports.isUniqueUsername_TYPE = exports.isUniqueUsername_RAW_URL = exports.isUniqueUsername = exports.getUserDataURL = exports.getUserData_TYPE = exports.getUserData_RAW_URL = exports.getUserData = exports.updateUserURL = exports.updateUser_TYPE = exports.updateUser_RAW_URL = exports.updateUser = exports.createUserURL = exports.createUser_TYPE = exports.createUser_RAW_URL = exports.createUser = exports.activateEventURL = exports.activateEvent_TYPE = exports.activateEvent_RAW_URL = exports.activateEvent = exports.deactivateEventURL = exports.deactivateEvent_TYPE = exports.deactivateEvent_RAW_URL = exports.deactivateEvent = exports.getEventURL = exports.getEvent_TYPE = exports.getEvent_RAW_URL = exports.getEvent = exports.getEventsByUserURL = exports.getEventsByUser_TYPE = exports.getEventsByUser_RAW_URL = exports.getEventsByUser = exports.saveEventURL = exports.saveEvent_TYPE = exports.saveEvent_RAW_URL = exports.saveEvent = exports.request = exports.setDomain = exports.getDomain = void 0;
+exports.updatePasswordURL = exports.updatePassword_TYPE = exports.updatePassword_RAW_URL = exports.updatePassword = exports.recoverPasswordURL = exports.recoverPassword_TYPE = exports.recoverPassword_RAW_URL = exports.recoverPassword = exports.authenticateUserURL = exports.authenticateUser_TYPE = exports.authenticateUser_RAW_URL = exports.authenticateUser = exports.isUniqueUsernameURL = exports.isUniqueUsername_TYPE = exports.isUniqueUsername_RAW_URL = exports.isUniqueUsername = exports.getUserDataURL = exports.getUserData_TYPE = exports.getUserData_RAW_URL = exports.getUserData = exports.updateUserURL = exports.updateUser_TYPE = exports.updateUser_RAW_URL = exports.updateUser = exports.createUserURL = exports.createUser_TYPE = exports.createUser_RAW_URL = exports.createUser = exports.activateEventURL = exports.activateEvent_TYPE = exports.activateEvent_RAW_URL = exports.activateEvent = exports.deactivateEventURL = exports.deactivateEvent_TYPE = exports.deactivateEvent_RAW_URL = exports.deactivateEvent = exports.getEventURL = exports.getEvent_TYPE = exports.getEvent_RAW_URL = exports.getEvent = exports.getEventsListURL = exports.getEventsList_TYPE = exports.getEventsList_RAW_URL = exports.getEventsList = exports.saveEventURL = exports.saveEvent_TYPE = exports.saveEvent_RAW_URL = exports.saveEvent = exports.request = exports.setDomain = exports.getDomain = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -122,22 +122,22 @@ const saveEventURL = function (parameters = {}) {
 };
 /**
  * 
- * request: getEventsByUser
- * url: getEventsByUserURL
- * method: getEventsByUser_TYPE
- * raw_url: getEventsByUser_RAW_URL
+ * request: getEventsList
+ * url: getEventsListURL
+ * method: getEventsList_TYPE
+ * raw_url: getEventsList_RAW_URL
  * @param xAccessToken - JWT created on user creation or authentication.
  */
 
 
 exports.saveEventURL = saveEventURL;
 
-const getEventsByUser = function (parameters = {}) {
+const getEventsList = function (parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain();
   const config = parameters.$config || {
     headers: {}
   };
-  let path = '/events/by-user';
+  let path = '/events';
   let body;
   let queryParameters = {};
   let form = {};
@@ -159,24 +159,24 @@ const getEventsByUser = function (parameters = {}) {
   return request('get', domain + path, body, queryParameters, form, config);
 };
 
-exports.getEventsByUser = getEventsByUser;
+exports.getEventsList = getEventsList;
 
-const getEventsByUser_RAW_URL = function () {
-  return '/events/by-user';
+const getEventsList_RAW_URL = function () {
+  return '/events';
 };
 
-exports.getEventsByUser_RAW_URL = getEventsByUser_RAW_URL;
+exports.getEventsList_RAW_URL = getEventsList_RAW_URL;
 
-const getEventsByUser_TYPE = function () {
+const getEventsList_TYPE = function () {
   return 'get';
 };
 
-exports.getEventsByUser_TYPE = getEventsByUser_TYPE;
+exports.getEventsList_TYPE = getEventsList_TYPE;
 
-const getEventsByUserURL = function (parameters = {}) {
+const getEventsListURL = function (parameters = {}) {
   let queryParameters = {};
   const domain = parameters.$domain ? parameters.$domain : getDomain();
-  let path = '/events/by-user';
+  let path = '/events';
 
   if (parameters.$queryParameters) {
     Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
@@ -198,7 +198,7 @@ const getEventsByUserURL = function (parameters = {}) {
  */
 
 
-exports.getEventsByUserURL = getEventsByUserURL;
+exports.getEventsListURL = getEventsListURL;
 
 const getEvent = function (parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain();

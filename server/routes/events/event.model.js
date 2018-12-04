@@ -14,7 +14,10 @@ const lifecycle = require('mongoose-lifecycle');
 
 // --------------- Module Schema
 const EventSchema = mongoose.Schema({
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    observations: { type: String, required: true },
+    picture: { type: Object, required: false },
+    scheduledTo: { type: Date, required: true },
 });
 
 // --------------- Module Plugins and Indexes

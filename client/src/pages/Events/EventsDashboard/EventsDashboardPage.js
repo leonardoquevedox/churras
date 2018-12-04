@@ -22,18 +22,9 @@ const styles = theme => ({
     flexGrow: 1,
     flex: '1 0 100%',
     paddingTop: '20px',
-    // height: '100%',
-    // overflow: 'hidden'
-  },
-  hero: {
-    height: '100%',
-    // minHeight: '80vh',
-    flex: '0 0 auto',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.palette.background.paper,
-    color: "#666666"
+    [theme.breakpoints.up('md')]: {
+      paddingTop: '30px'
+    }
   },
   text: {
     display: 'flex',
@@ -73,19 +64,14 @@ const styles = theme => ({
   },
   content: {
     height: '100%',
+    minHeight: '70vh',
+    padding: '20px',
+    width: '90%',
     // paddingTop: theme.spacing.unit * 8,
     [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing.unit
+      width: '95%',
+      paddingLeft: '40px'
     }
-  },
-  button: {
-    marginTop: theme.spacing.unit * 3
-  },
-  fullWidthForm: {
-    width: "100%",
-    maxWidth: "400px",
-    padding: "16px",
-    display: "inline-grid"
   },
   fab: {
     position: 'fixed',
@@ -111,9 +97,10 @@ class EventsDashboardPage extends Component {
 
   getEvents() {
     this.setState({ isLoading: true }); // Sets loading state 
-    API.getEventsByUser({ xAccessToken: this.state.accessToken }).then((response) => { // In case of success...
+    API.getEventsList({ xAccessToken: this.state.accessToken }).then((response) => { // In case of success...
       this.setState({ events: response.data });
     }).catch((error) => {  // In case of error...
+      console.log(error);
       this.setState({ // Shows error message
         authError: {
           ...this.state.authError,
@@ -132,10 +119,8 @@ class EventsDashboardPage extends Component {
     return (
       <div className={classes.main}>
         <div className={classes.root}>
-          <div className={classes.hero}>
-            <div className={classes.content}>
-              <EventsList events={events} />
-            </div>
+          <div className={classes.content}>
+            <EventsList events={events} />
           </div>
         </div>
         <Tooltip id="tooltip-icon2" title="Criar churrasco" placement="top">
