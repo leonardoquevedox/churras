@@ -11,12 +11,15 @@ const auth = require('../../services/auth.service');
 
 // --------------- Module Controller
 const UserCtrl = module.exports = {
+    errors: {
+        DUPLICATED_USER: "DUPLICATED_USER"
+    },
     create: async function (information) {
         let exists = await User.findOne({ email: information.email }); // Tries to locate user
-        if (exists) throw new Error('Whoops! You have an duplicated e-mail here.'); // In case it already exists, return error
+        if (exists) throw new Error(UserCtrl.errors.DUPLICATED_USER); // In case it already exists, return error
         let created = await User.create(information); // Creates user on the database
         let user = created.toObject(); // Turns user object into editable object
-        return Object.assign(user, { token: User.getTokenFor(user) }); // Returns the created user
+        return Object.assign(user, { token: User.schema.methods.getTokenFor(user._id) }); // Returns the created user
     },
     sendWelcomeEmail: async function (user) {
         auth.generateEmailConfirmation(async (confirmation) => {
@@ -55,7 +58,7 @@ const UserCtrl = module.exports = {
     authenticate: async function (email) {
         const user = await User.findOne({ email: email }, '-password'); // Gets the user information (without password, of course)
         user.update({ $set: { active: true } }); // Sets it as active on the application database
-        return Object.assign(user.toObject(), { token: User.getTokenFor(user) }); // Returns the user information
+        return Object.assign(user.toObject(), { token: User.schema.methods.getTokenFor(user._id) }); // Returns the user information
     },
     updatePassword: async function (user, newPassword) {
         return await User.findOneAndUpdate({ _id: user._id }, { $set: { password: newPassword } }); // Returns updated user

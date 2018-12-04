@@ -44,6 +44,10 @@ UserSchema.methods.getToken = function () {
     return jwt.sign({ _id: this._id }, process.env.MASTER_KEY)
 };
 
+UserSchema.methods.getTokenFor = function (id) {
+    return jwt.sign({ _id: id }, process.env.MASTER_KEY)
+};
+
 // --------------- Module Hooks
 UserSchema.pre('save', function (next) {
     if (this.password) this.password = this.hashPassword(this.password);

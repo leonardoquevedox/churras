@@ -9,11 +9,15 @@ import { GitHubIcon } from 'rmw-shell/lib/components/Icons'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment } from '@material-ui/core';
+import { Input, FormControl, InputAdornment, CircularProgress } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Link from 'react-router-dom/Link';
 
+import AuthUtils from '../../../utils/AuthUtils';
+import StringUtils from '../../../utils/StringUtils';
+import * as API from '../../../api/ApiClient';
+import SimpleAlertDialog from "../../../components/Interaction/SimpleAlert";
 
 const styles = theme => ({
   main: {
@@ -89,25 +93,65 @@ const styles = theme => ({
     maxWidth: "400px",
     padding: "16px",
     display: "inline-grid"
-  }
+  },
+  buttonProgress: {
+    color: 'white',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 })
 
 class SigninPage extends Component {
 
+  state = {
+    user: {
+      email: "",
+      password: ""
+    },
+    isLoading: false,
+    authError: { show: false, title: "", message: "" }
+  }
+
   componentDidMount() { }
 
+  authenticate() {
+    this.setState({ isLoading: true }); // Sets loading state 
+    API.authenticateUser({ user: this.state.user }).then((response) => { // In case of success...
+      AuthUtils.storeProfile(response.data);
+      this.props.history.push('/home');
+    }).catch((error) => {  // In case of error...
+      this.setState({ // Shows error message
+        authError: {
+          ...this.state.authError,
+          show: true,
+          title: 'Ops! Houve um erro no processo de autenticação.',
+          message: 'Verifique suas credenciais e tente novamente ;)'
+        },
+        isLoading: false
+      });
+      console.log(error);
+    });
+  }
+
   render() {
-    const { classes, history, theme } = this.props;
+    const { classes, theme } = this.props;
+    const { user, isLoading, authError } = this.state;
     return (
       <div className={classes.main}>
+        {/* Head */}
         <Helmet>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
           <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
           <title>Churras</title>
         </Helmet>
+        {/* View header */}
         <AppBar color="primary" position='static'>
           <Toolbar disableGutters>
+            {/* Application name */}
             <Typography align='center'
               component='h1'
               color='inherit'
@@ -116,23 +160,19 @@ class SigninPage extends Component {
               Churras
             </Typography>
             <div style={{ flex: 1 }} />
+            {/* Github icon */}
             <Tooltip id="tooltip-icon2" title="GitHub repository">
-              <IconButton
-                name='github'
-                aria-label='Open Github'
-                color='inherit'
-                href='https://github.com/leopq/churras'
-                target='_blank'
-                rel='noopener'
-              >
+              <IconButton name='github' aria-label='Open Github' color='inherit' href='https://github.com/leopq/churras' target='_blank' rel='noopener'>
                 <GitHubIcon />
               </IconButton>
             </Tooltip>
           </Toolbar>
         </AppBar>
+        {/* View content */}
         <div className={classes.root}>
           <div className={classes.hero}>
             <div className={classes.content}>
+              {/* Project icon */}
               <img
                 src='/icon.png'
                 alt='Material-UI Logo'
@@ -140,7 +180,9 @@ class SigninPage extends Component {
                 height="125"
                 style={{ margin: "auto", display: "block" }}
               />
+              {/* View text content */}
               <div className={classes.text}>
+                {/* Welcome message */}
                 <Typography
                   align='center'
                   component='h1'
@@ -150,6 +192,7 @@ class SigninPage extends Component {
                 >
                   {'E aí, partiu um churras?'}
                 </Typography>
+                {/* Input your data below message */}
                 <Typography
                   align='center'
                   component='div'
@@ -158,10 +201,18 @@ class SigninPage extends Component {
                 >
                   {'Insere tuas informações abaixo e vem com a gente:'}
                 </Typography>
+                {/* Sign in form */}
                 <form className={classes.fullWidthForm}>
                   <FormControl fullWidth className={classes.margin}>
+                    {/* E-mail input */}
                     <Input
                       type="e-mail"
+                      value={user.email}
+                      onChange={(e) => {
+                        this.setState({
+                          user: { ...user, email: e.target.value }
+                        })
+                      }}
                       style={{ padding: "10px" }}
                       placeholder="Teu e-mail"
                       autoComplete="true"
@@ -175,9 +226,15 @@ class SigninPage extends Component {
                       }
                     />
                   </FormControl>
+                  {/* Password input */}
                   <FormControl fullWidth className={classes.margin}>
                     <Input
                       type="password"
+                      onChange={(e) => {
+                        this.setState({
+                          user: { ...user, password: e.target.value }
+                        })
+                      }}
                       style={{ padding: "10px" }}
                       placeholder="Tua senha"
                       autoComplete="true"
@@ -191,17 +248,21 @@ class SigninPage extends Component {
                       }
                     />
                   </FormControl>
+                  {/* Sign in button */}
                   <Button
                     fullWidth
-                    onClick={() => { history.push('/home') }}
+                    onClick={() => { this.authenticate() }}
                     className={classes.button}
                     variant='contained'
                     color='primary'
+                    disabled={this.state.isLoading}
                   >
-                    {'Partiu!'}
+                    {!isLoading && 'Partiu!'}
+                    {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
                   </Button>
                 </form>
                 <div>
+                  {/* Sign up call to action */}
                   <Typography
                     align='center'
                     component='div'
@@ -212,22 +273,29 @@ class SigninPage extends Component {
                     <Link className={classes.primaryColor} to="signup">Cadastre-se</Link>
                   </Typography>
                 </div>
+                {/* Password Recovery */}
                 <div>
                   <Typography
                     align='center'
                     component='div'
                     color='inherit'
-                    className={classes.subtitle}
-                  >
+                    className={classes.subtitle}>
                     {'Esqueceu sua senha?'}&nbsp;
                     <Link className={classes.primaryColor} to="password-recovery">Clique aqui</Link>
                   </Typography>
                 </div>
+                {/* Error dialog */}
+                <SimpleAlertDialog
+                  isOpen={authError.show}
+                  title={authError.title}
+                  message={authError.message}
+                  onAccept={(e) => { this.setState({ authError: { ...authError, show: false } }) }}
+                />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
     )
   }

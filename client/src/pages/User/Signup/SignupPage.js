@@ -6,10 +6,14 @@ import Typography from '@material-ui/core/Typography'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Input, FormControl, InputAdornment } from '@material-ui/core';
+import { Input, FormControl, InputAdornment, CircularProgress } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
+
+import ObjectUtils from '../../../utils/ObjectUtils';
+import SimpleAlertDialog from '../../../components/Interaction/SimpleAlert';
+import * as API from '../../../api/ApiClient';
 
 const styles = theme => ({
   main: {
@@ -31,7 +35,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
-    color: "#666666"
+    color: '#666666'
   },
   text: {
     display: 'flex',
@@ -56,7 +60,7 @@ const styles = theme => ({
     fontSize: 14,
     [theme.breakpoints.only('xs')]: {
       fontSize: 14,
-      maxWidth: "200px"
+      maxWidth: '200px'
     },
   },
   headline: {
@@ -81,28 +85,74 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   },
   fullWidthForm: {
-    width: "100%",
-    maxWidth: "400px",
-    padding: "16px",
-    display: "inline-grid"
+    width: '100%',
+    maxWidth: '400px',
+    padding: '16px',
+    display: 'inline-grid'
   }
 })
 
 class SigninPage extends Component {
 
+  state = {
+    user: {
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirmation: ''
+    },
+    isLoading: false,
+    responseError: { show: false, title: '', message: '' }
+  }
+
   componentDidMount() { }
 
+  isValidSignupForm(){
+   return ObjectUtils.hasKeys(this.state.user, ['name', 'email', 'password', 'passwordConfirmation']);
+  }
+
+  signup() {
+    this.setState({ isLoading: true }); // Sets loading state 
+    API.createUser({ user: this.state.user }).then((response) => { // In case of success...
+      console.log(response.data);
+      this.props.history.push('/home');
+    }).catch((error) => {  // In case of error...
+      let message = '';
+      switch (error.response.status) {
+        default:
+          message = 'Por favor, tente novamente mais tarde.';
+          break;
+        case 409:
+          message = 'Já existe um usuário com este e-mail. Por favor, tente com outro endereço ou efetue o login.';
+          break;
+        case 400:
+          message = 'Por favor, verifique as informações preenchidas e tente novamente ;)';
+          break;
+      }
+      this.setState({ // Shows error message
+        responseError: {
+          ...this.state.responseError,
+          show: true,
+          title: 'Ops! Houve um erro no cadastro.',
+          message: message
+        },
+        isLoading: false
+      });
+    });
+  }
+
   render() {
-    const { classes, history, theme } = this.props;
+    const { classes, theme } = this.props;
+    const { user, isLoading, responseError } = this.state;
     return (
       <div className={classes.main}>
         <Helmet>
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          <meta name="apple-mobile-web-app-status-bar-style" content={theme.palette.primary.main} />
-          <meta name="msapplication-navbutton-color" content={theme.palette.primary.main} />
+          <meta name='theme-color' content={theme.palette.primary.main} />
+          <meta name='apple-mobile-web-app-status-bar-style' content={theme.palette.primary.main} />
+          <meta name='msapplication-navbutton-color' content={theme.palette.primary.main} />
           <title>Cadastro</title>
         </Helmet>
-        <AppBar color="primary" position='static'>
+        <AppBar color='primary' position='static'>
           <Toolbar disableGutters>
             <Typography align='center'
               component='h1'
@@ -130,14 +180,19 @@ class SigninPage extends Component {
                 <form className={classes.fullWidthForm}>
                   <FormControl fullWidth className={classes.margin}>
                     <Input
-                      type="text"
-                      style={{ padding: "10px" }}
-                      placeholder="Teu nome"
-                      autoComplete="true"
-                      autoCapitalize="true"
+                      type='text'
+                      onChange={(e) => {
+                        this.setState({
+                          user: { ...user, name: e.target.value }
+                        })
+                      }}
+                      style={{ padding: '10px' }}
+                      placeholder='Teu nome'
+                      autoComplete='true'
+                      autoCapitalize='true'
                       startAdornment={
                         <InputAdornment
-                          position="start"
+                          position='start'
                           className={classes.primaryColor}
                         >
                           <AccountCircle />
@@ -147,13 +202,18 @@ class SigninPage extends Component {
                   </FormControl>
                   <FormControl fullWidth className={classes.margin}>
                     <Input
-                      type="e-mail"
-                      style={{ padding: "10px" }}
-                      placeholder="Teu e-mail"
-                      autoComplete="true"
+                      type='e-mail'
+                      onChange={(e) => {
+                        this.setState({
+                          user: { ...user, email: e.target.value }
+                        })
+                      }}
+                      style={{ padding: '10px' }}
+                      placeholder='Teu e-mail'
+                      autoComplete='true'
                       startAdornment={
                         <InputAdornment
-                          position="start"
+                          position='start'
                           className={classes.primaryColor}
                         >
                           <EmailIcon />
@@ -163,13 +223,18 @@ class SigninPage extends Component {
                   </FormControl>
                   <FormControl fullWidth className={classes.margin}>
                     <Input
-                      type="password"
-                      style={{ padding: "10px" }}
-                      placeholder="Tua senha"
-                      autoComplete="true"
+                      type='password'
+                      onChange={(e) => {
+                        this.setState({
+                          user: { ...user, password: e.target.value }
+                        })
+                      }}
+                      style={{ padding: '10px' }}
+                      placeholder='Tua senha'
+                      autoComplete='true'
                       startAdornment={
                         <InputAdornment
-                          position="start"
+                          position='start'
                           className={classes.primaryColor}
                         >
                           <LockIcon />
@@ -179,13 +244,18 @@ class SigninPage extends Component {
                   </FormControl>
                   <FormControl fullWidth className={classes.margin}>
                     <Input
-                      type="password"
-                      style={{ padding: "10px" }}
-                      placeholder="Confirmação da senha"
-                      autoComplete="true"
+                      type='password'
+                      onChange={(e) => {
+                        this.setState({
+                          user: { ...user, passwordConfirmation: e.target.value }
+                        })
+                      }}
+                      style={{ padding: '10px' }}
+                      placeholder='Confirmação da senha'
+                      autoComplete='true'
                       startAdornment={
                         <InputAdornment
-                          position="start"
+                          position='start'
                           className={classes.primaryColor}
                         >
                           <LockIcon />
@@ -195,15 +265,23 @@ class SigninPage extends Component {
                   </FormControl>
                   <Button
                     fullWidth
-                    onClick={() => { history.push('/home') }}
+                    onClick={() => { this.signup() }}
+                    disabled={!this.isValidSignupForm()}
                     className={classes.button}
                     variant='contained'
                     color='primary'
                   >
-                    {'Cadastrar!'}
+                    {!isLoading && 'Cadastrar!'}
+                    {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
                   </Button>
                 </form>
               </div>
+              <SimpleAlertDialog
+                isOpen={responseError.show}
+                title={responseError.title}
+                message={responseError.message}
+                onAccept={(e) => { this.setState({ responseError: { ...responseError, show: false } }) }}
+              />
             </div>
           </div>
         </div>

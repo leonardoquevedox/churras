@@ -35,7 +35,7 @@ export const request = (method, url, body, queryParameters, form, config) => {
  * raw_url: createUser_RAW_URL
  * @param user - JSON representation of the user to be created.
  */
-export const createUser = function (parameters = {}) {
+export const createUser = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -48,24 +48,24 @@ export const createUser = function (parameters = {}) {
     body = parameters['user']
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('post', domain + path, body, queryParameters, form, config)
 }
-export const createUser_RAW_URL = function () {
+export const createUser_RAW_URL = function() {
   return '/users'
 }
-export const createUser_TYPE = function () {
+export const createUser_TYPE = function() {
   return 'post'
 }
-export const createUserURL = function (parameters = {}) {
+export const createUserURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }
@@ -81,7 +81,7 @@ export const createUserURL = function (parameters = {}) {
  * @param xAccessToken - JWT created on user creation or authentication.
  * @param user - JSON representation of the user to be created.
  */
-export const updateUser = function (parameters = {}) {
+export const updateUser = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -100,24 +100,24 @@ export const updateUser = function (parameters = {}) {
     body = parameters['user']
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('put', domain + path, body, queryParameters, form, config)
 }
-export const updateUser_RAW_URL = function () {
+export const updateUser_RAW_URL = function() {
   return '/users'
 }
-export const updateUser_TYPE = function () {
+export const updateUser_TYPE = function() {
   return 'put'
 }
-export const updateUserURL = function (parameters = {}) {
+export const updateUserURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }
@@ -132,7 +132,7 @@ export const updateUserURL = function (parameters = {}) {
  * raw_url: getUserData_RAW_URL
  * @param xAccessToken - JWT created on user creation or authentication.
  */
-export const getUserData = function (parameters = {}) {
+export const getUserData = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -148,24 +148,24 @@ export const getUserData = function (parameters = {}) {
     return Promise.reject(new Error('Missing required  parameter: xAccessToken'))
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('get', domain + path, body, queryParameters, form, config)
 }
-export const getUserData_RAW_URL = function () {
+export const getUserData_RAW_URL = function() {
   return '/users/profile'
 }
-export const getUserData_TYPE = function () {
+export const getUserData_TYPE = function() {
   return 'get'
 }
-export const getUserDataURL = function (parameters = {}) {
+export const getUserDataURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users/profile'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }
@@ -180,7 +180,7 @@ export const getUserDataURL = function (parameters = {}) {
  * raw_url: isUniqueUsername_RAW_URL
  * @param username - 
  */
-export const isUniqueUsername = function (parameters = {}) {
+export const isUniqueUsername = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -194,25 +194,25 @@ export const isUniqueUsername = function (parameters = {}) {
     return Promise.reject(new Error('Missing required  parameter: username'))
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('get', domain + path, body, queryParameters, form, config)
 }
-export const isUniqueUsername_RAW_URL = function () {
+export const isUniqueUsername_RAW_URL = function() {
   return '/users/username/exists/{username}'
 }
-export const isUniqueUsername_TYPE = function () {
+export const isUniqueUsername_TYPE = function() {
   return 'get'
 }
-export const isUniqueUsernameURL = function (parameters = {}) {
+export const isUniqueUsernameURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users/username/exists/{username}'
   path = path.replace('{username}', `${parameters['username']}`)
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }
@@ -227,7 +227,7 @@ export const isUniqueUsernameURL = function (parameters = {}) {
  * raw_url: authenticateUser_RAW_URL
  * @param user - User credentials object.
  */
-export const authenticateUser = function (parameters = {}) {
+export const authenticateUser = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -240,24 +240,24 @@ export const authenticateUser = function (parameters = {}) {
     body = parameters['user']
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('post', domain + path, body, queryParameters, form, config)
 }
-export const authenticateUser_RAW_URL = function () {
+export const authenticateUser_RAW_URL = function() {
   return '/users/authenticate'
 }
-export const authenticateUser_TYPE = function () {
+export const authenticateUser_TYPE = function() {
   return 'post'
 }
-export const authenticateUserURL = function (parameters = {}) {
+export const authenticateUserURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users/authenticate'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }
@@ -272,7 +272,7 @@ export const authenticateUserURL = function (parameters = {}) {
  * raw_url: recoverPassword_RAW_URL
  * @param user - User e-mail.
  */
-export const recoverPassword = function (parameters = {}) {
+export const recoverPassword = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -285,24 +285,24 @@ export const recoverPassword = function (parameters = {}) {
     body = parameters['user']
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('post', domain + path, body, queryParameters, form, config)
 }
-export const recoverPassword_RAW_URL = function () {
+export const recoverPassword_RAW_URL = function() {
   return '/users/password/recover'
 }
-export const recoverPassword_TYPE = function () {
+export const recoverPassword_TYPE = function() {
   return 'post'
 }
-export const recoverPasswordURL = function (parameters = {}) {
+export const recoverPasswordURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users/password/recover'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }
@@ -318,7 +318,7 @@ export const recoverPasswordURL = function (parameters = {}) {
  * @param xAccessToken - JWT created on user creation or authentication.
  * @param user - User credentials object.
  */
-export const updatePassword = function (parameters = {}) {
+export const updatePassword = function(parameters = {}) {
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   const config = parameters.$config || {
     headers: {}
@@ -337,24 +337,24 @@ export const updatePassword = function (parameters = {}) {
     body = parameters['user']
   }
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     });
   }
   return request('post', domain + path, body, queryParameters, form, config)
 }
-export const updatePassword_RAW_URL = function () {
+export const updatePassword_RAW_URL = function() {
   return '/users/password/update'
 }
-export const updatePassword_TYPE = function () {
+export const updatePassword_TYPE = function() {
   return 'post'
 }
-export const updatePasswordURL = function (parameters = {}) {
+export const updatePasswordURL = function(parameters = {}) {
   let queryParameters = {}
   const domain = parameters.$domain ? parameters.$domain : getDomain()
   let path = '/users/password/update'
   if (parameters.$queryParameters) {
-    Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
       queryParameters[parameterName] = parameters.$queryParameters[parameterName]
     })
   }

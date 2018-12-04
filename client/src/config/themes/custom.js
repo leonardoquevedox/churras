@@ -31,11 +31,11 @@ const custom = createMuiTheme({
                 backgroundColor: 'transparent',
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)'
             },
+            disabled: {
+                opacity: 0.5
+            }
         },
         MuiInput: {
-            focused: {},
-            disabled: {},
-            error: {},
             underline: {
                 '&:before': {
                     borderBottom: '1px solid rgba(20, 20, 20, 0.2)'

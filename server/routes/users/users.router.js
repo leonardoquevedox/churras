@@ -19,11 +19,20 @@ const execute = require('../../services/async.service');
  * @interface createUser
  * Creates user on the database.
  */
-router.post('/', execute(async (req, res) => {
-    let userInfo = req.body;
-    let created = await controller.create(userInfo);
-    return res.status(200).json(created);
-})).describe({
+router.post('/', async (req, res) => {
+    try {
+        let userInfo = req.body;
+        let created = await controller.create(userInfo);
+        return res.status(200).json(created);
+    } catch (e) { // In case of errors...
+        switch (e.message) { // Returns specific statuses
+            case controller.errors.DUPLICATED_USER:
+                return res.status(409).json(e);
+            default:
+                return res.status(500).json(e);
+        }
+    }
+}).describe({
     tags: [router.entity],
     operationId: "createUser",
     responses: SwaggerUtils.defaultResponses(),
