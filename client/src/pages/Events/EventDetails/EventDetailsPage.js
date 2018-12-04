@@ -52,9 +52,9 @@ class EventDetailsPage extends Component {
                     <div className={classes.hero}>
                         <div className={classes.content}>
                             <Tabs color="primary" fullWidth value={selectedTab}>
-                                <Tab value={1} label="1. Informações" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
-                                <Tab value={2} label="2. Contribuições" onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
-                                <Tab value={3} label="3. Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
+                                <Tab value={1} label="Informações" onClick={(e) => { this.setState({ selectedTab: 1 }) }} />
+                                <Tab value={2} label="Contribuições" onClick={(e) => { this.setState({ selectedTab: 2 }) }} />
+                                <Tab value={3} label="Participantes" onClick={(e) => { this.setState({ selectedTab: 3 }) }} />
                             </Tabs>
                             <EventDetails
                                 onSave={(data) => {

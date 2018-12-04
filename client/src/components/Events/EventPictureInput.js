@@ -2,20 +2,28 @@ import React, { } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
+    picPreviewWrapper: {
+        display: "inline-block",
+        verticalAlign: "top",
+        width: "calc(100% - 150px)"
+    },
     picPreview: {
         height: "200px",
         width: "200px",
-        margin: "auto",
         borderRadius: "50%",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        [theme.breakpoints.up('md')]: {
+            margin: "auto"
+        },
         [theme.breakpoints.down('md')]: {
-            height: "175px",
-            width: "175px",
+            height: "100px",
+            width: "100px",
         }
     },
     picOptions: {
-        width: "100%",
+        display: "inline-block",
+        maxWidth: "150px",
         marginTop: "10px",
     },
     picOption: {
@@ -26,7 +34,11 @@ const styles = theme => ({
         borderRadius: "50%",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        display: "inline-block"
+        display: "inline-block",
+        [theme.breakpoints.down('md')]: {
+            height: "40px",
+            width: "40px",
+        }
     }
 })
 
@@ -47,9 +59,11 @@ class EventPictureInput extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <section style={{ display: "block", textAlign: "center" }}>
+            <section style={{ display: "inline", textAlign: "center" }}>
                 {/* Picture preview */}
-                <div className={classes.picPreview} style={{ backgroundImage: `url('./barbecue-${this.state.selected.src}.jpg')` }}></div>
+                <div className={classes.picPreviewWrapper}>
+                    <div className={classes.picPreview} style={{ backgroundImage: `url('./barbecue-${this.state.selected.src}.jpg')` }}></div>
+                </div>
                 {/* Picture options */}
                 <div className={classes.picOptions}>
                     {this.pictures.map((picture, index) =>
@@ -65,7 +79,6 @@ class EventPictureInput extends React.Component {
                         </div>
                     )}
                 </div>
-
             </section>
         )
     }

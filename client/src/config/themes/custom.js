@@ -53,6 +53,20 @@ const custom = createMuiTheme({
                 '&:hover:not($disabled):not($focused):not($error):before': {
                     borderBottom: `2px solid #fe1800`
                 }
+            },
+            input: {
+                fontSize: '12px !important'
+            }
+        },
+        MuiTabs: {
+            root: {
+                width: '100%',
+                boxShadow: '0 4px 2px -2px rgba(0, 0, 0, 0.2)',
+            }
+        },
+        MuiTab: {
+            label: {
+                fontSize: '10px'
             }
         }
     }

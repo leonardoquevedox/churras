@@ -6,6 +6,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import { Input, InputAdornment, FormControlLabel, Grid, Checkbox } from '@material-ui/core';
 import ContributionIcon from '@material-ui/icons/AttachMoney';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import EmailIcon from '@material-ui/icons/Email';
 
 const styles = theme => ({
     card: {
@@ -26,14 +28,11 @@ const styles = theme => ({
         marginBottom: '0px'
     },
     cardHeader: {
-        paddingBottom: '0px',
-        textAlign: 'center'
-    },
-    link: {
-        color: theme.palette.primary.main
+        textAlign: 'center',
+        backgroundColor: theme.palette.primary.main,
     },
     cardTitle: {
-        color: theme.palette.primary.main,
+        color: 'white',
         textTransform: 'uppercase',
         fontSize: '14px',
     },
@@ -41,6 +40,9 @@ const styles = theme => ({
         color: '#888888',
         textTransform: 'uppercase',
         fontSize: '12px'
+    },
+    link: {
+        color: theme.palette.primary.main
     },
     cardContent: {
         textAlign: 'center'
@@ -76,12 +78,40 @@ class EventGuest extends React.Component {
                 <CardHeader
                     className={classes.cardHeader}
                     classes={{ title: classes.cardTitle, subheader: classes.cardSubheader }}
-                    title={guest.name}
+                    title={'Convidadx'}
                     subheader={guest.email}
                 />
                 <CardContent className={classes.cardContent}>
                     <Grid container>
                         <Grid item xs={12}>
+                            <Input
+                                type="text"
+                                fullWidth
+                                style={{ padding: "10px" }}
+                                placeholder="Nome"
+                                autoComplete="true"
+                                autoCapitalize="true"
+                                classes={{ input: classes.smallFont }}
+                                startAdornment={
+                                    <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                                        <AccountCircle />
+                                    </InputAdornment>
+                                }
+                            />
+                            <Input
+                                type="e-mail"
+                                fullWidth
+                                style={{ padding: "10px" }}
+                                placeholder="e-mail"
+                                autoComplete="true"
+                                autoCapitalize="true"
+                                classes={{ input: classes.smallFont }}
+                                startAdornment={
+                                    <InputAdornment position="start" style={{ color: theme.palette.primary.main }}>
+                                        <EmailIcon />
+                                    </InputAdornment>
+                                }
+                            />
                             <Input
                                 type="number"
                                 fullWidth
