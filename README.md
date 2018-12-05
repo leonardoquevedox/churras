@@ -1,4 +1,4 @@
-# Churras
+# Churras.js
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
@@ -46,20 +46,20 @@ $ npm install
 Churras uses React + Webpack (client) and Nodemon (server) for fast developing.
 Make a change in your file and instantanously see your updates!
 
-##### Steps:
+#### Steps:
 Open your favorite Terminal and run these commands.
 
-First Tab (Database):
+##### First Tab (Database):
 ```sh
 $ mongod
 ```
 
-Second Tab  (Server):
+##### Second Tab (Server):
 ```sh
 $ cd server && npm run dev
 ```
 
-Third Tab (Client):
+##### Third Tab (Client):
 ```sh
 $ cd client && npm start
 ```
