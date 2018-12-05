@@ -21,6 +21,10 @@ const UserCtrl = module.exports = {
         let user = created.toObject(); // Turns user object into editable object
         return Object.assign(user, { token: User.schema.methods.getTokenFor(user._id) }); // Returns the created user
     },
+    list: async function () {
+        let users = await User.find({}); // Retrieves all users list
+        return users; // Returns users
+    },
     sendWelcomeEmail: async function (user) {
         auth.generateEmailConfirmation(async (confirmation) => {
             confirmation = confirmation + user._id; // Generates e-mail confirmation hash

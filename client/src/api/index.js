@@ -1,2 +1,2 @@
-import * as API from './API'
-export default API
+import * as API from "./API";
+export default API;

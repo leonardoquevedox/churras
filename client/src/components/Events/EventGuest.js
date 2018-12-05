@@ -6,8 +6,6 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import { Input, InputAdornment, FormControlLabel, Grid, Checkbox, FormControl } from '@material-ui/core'
 import ContributionIcon from '@material-ui/icons/AttachMoney'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import EmailIcon from '@material-ui/icons/Email'
 import CurrencyFormat from 'react-currency-format'
 
 const styles = theme => ({
@@ -68,51 +66,24 @@ const styles = theme => ({
 class EventGuest extends React.Component {
 
     state = {
-        withDrinks: false,
-        paid: false,
+        guest: {
+            withDrinks: false,
+            paid: false,
+        }
     }
 
     render() {
-        const { classes, guest, theme } = this.props
+        const { classes, guest } = this.props
         return (
             <Card className={classes.card}>
                 <CardHeader
                     className={classes.cardHeader}
                     classes={{ title: classes.cardTitle, subheader: classes.cardSubheader }}
-                    title={'Convidadx'}
-                    subheader={guest.email}
+                    title={guest.name}
                 />
                 <CardContent className={classes.cardContent}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <FormControl fullWidth className={classes.margin}>
-                                <Input
-                                    type='text'
-                                    placeholder='Nome'
-                                    autoComplete='true'
-                                    autoCapitalize='true'
-                                    classes={{ input: classes.smallFont }}
-                                    startAdornment={
-                                        <InputAdornment position='start' style={{ color: theme.palette.primary.main }}>
-                                            <AccountCircle />
-                                        </InputAdornment>
-                                    }
-                                />
-                            </FormControl>
-                            <FormControl fullWidth className={classes.margin}>
-                                <Input
-                                    type='e-mail'
-                                    placeholder='e-mail'
-                                    autoComplete='true'
-                                    autoCapitalize='true'
-                                    classes={{ input: classes.smallFont }}
-                                    startAdornment={
-                                        <InputAdornment position='start' style={{ color: theme.palette.primary.main }}>
-                                            <EmailIcon />
-                                        </InputAdornment>
-                                    }
-                                />
-                            </FormControl>
                             <FormControl fullWidth className={classes.margin}>
                                 <CurrencyFormat
                                     customInput={Input}
@@ -127,7 +98,7 @@ class EventGuest extends React.Component {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={this.state.withDrinks}
+                                        checked={this.state.guest.withDrinks}
                                         onChange={(e) => { this.setState({ withDrinks: e.target.checked }) }}
                                         value='checkedB'
                                         color='primary'
@@ -141,7 +112,7 @@ class EventGuest extends React.Component {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={this.state.paid}
+                                        checked={this.state.guest.paid}
                                         onChange={(e) => { this.setState({ paid: e.target.checked }) }}
                                         value='checkedB'
                                         color='primary'
@@ -154,7 +125,7 @@ class EventGuest extends React.Component {
                     </Grid>
                     {!guest.paid && /* Initial state */
                         < Button color='primary' variant='contained' className={classes.button}>
-                            {'Confirmar presença'}
+                            {'Incluir'}
                         </Button>}
                     {guest.paid && /* Invited state */
                         <Button color='primary' variant='contained' className={classes.button}>

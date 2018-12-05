@@ -60,6 +60,24 @@ router.put('/', auth.isAuthenticated(), async (req, res) => {
 });
 
 /**
+ * @interface listUsers
+ * List users from the database.
+ */
+router.get('/', async (req, res) => {
+    try {
+        let users = await controller.list();
+        return res.status(200).json(users);
+    } catch (e) { // In case of errors...
+        return res.status(500).json(e);
+    }
+}).describe({
+    tags: [router.entity],
+    operationId: "listUsers",
+    responses: SwaggerUtils.defaultResponses(),
+    parameters: [SwaggerUtils.authParam()]
+});
+
+/**
  * @interface getUserData
  * Retrieves user data from the database.
  */

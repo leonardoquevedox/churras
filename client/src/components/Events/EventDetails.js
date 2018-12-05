@@ -19,7 +19,7 @@ const styles = theme => ({
         fontSize: '24px !important'
     },
     maxWidthContainer: {
-        maxWidth: '500px',
+        maxWidth: '800px',
         margin: 'auto'
     },
     firstColumn: {
@@ -66,8 +66,10 @@ const styles = theme => ({
         paddingLeft: '10px',
         marginBottom: '0px'
     },
-    gridItem: {
-        borderRight: '2px solid #efefef'
+    mainGrid: {
+        backgroundColor: 'white',
+        borderRadius: '10px',
+        padding: '16px'
     }
 })
 
@@ -101,8 +103,8 @@ class EventDetails extends React.Component {
         const { classes, style, readOnly } = this.props
         return (
             <div style={{ ...style }} className={classes.fullWidthContent}>
-                <Grid container spacing={16}>
-                    <Grid item xs={12} md={readOnly ? 12 : 6}>
+                <Grid className={classes.mainGrid} container spacing={0}>
+                    <Grid item className={classes.gridItem} xs={12} md={readOnly ? 12 : 6}>
                         <div className={`${classes.maxWidthContainer} ${readOnly ? "" : classes.firstColumn}`}>
                             <div className={classes.bottomDivider} >
                                 {/* Image input message */}
@@ -110,7 +112,6 @@ class EventDetails extends React.Component {
                                     align='center'
                                     color='inherit'
                                     gutterBottom
-                                    style={{}}
                                 >
                                     {readOnly ? '' : '1. Escolha a imagem do evento: '}
                                 </Typography>
@@ -126,7 +127,7 @@ class EventDetails extends React.Component {
                         </div>
                     </Grid>
                     {/* Event information row */}
-                    <Grid item xs={12} md={readOnly ? 12 : 6}>
+                    <Grid item className={classes.gridItem} xs={12} md={readOnly ? 12 : 6}>
                         <form className={`${classes.maxWidthContainer} ${readOnly ? "" : classes.secondColumn}`}>
                             {/* Event title input message */}
                             {!readOnly &&
