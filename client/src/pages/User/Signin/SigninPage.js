@@ -128,6 +128,7 @@ class SigninPage extends Component {
     API.authenticateUser({ user: this.state.user }).then((response) => { // In case of success...
       AuthUtils.storeProfile(response.data)
       this.props.history.push('/')
+      window.location.reload()
     }).catch((error) => {  // In case of error...
       this.setState({ // Shows error message
         authError: {
@@ -272,19 +273,8 @@ class SigninPage extends Component {
                     color='inherit'
                     className={classes.subtitle}
                   >
-                    {'Ainda não tem uma conta?'}&nbsp
+                    {'Ainda não tem uma conta?'}&nbsp;
                     <Link className={classes.primaryColor} to='signup'>Cadastre-se</Link>
-                  </Typography>
-                </div>
-                {/* Password Recovery */}
-                <div>
-                  <Typography
-                    align='center'
-                    component='div'
-                    color='inherit'
-                    className={classes.subtitle}>
-                    {'Esqueceu sua senha?'}&nbsp
-                    <Link className={classes.primaryColor} to='password-recovery'>Clique aqui</Link>
                   </Typography>
                 </div>
                 {/* Error dialog */}
